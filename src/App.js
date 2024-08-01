@@ -38,6 +38,13 @@ function App() {
           setUserLoggedIn(true);
           setUserName(userData.fullName);
           setUserUid(user.uid);
+
+          // NOT FINALIZED, shows a message about who's logged in. Might show every time the user opens something in a new tab
+          setShowMessage({
+            type: "success",
+            message: "Logged in as " + userData.fullName,
+          });
+          setPopUpMessageTrigger("true");
         }
       } else {
         // User is signed out
