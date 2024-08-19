@@ -10,6 +10,7 @@ const Navbar = ({
   onSignUpClick,
   onLoginClick,
   onLogout,
+  onSettingsClick,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -97,6 +98,15 @@ const Navbar = ({
                     className="block w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
                   >
                     Logout
+                  </button>
+                  <button
+                    onClick={() => {
+                      onSettingsClick();
+                      setDropdownOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
+                  >
+                    Account Settings
                   </button>
                 </div>
               )}

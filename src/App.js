@@ -12,11 +12,14 @@ import {
   getDocs,
   onAuthStateChanged,
 } from "./firebaseConfig";
+import AccountSettings from "./components/AccountSettings";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [exportUserData, setExportUserData] = useState(null);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [popUpMessageTrigger, setPopUpMessageTrigger] = useState(false);
   const [showMessage, setShowMessage] = useState({
     type: "",
@@ -29,12 +32,14 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        // this is temperory, need to store login state in local session and cookie instead of firebase session manager
         // User is signed in
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
           const userData = querySnapshot.docs[0].data();
+          setExportUserData(userData);
           setUserLoggedIn(true);
           setUserName(userData.fullName);
           setUserUid(user.uid);
@@ -72,6 +77,10 @@ function App() {
     setShowSignUpForm(false);
   };
 
+  const handleSettingsClick = () => {
+    setShowSettings(true);
+  };
+
   const handleLogin = (name, uid) => {
     setUserLoggedIn(true);
     setUserName(name);
@@ -93,6 +102,7 @@ function App() {
         onSignUpClick={handleSignUpButtonClick}
         onLoginClick={handleLoginButtonClick}
         onLogout={handleLogout}
+        onSettingsClick={handleSettingsClick}
       />
 
       {showSignUpForm && !userLoggedIn && (
@@ -106,6 +116,13 @@ function App() {
           onLogin={handleLogin}
           setShowMessage={setShowMessage}
           setTrigger={setPopUpMessageTrigger}
+        />
+      )}
+      {showSettings && (
+        <AccountSettings
+        userData={exportUserData}
+        setShowMessage={setShowMessage}
+        setTrigger={setPopUpMessageTrigger}
         />
       )}
       {

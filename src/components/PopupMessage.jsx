@@ -22,7 +22,7 @@ function Message({ message, type, trigger, onDismiss }) {
 
   return (
     <div
-      className={`fixed top-20 select-none bg-opacity-60 right-1 ${backgroundColor} ${textColor} p-4 rounded shadow-lg`}
+      className={`fixed top-20 select-none bg-opacity-60 right-1 p-4 rounded shadow-lg z-50 ${backgroundColor} ${textColor}`}
     >
       {message}
     </div>
