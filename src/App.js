@@ -118,7 +118,7 @@ function App() {
           setTrigger={setPopUpMessageTrigger}
         />
       )}
-      {showSettings && (
+      {showSettings && userLoggedIn && (
         <AccountSettings
         userData={exportUserData}
         setShowMessage={setShowMessage}

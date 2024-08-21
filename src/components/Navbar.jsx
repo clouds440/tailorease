@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
-import SignUpButton from "./SignUpButton";
-import LoginButton from "./LoginButton";
+import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 
 const Navbar = ({
@@ -113,8 +112,8 @@ const Navbar = ({
             </div>
           ) : (
             <>
-              <SignUpButton onClick={onSignUpClick} />
-              <LoginButton onClick={onLoginClick} />
+              <SimpleButton onClick={onSignUpClick} btnText={'Sign Up'} type={'primary'}/>
+              <SimpleButton onClick={onLoginClick} btnText={'Login'} type={'primary'}/>
             </>
           )}
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
+import SimpleButton from "./SimpleButton";
 import {
   auth,
   db,
@@ -83,86 +84,90 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
     }
   };
 
+  const inputStyles = "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
+  const placeHolderStyles = "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
+  
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-gray-300 p-6 rounded-lg shadow-md w-1/4 mx-auto mt-10"
-    >
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="fullName"
-        >
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
+    <div className="flex items-center justify-center mt-10">
+      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
+        <h2 className="text-xl text-gray-100 font-bold mb-4">Create Account</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="relative mb-4">
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              className={`${inputStyles}`}
+              placeholder=" "
+            />
+            <label
+              className={`${placeHolderStyles}`}
+              htmlFor="fullName"
+            >
+              Full Name
+            </label>
+          </div>
+          <div className="relative mb-4">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`${inputStyles}`}
+              placeholder=" "
+            />
+            <label
+              className={`${placeHolderStyles}`}
+              htmlFor="email"
+            >
+              Email
+            </label>
+          </div>
+          <div className="relative mb-4">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className={`${inputStyles}`}
+              placeholder=" "
+            />
+            <label
+              className={`${placeHolderStyles}`}
+              htmlFor="password"
+            >
+              Password
+            </label>
+          </div>
+          <div className="relative mb-4">
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={`${inputStyles}`}
+              placeholder=" "
+            />
+            <label
+              className={`${placeHolderStyles}`}
+              htmlFor="phone"
+            >
+              Phone <span className="text-xs">(optional)</span>
+            </label>
+          </div>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <SimpleButton btnText={'Log In'} type={'primary'} Extraclasses={'w-full'} />
+          )}
+        </form>
       </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="email"
-        >
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="password"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="phone"
-        >
-          Phone <span className="text-xs">(optional)</span>
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Sign Up
-        </button>
-      )}
-    </form>
+    </div>
   );
 };
 

@@ -9,7 +9,7 @@ function Message({ message, type, trigger, onDismiss }) {
       const timer = setTimeout(() => {
         setVisible(false);
         onDismiss();
-      }, 2100);
+      }, 2500);
 
       return () => clearTimeout(timer);
     }
@@ -17,15 +17,28 @@ function Message({ message, type, trigger, onDismiss }) {
 
   if (!visible) return null;
 
-  const backgroundColor = type === "success" ? "bg-sky-400" : "bg-rose-300";
-  const textColor = type === "success" ? "text-green-950" : "text-red-900";
+  const backgroundColor = type === "success" ? "bg-green-600" : "bg-rose-600";
+
+  const onClose = () => {
+    setVisible(false);
+    onDismiss();
+  }
 
   return (
-    <div
-      className={`fixed top-20 select-none bg-opacity-60 right-1 p-4 rounded shadow-lg z-50 ${backgroundColor} ${textColor}`}
-    >
-      {message}
+      <div
+        className={`fixed top-20 bg-opacity-60 right-1 px-5 py-1 rounded-2xl shadow-lg z-50 ${backgroundColor}`}
+      >
+    <div className="flex justify-around items-center select-none text-xl text-white">
+      <div className="mr-3">{message}</div>
+      <div>
+        <strong 
+          className="cursor-pointer text-2xl"
+          onClick={onClose}>
+          〤
+        </strong>
+      </div>
     </div>
+  </div>
   );
 }
 
