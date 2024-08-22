@@ -1,3 +1,6 @@
+import { reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+
 import React, { useState } from 'react';
 import EditFieldModal from './EditFieldModal';
 import ChangePasswordModal from './ChangePasswordModal';
@@ -17,6 +20,7 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
   });
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldClick = (field) => {
     if (field === 'password') {
@@ -33,14 +37,42 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
   const handleFieldSave = (field, newValue) => {
     setUserInfo({ ...userInfo, [field]: newValue });
     setModalInfo({ isOpen: false, field: '', value: '' });
-    // handle sumbit changes (name or phone). If newValue != userData.fullName/phone then we call an update function to the database
+    // handle sumbit changes (name or phone). If newValue == userData.fullName/phone then we DON'T call an update function to the database
     console.log(field + ": " + newValue + " " + userData.fullName);
   };
 
-  const hadleChangePassword = (data) => {
-    setIsPasswordModalOpen(false);
-    // handle submit password change
-    console.log(data);
+  const hadleChangePassword = async (data) => {
+    try {
+        setIsLoading(true);
+        const user = auth.currentUser;
+  
+        // Re-authenticate the user with the current password
+        const credential = EmailAuthProvider.credential(userData.email, data.currentPassword);
+        await reauthenticateWithCredential(user, credential);
+  
+        // Update the user's password
+        await updatePassword(user, data.newPassword);
+        setShowMessage({
+          type: "success",
+          message: "Password saved!",
+        });
+        setTrigger("true");
+  
+        setIsPasswordModalOpen(false); // Close the modal
+      } catch (error) {
+        let errorMessage = `An error occurred: ${error.message}`;
+        if (error.code === "auth/invalid-credential") {
+          errorMessage = "Invalid current password";
+        } else if (error.code === "auth/missing-password") {
+          errorMessage = "Please enter a password";
+        } else if (error.code === "auth/too-many-requests") {
+          errorMessage = "Too many failed attempts. Please contant customer support";
+        }
+        setShowMessage({ type: "error", message: errorMessage });
+        setTrigger("true");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -101,6 +133,7 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
           setTrigger={setTrigger}
           onClose={() => setIsPasswordModalOpen(false)}
           onSave={hadleChangePassword}
+          isLoading={isLoading}
         />
       )}
     </div>

@@ -34,14 +34,14 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
     ) {
       setShowMessage({
         type: "error",
-        message: "Please enter your full name!",
+        message: "Please enter your full name",
       });
       setTrigger("true");
       return;
     } else if (formData.fullName.length < 3) {
       setShowMessage({
         type: "error",
-        message: "Name must be at least 3 characters!",
+        message: "Name must be at least 3 characters",
       });
       setTrigger("true");
       return;
@@ -64,22 +64,23 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
       });
       setShowMessage({
         type: "success",
-        message: "Registration Successful!",
+        message: "Registration Successful",
       });
       setTrigger("true");
     } catch (error) {
-      let errorMessage = "An error occurred";
+      let errorMessage = `An error occurred: ${error.message}`;
       if (error.code === "auth/email-already-in-use") {
-        errorMessage = "This email is already in use!";
+        errorMessage = "This email is already in use";
       } else if (error.code === "auth/weak-password") {
-        errorMessage = "Password must be at least 6 characters!";
+        errorMessage = "Password must be at least 6 characters";
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Please enter an email!";
+        errorMessage = "Please enter an email";
       } else if (error.code === "auth/missing-password") {
-        errorMessage = "Please enter a password!";
+        errorMessage = "Please enter a password";
       }
       setShowMessage({ type: "error", message: errorMessage });
       setTrigger("true");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -161,9 +162,9 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
             </label>
           </div>
           {isLoading ? (
-            <LoadingSpinner />
+            <LoadingSpinner size={28} extraClasses={'mt-4'}/>
           ) : (
-            <SimpleButton btnText={'Log In'} type={'primary'} Extraclasses={'w-full'} />
+            <SimpleButton btnText={'Log In'} type={'primary'} extraclasses={'w-full'} />
           )}
         </form>
       </div>

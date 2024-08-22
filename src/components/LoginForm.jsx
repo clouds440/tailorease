@@ -34,18 +34,22 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger }) => {
         console.error("No user data found!");
       }
     } catch (error) {
-      let errorMessage = "An error occurred";
+      let errorMessage = `An error occurred: ${error.message}`;
       if (error.code === "auth/invalid-credential") {
-        errorMessage = "Invalid credentials!";
+        errorMessage = "Invalid credentials";
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Please enter an email!";
+        errorMessage = "Please enter an email";
       } else if (error.code === "auth/missing-password") {
-        errorMessage = "Please enter a password!";
+        errorMessage = "Please enter a password";
       } else if (error.code === "auth/user-disabled") {
-        errorMessage = "Account blocked! Please contact support.";
+        errorMessage = "Account blocked! Please contact support";
+      }
+      else if (error.code === "auth/too-many-requests") {
+        errorMessage = "Too many failed attempts. Please contant customer support";
       }
       setShowMessage({ type: "error", message: errorMessage });
       setTrigger("true");
+    } finally {
       setIsLoading(false);
     }
   };
@@ -93,9 +97,9 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger }) => {
                 </label>
             </div>
             {isLoading ? (
-                <LoadingSpinner />
+                <LoadingSpinner size={28} extraClasses={'mt-4'}/>
             ) : (
-                <SimpleButton btnText={'Log In'} type={'primary'} Extraclasses={'w-full'}/>
+                <SimpleButton btnText={'Log In'} type={'primary'} extraclasses={'w-full'}/>
             )}
             </form>
         </div>

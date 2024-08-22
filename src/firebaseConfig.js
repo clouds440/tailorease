@@ -6,6 +6,7 @@ import {
   where,
   getDocs,
   addDoc,
+  doc,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -38,6 +39,7 @@ export {
   where,
   getDocs,
   addDoc,
+  doc,
   onAuthStateChanged,
   signOut,
 };

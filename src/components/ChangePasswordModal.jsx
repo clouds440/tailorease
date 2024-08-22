@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import SimpleButton from './SimpleButton';
+import LoadingSpinner from './LoadingSpinner';
 
-function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger }) {
+function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLoading }) {
+    const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    
     const [formData, setFormData] = useState({
         currentPassword: '',
         newPassword: '',
@@ -19,6 +22,9 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger }) {
         if (name === 'confirmPassword') {
           setConfirmPassword(value);
         }
+        if (name === 'currentPassword') {
+          setCurrentPassword(value);
+        }
         
         setFormData((prev) => ({
         ...prev,
@@ -28,19 +34,24 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let errorMessage = '';
+
     if (newPassword !== confirmPassword) {
-        setShowMessage({
-            type: "error",
-            message: "New passwords do not match!",
-          });
-          setTrigger("true");
-        return;
-      }
-    setShowMessage({
-        type: "success",
-        message: "Password saved!",
+      errorMessage = "New passwords do not match";
+    } else if (newPassword === currentPassword) {
+      errorMessage = "New password cannot be the same as the old password";
+    } else if (newPassword.length < 6) {
+      errorMessage = "New password must be at least 6 characters";
+    }
+
+    if (errorMessage) {
+      setShowMessage({
+        type: "error",
+        message: errorMessage,
       });
       setTrigger("true");
+      return;
+    }
       onSave(formData);
   };
 
@@ -102,7 +113,11 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger }) {
           </div>
           <div className="flex justify-end space-x-2">
             <SimpleButton btnText={'Cancel'} onClick={onClose} type={'cancel'}/>
-            <SimpleButton btnText={'Save Password'} type={'primary'}/>
+            {isLoading ? (
+            <LoadingSpinner size={28} extraClasses={'px-5'}/>
+              ) : (
+                <SimpleButton btnText={'Save Password'} type={'primary'}/>
+            )}
           </div>
         </form>
       </div>
