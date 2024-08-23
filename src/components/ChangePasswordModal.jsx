@@ -1,40 +1,47 @@
-import React, { useState } from 'react';
-import SimpleButton from './SimpleButton';
-import LoadingSpinner from './LoadingSpinner';
+import React, { useState, useEffect } from "react";
+import SimpleButton from "./SimpleButton";
+import LoadingSpinner from "./LoadingSpinner";
+import { EditIcon } from "../graphics/icons/svgIcons";
 
-function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLoading }) {
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    
-    const [formData, setFormData] = useState({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-    });
+function ChangePasswordModal({
+  onClose,
+  onSave,
+  setShowMessage,
+  setTrigger,
+  isLoading,
+}) {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-      
-        if (name === 'newPassword') {
-          setNewPassword(value);
-        }
-        if (name === 'confirmPassword') {
-          setConfirmPassword(value);
-        }
-        if (name === 'currentPassword') {
-          setCurrentPassword(value);
-        }
-        
-        setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-        }));
-    };      
+  const [formData, setFormData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "newPassword") {
+      setNewPassword(value);
+    }
+    if (name === "confirmPassword") {
+      setConfirmPassword(value);
+    }
+    if (name === "currentPassword") {
+      setCurrentPassword(value);
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let errorMessage = '';
+    let errorMessage = "";
 
     if (newPassword !== confirmPassword) {
       errorMessage = "New passwords do not match";
@@ -52,16 +59,35 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLo
       setTrigger("true");
       return;
     }
-      onSave(formData);
+    onSave(formData);
   };
 
-  const inputStyles = "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
-  const placeHolderStyles = "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose(); // Trigger the Cancel button on Esc key press
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  const inputStyles =
+    "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
+  const placeHolderStyles =
+    "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
-        <h2 className="text-xl text-gray-100 font-bold mb-4">Change Password</h2>
+        <h2 className="flex text-xl text-gray-100 font-bold mb-4">
+          Change Password
+          <EditIcon size={"6"} color={"text-blue-400"} extraClasses={"ml-3"} />
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
             <input
@@ -73,11 +99,7 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLo
               placeholder=" "
               required
             />
-            <label
-              className={`${placeHolderStyles}`}
-            >
-              Current Password
-            </label>
+            <label className={`${placeHolderStyles}`}>Current Password</label>
           </div>
           <div className="relative mb-4">
             <input
@@ -89,11 +111,7 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLo
               placeholder=" "
               required
             />
-            <label
-              className={`${placeHolderStyles}`}
-            >
-              New Password
-            </label>
+            <label className={`${placeHolderStyles}`}>New Password</label>
           </div>
           <div className="relative mb-4">
             <input
@@ -105,18 +123,18 @@ function ChangePasswordModal({ onClose, onSave, setShowMessage, setTrigger, isLo
               placeholder=" "
               required
             />
-            <label
-              className={`${placeHolderStyles}`}
-            >
-              Confirm Password
-            </label>
+            <label className={`${placeHolderStyles}`}>Confirm Password</label>
           </div>
           <div className="flex justify-end space-x-2">
-            <SimpleButton btnText={'Cancel'} onClick={onClose} type={'cancel'}/>
+            <SimpleButton
+              btnText={"Cancel"}
+              onClick={onClose}
+              type={"cancel"}
+            />
             {isLoading ? (
-            <LoadingSpinner size={28} extraClasses={'px-5'}/>
-              ) : (
-                <SimpleButton btnText={'Save Password'} type={'primary'}/>
+              <LoadingSpinner size={28} extraClasses={"px-5"} />
+            ) : (
+              <SimpleButton btnText={"Save Password"} type={"primary"} />
             )}
           </div>
         </form>

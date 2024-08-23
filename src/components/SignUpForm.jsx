@@ -27,11 +27,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      formData.fullName == null ||
-      formData.fullName === "" ||
-      formData.fullName === "   "
-    ) {
+    if (!formData.fullName.trim()) {
       setShowMessage({
         type: "error",
         message: "Please enter your full name",
@@ -85,9 +81,11 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
     }
   };
 
-  const inputStyles = "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
-  const placeHolderStyles = "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
-  
+  const inputStyles =
+    "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
+  const placeHolderStyles =
+    "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
+
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
@@ -103,10 +101,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
               className={`${inputStyles}`}
               placeholder=" "
             />
-            <label
-              className={`${placeHolderStyles}`}
-              htmlFor="fullName"
-            >
+            <label className={`${placeHolderStyles}`} htmlFor="fullName">
               Full Name
             </label>
           </div>
@@ -120,10 +115,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
               className={`${inputStyles}`}
               placeholder=" "
             />
-            <label
-              className={`${placeHolderStyles}`}
-              htmlFor="email"
-            >
+            <label className={`${placeHolderStyles}`} htmlFor="email">
               Email
             </label>
           </div>
@@ -137,10 +129,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
               className={`${inputStyles}`}
               placeholder=" "
             />
-            <label
-              className={`${placeHolderStyles}`}
-              htmlFor="password"
-            >
+            <label className={`${placeHolderStyles}`} htmlFor="password">
               Password
             </label>
           </div>
@@ -154,17 +143,18 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
               className={`${inputStyles}`}
               placeholder=" "
             />
-            <label
-              className={`${placeHolderStyles}`}
-              htmlFor="phone"
-            >
+            <label className={`${placeHolderStyles}`} htmlFor="phone">
               Phone <span className="text-xs">(optional)</span>
             </label>
           </div>
           {isLoading ? (
-            <LoadingSpinner size={28} extraClasses={'mt-4'}/>
+            <LoadingSpinner size={28} extraClasses={"mt-4"} />
           ) : (
-            <SimpleButton btnText={'Log In'} type={'primary'} extraclasses={'w-full'} />
+            <SimpleButton
+              btnText={"Log In"}
+              type={"primary"}
+              extraclasses={"w-full"}
+            />
           )}
         </form>
       </div>

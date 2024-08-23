@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
+import { SettingsIcon, LogoutIcon } from "../graphics/icons/svgIcons";
 
 const Navbar = ({
   userLoggedIn,
@@ -94,26 +95,44 @@ const Navbar = ({
                 <div className="absolute right-0 mt-2 w-48 bg-slate-600 rounded-md shadow-lg z-20">
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
                   >
                     Logout
+                    <LogoutIcon
+                      size={"6"}
+                      color={"text-blue-400"}
+                      extraClasses={"ml-3"}
+                    />
                   </button>
                   <button
                     onClick={() => {
                       onSettingsClick();
                       setDropdownOpen(false);
                     }}
-                    className="block w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
                   >
                     Account Settings
+                    <SettingsIcon
+                      size={"6"}
+                      color={"text-blue-400"}
+                      extraClasses={"ml-3"}
+                    />
                   </button>
                 </div>
               )}
             </div>
           ) : (
             <>
-              <SimpleButton onClick={onSignUpClick} btnText={'Sign Up'} type={'primary'}/>
-              <SimpleButton onClick={onLoginClick} btnText={'Login'} type={'primary'}/>
+              <SimpleButton
+                onClick={onSignUpClick}
+                btnText={"Sign Up"}
+                type={"primary"}
+              />
+              <SimpleButton
+                onClick={onLoginClick}
+                btnText={"Login"}
+                type={"primary"}
+              />
             </>
           )}
         </div>

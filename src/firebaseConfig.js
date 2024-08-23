@@ -7,12 +7,18 @@ import {
   getDocs,
   addDoc,
   doc,
+  updateDoc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -42,4 +48,10 @@ export {
   doc,
   onAuthStateChanged,
   signOut,
+  updateDoc,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
+  setDoc,
+  getDoc,
 };
