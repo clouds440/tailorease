@@ -144,7 +144,7 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-800 rounded-md shadow-md mt-10">
+    <div className="max-w-2xl mx-auto p-6 bg-gray-800 bg-opacity-70 backdrop-blur-lg rounded-md shadow-md mt-10">
       <h2 className="flex text-2xl font-semibold text-white mb-6 border-b border-gray-300">
         Account Settings
         <SettingsIcon

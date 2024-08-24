@@ -68,8 +68,8 @@ function EditFieldModal({
     "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40">
+      <div className="bg-gray-800 bg-opacity-70 backdrop-blur-lg shadow-lg rounded-lg p-6 w-full max-w-md relative">
         <h2 className="flex text-xl text-gray-100 font-bold mb-4">
           Change {fieldLabels[field]}
           <EditIcon size={"6"} color={"text-blue-400"} extraClasses={"ml-3"} />

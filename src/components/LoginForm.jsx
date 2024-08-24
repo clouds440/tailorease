@@ -61,10 +61,8 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger }) => {
 
   return (
     <div className="flex items-center justify-center mt-10">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md relative">
-        <h2 className="text-xl text-gray-100 font-bold mb-4">
-          Change Password
-        </h2>
+      <div className="bg-gray-800 bg-opacity-70 backdrop-blur-lg p-6 rounded-lg shadow-lg w-full max-w-md relative">
+        <h2 className="text-xl text-gray-100 font-bold mb-4">Log In</h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
             <input

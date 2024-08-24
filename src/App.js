@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
 import Message from "./components/PopupMessage";
+import backgroundImage from "./graphics/images/background.jpg";
 import {
   auth,
   db,
@@ -95,7 +96,12 @@ function App() {
   };
 
   return (
-    <div>
+    <div
+      className="h-screen bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <Navbar
         userLoggedIn={userLoggedIn}
         userName={userName}
@@ -120,9 +126,9 @@ function App() {
       )}
       {showSettings && userLoggedIn && (
         <AccountSettings
-        userData={exportUserData}
-        setShowMessage={setShowMessage}
-        setTrigger={setPopUpMessageTrigger}
+          userData={exportUserData}
+          setShowMessage={setShowMessage}
+          setTrigger={setPopUpMessageTrigger}
         />
       )}
       {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
-import { SettingsIcon, LogoutIcon } from "../graphics/icons/svgIcons";
+import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
 
 const Navbar = ({
   userLoggedIn,
@@ -44,7 +44,7 @@ const Navbar = ({
   }, [dropdownOpen]);
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-gray-800 bg-opacity-70 backdrop-blur-lg p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Logo />
         <ul className="flex space-x-4 mx-auto select-none">
@@ -88,14 +88,18 @@ const Navbar = ({
                 className="text-white cursor-pointer flex items-center hover:text-shadow-lg select-none"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Hello, {userName}{" "}
-                <span className="ml-1 text-yellow-600">&#8942;</span>
+                Hello, {userName}
+                <MenuIcon
+                  size={"6"}
+                  color={"text-yellow-500"}
+                  extraClasses={"ml-2"}
+                />
               </span>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-slate-600 rounded-md shadow-lg z-20">
+                <div className="absolute right-0 mt-5 w-48 bg-gray-800 bg-opacity-70 backdrop-blur-lg rounded-md shadow-lg z-20">
                   <button
                     onClick={handleLogout}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-md"
                   >
                     Logout
                     <LogoutIcon
@@ -109,7 +113,7 @@ const Navbar = ({
                       onSettingsClick();
                       setDropdownOpen(false);
                     }}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-slate-500 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-md"
                   >
                     Account Settings
                     <SettingsIcon

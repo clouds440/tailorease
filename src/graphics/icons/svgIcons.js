@@ -35,4 +35,11 @@ const LogoutIcon = ({ size, color, extraClasses }) => (
   </svg>
 );
 
-export { EditIcon, SettingsIcon, LogoutIcon };
+const MenuIcon = ({ size, color, extraClasses }) => (
+  <svg {...svgProps} className={`h-${size} w-${size} ${color} ${extraClasses}`}>
+    {" "}
+    <path d="M4 6h16M4 12h8m-8 6h16" />
+  </svg>
+);
+
+export { EditIcon, SettingsIcon, LogoutIcon, MenuIcon };
