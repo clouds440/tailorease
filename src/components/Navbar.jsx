@@ -11,6 +11,7 @@ const Navbar = ({
   onLoginClick,
   onLogout,
   onSettingsClick,
+  theme,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -44,39 +45,27 @@ const Navbar = ({
   }, [dropdownOpen]);
 
   return (
-    <nav className="bg-gray-800 bg-opacity-70 backdrop-blur-lg p-4">
+    <nav className={`p-4 rounded-md ${theme.mainTheme}`}>
       <div className="container mx-auto flex justify-between items-center">
         <Logo />
         <ul className="flex space-x-4 mx-auto select-none">
           <li>
-            <a
-              href="#home"
-              className="text-gray-300 hover:text-white hover:text-shadow-lg"
-            >
+            <a href="#home" className="hover:text-shadow-lg">
               Home
             </a>
           </li>
           <li>
-            <a
-              href="#about"
-              className="text-gray-300 hover:text-white hover:text-shadow-lg"
-            >
+            <a href="#about" className="hover:text-shadow-lg">
               About
             </a>
           </li>
           <li>
-            <a
-              href="#services"
-              className="text-gray-300 hover:text-white hover:text-shadow-lg"
-            >
+            <a href="#services" className="hover:text-shadow-lg">
               Services
             </a>
           </li>
           <li>
-            <a
-              href="#contact"
-              className="text-gray-300 hover:text-white hover:text-shadow-lg"
-            >
+            <a href="#contact" className="hover:text-shadow-lg">
               Contact
             </a>
           </li>
@@ -85,26 +74,28 @@ const Navbar = ({
           {userLoggedIn ? (
             <div className="relative" ref={dropdownRef}>
               <span
-                className="text-white cursor-pointer flex items-center hover:text-shadow-lg select-none"
+                className="cursor-pointer flex items-center hover:text-shadow-lg select-none"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Hello, {userName}
                 <MenuIcon
                   size={"6"}
-                  color={"text-yellow-500"}
+                  color={"text-yellow-600"}
                   extraClasses={"ml-2"}
                 />
               </span>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-5 w-48 bg-gray-800 bg-opacity-70 backdrop-blur-lg rounded-md shadow-lg z-20">
+                <div
+                  className={`absolute right-0 mt-5 w-48 rounded-md ${theme.mainTheme} z-20`}
+                >
                   <button
                     onClick={handleLogout}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md"
                   >
                     Logout
                     <LogoutIcon
                       size={"6"}
-                      color={"text-blue-400"}
+                      color={`${theme.iconColor}`}
                       extraClasses={"ml-3"}
                     />
                   </button>
@@ -113,12 +104,12 @@ const Navbar = ({
                       onSettingsClick();
                       setDropdownOpen(false);
                     }}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 text-white hover:bg-gray-700 rounded-md"
+                    className="flex justify-between items-center w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md"
                   >
                     Account Settings
                     <SettingsIcon
                       size={"6"}
-                      color={"text-blue-400"}
+                      color={`${theme.iconColor}`}
                       extraClasses={"ml-3"}
                     />
                   </button>

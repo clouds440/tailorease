@@ -27,6 +27,12 @@ function App() {
     message: "",
   });
 
+  const [theme, setTheme] = useState({
+    mainTheme: "theme-default",
+    themeColor: "gray-100",
+    iconColor: "text-blue-400",
+  });
+
   const [userName, setUserName] = useState("");
   const [userUid, setUserUid] = useState(null);
 
@@ -109,12 +115,14 @@ function App() {
         onLoginClick={handleLoginButtonClick}
         onLogout={handleLogout}
         onSettingsClick={handleSettingsClick}
+        theme={theme}
       />
 
       {showSignUpForm && !userLoggedIn && (
         <SignUpForm
           setShowMessage={setShowMessage}
           setTrigger={setPopUpMessageTrigger}
+          theme={theme}
         />
       )}
       {showLoginForm && !userLoggedIn && (
@@ -122,6 +130,7 @@ function App() {
           onLogin={handleLogin}
           setShowMessage={setShowMessage}
           setTrigger={setPopUpMessageTrigger}
+          theme={theme}
         />
       )}
       {showSettings && userLoggedIn && (
@@ -129,6 +138,8 @@ function App() {
           userData={exportUserData}
           setShowMessage={setShowMessage}
           setTrigger={setPopUpMessageTrigger}
+          setTheme={setTheme}
+          theme={theme}
         />
       )}
       {

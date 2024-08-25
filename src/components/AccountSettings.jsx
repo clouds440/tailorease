@@ -15,9 +15,19 @@ import {
 import React, { useState } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
-import { EditIcon, SettingsIcon } from "../graphics/icons/svgIcons";
+import {
+  AdjustmentsIcon,
+  EditIcon,
+  SettingsIcon,
+} from "../graphics/icons/svgIcons";
 
-function AccountSettings({ setShowMessage, setTrigger, userData }) {
+function AccountSettings({
+  setShowMessage,
+  setTrigger,
+  userData,
+  setTheme,
+  theme,
+}) {
   const [userInfo, setUserInfo] = useState({
     fullName: userData.fullName,
     email: userData.email,
@@ -143,65 +153,112 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
     }
   };
 
+  const [selectedTheme, setSelectedTheme] = useState("Default");
+
+  const handleThemeChange = (e) => {
+    const theme = e.target.value;
+    setSelectedTheme(theme);
+
+    if (theme === "Default") {
+      setTheme({
+        mainTheme: "theme-default",
+        themeColor: "gray-100",
+        iconColor: "text-blue-400",
+      });
+    } else if (theme === "Light") {
+      setTheme({
+        mainTheme: "theme-light",
+        themeColor: "black",
+        iconColor: "text-black",
+      });
+    }
+  };
+
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-gray-800 bg-opacity-70 backdrop-blur-lg rounded-md shadow-md mt-10">
-      <h2 className="flex text-2xl font-semibold text-white mb-6 border-b border-gray-300">
+    <div
+      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-10`}
+    >
+      <h2
+        className={`flex text-2xl font-semibold mb-6 pt-6 border-b border-${theme.themeColor}`}
+      >
         Account Settings
         <SettingsIcon
           size={"6"}
-          color={"text-white-400"}
+          color={`${theme.iconColor}`}
           extraClasses={"ml-3 mt-1"}
         />
       </h2>
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-white mb-6">
-          Persoanl Details
-        </h2>
+        <h2 className="text-xl font-semibold  mb-6">Persoanl Details</h2>
         <div className="flex justify-between items-center">
-          <span className="text-gray-300">Full Name</span>
+          <span>Full Name</span>
           <span
-            className="flex text-white cursor-pointer hover:text-blue-400"
+            className="flex  cursor-pointer hover:text-blue-400"
             onClick={() => handleFieldClick("fullName")}
           >
             {userInfo.fullName}
             <EditIcon
               size={"6"}
-              color={"text-blue-400"}
+              color={`${theme.iconColor}`}
               extraClasses={"ml-3"}
             />
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-300">Email</span>
-          <span className="text-white cursor-default">{userInfo.email}</span>
+          <span>Email</span>
+          <span className=" cursor-default">{userInfo.email}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-300">Phone</span>
+          <span>Phone</span>
           <span
-            className="flex text-white cursor-pointer hover:text-blue-400"
+            className="flex  cursor-pointer hover:text-blue-400"
             onClick={() => handleFieldClick("phone")}
           >
             {userInfo.phone}
             <EditIcon
               size={"6"}
-              color={"text-blue-400"}
+              color={`${theme.iconColor}`}
               extraClasses={"ml-3"}
             />
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-gray-300">Password</span>
+          <span>Password</span>
           <span
-            className="flex text-white cursor-pointer hover:text-blue-400"
+            className="flex  cursor-pointer hover:text-blue-400"
             onClick={() => handleFieldClick("password")}
           >
             {userInfo.password}
             <EditIcon
               size={"6"}
-              color={"text-blue-400"}
+              color={`${theme.iconColor}`}
               extraClasses={"ml-3"}
             />
           </span>
+        </div>
+        <div>
+          <h2
+            className={`flex text-2xl font-semibold mb-6 pt-6 border-b border-${theme.themeColor}`}
+          >
+            Preferences
+            <AdjustmentsIcon
+              size={"6"}
+              color={`${theme.iconColor}`}
+              extraClasses={"ml-3 mt-1"}
+            />
+          </h2>
+          <label htmlFor="theme-selector" className="text-lg font-medium">
+            Theme
+          </label>
+          <select
+            id="theme-selector"
+            className={`ml-3 p-2 border border-gray-300 rounded-md ${theme.mainTheme}`}
+            value={selectedTheme}
+            onChange={handleThemeChange}
+          >
+            <option value="Default">Default</option>
+            <option value="Light">Light</option>
+          </select>
         </div>
       </div>
 
@@ -214,6 +271,7 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
           onClose={() => setModalInfo({ isOpen: false, field: "", value: "" })}
           onSave={handleFieldSave}
           isLoading={isLoading}
+          theme={theme}
         />
       )}
 
@@ -224,6 +282,7 @@ function AccountSettings({ setShowMessage, setTrigger, userData }) {
           onClose={() => setIsPasswordModalOpen(false)}
           onSave={hadleChangePassword}
           isLoading={isLoading}
+          theme={theme}
         />
       )}
     </div>

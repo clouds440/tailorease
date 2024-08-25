@@ -4,7 +4,7 @@ import { db, auth, collection, query, where, getDocs } from "../firebaseConfig";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
 
-const LoginForm = ({ onLogin, setShowMessage, setTrigger }) => {
+const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,7 +61,9 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger }) => {
 
   return (
     <div className="flex items-center justify-center mt-10">
-      <div className="bg-gray-800 bg-opacity-70 backdrop-blur-lg p-6 rounded-lg shadow-lg w-full max-w-md relative">
+      <div
+        className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
+      >
         <h2 className="text-xl text-gray-100 font-bold mb-4">Log In</h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">

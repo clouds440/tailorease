@@ -1,16 +1,16 @@
 function SimpleButton({ onClick, btnText, type, extraclasses = "" }) {
   const primary =
-    "bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 " +
+    "bg-sky-500 bg-opacity-55 text-white px-4 py-1 rounded hover:bg-opacity-40 " +
     extraclasses;
   const cancel =
-    "bg-gray-100 text-gray-800 px-4 py-1 rounded hover:bg-gray-300 " +
+    "bg-gray-100 opacity-85 text-gray-800 px-4 py-1 rounded hover:bg-opacity-75 " +
     extraclasses;
 
   const style = type === "primary" ? primary : cancel;
 
   return (
     <button
-      type={type === "primary" ? "submit" : "button"} // Assigning type attribute directly
+      type={type === "primary" ? "submit" : "button"} // Assigning type attribute
       className={`${style}`}
       onClick={onClick}
     >

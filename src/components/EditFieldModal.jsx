@@ -11,6 +11,7 @@ function EditFieldModal({
   setShowMessage,
   setTrigger,
   isLoading,
+  theme,
 }) {
   const [inputValue, setInputValue] = useState(value);
 
@@ -62,17 +63,18 @@ function EditFieldModal({
     };
   }, [onClose]);
 
-  const inputStyles =
-    "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
-  const placeHolderStyles =
-    "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
+  const inputStyles = `w-full p-1 mt-4 peer text-${theme.themeColor} border-b-2 z-10 border-${theme.themeColor} outline-none focus:border-blue-500 transition-all duration-300 bg-transparent`;
+
+  const placeHolderStyles = `absolute top-5 pointer-events-none left-2 text-${theme.themeColor} duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-${theme.themeColor} peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500`;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-40">
-      <div className="bg-gray-800 bg-opacity-70 backdrop-blur-lg shadow-lg rounded-lg p-6 w-full max-w-md relative">
-        <h2 className="flex text-xl text-gray-100 font-bold mb-4">
+      <div
+        className={`${theme.mainTheme} rounded-lg p-6 w-full max-w-md relative`}
+      >
+        <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
           Change {fieldLabels[field]}
-          <EditIcon size={"6"} color={"text-blue-400"} extraClasses={"ml-3"} />
+          <EditIcon size={"6"} color={`${theme.iconColor}`} extraClasses={"ml-3"} />
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">

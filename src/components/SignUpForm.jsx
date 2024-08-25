@@ -9,7 +9,7 @@ import {
   addDoc,
 } from "../firebaseConfig";
 
-const SignUpForm = ({ setShowMessage, setTrigger }) => {
+const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -88,7 +88,9 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
 
   return (
     <div className="flex items-center justify-center mt-10">
-      <div className="bg-gray-800 bg-opacity-70 backdrop-blur-lg p-6 rounded-lg shadow-lg w-full max-w-md relative">
+      <div
+        className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
+      >
         <h2 className="text-xl text-gray-100 font-bold mb-4">Create Account</h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
@@ -151,7 +153,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
             <LoadingSpinner size={28} extraClasses={"mt-4"} />
           ) : (
             <SimpleButton
-              btnText={"Log In"}
+              btnText={"Sign Up"}
               type={"primary"}
               extraclasses={"w-full"}
             />
