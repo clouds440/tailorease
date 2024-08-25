@@ -90,7 +90,7 @@ const Navbar = ({
                 >
                   <button
                     onClick={handleLogout}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md"
+                    className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
                   >
                     Logout
                     <LogoutIcon
@@ -104,7 +104,7 @@ const Navbar = ({
                       onSettingsClick();
                       setDropdownOpen(false);
                     }}
-                    className="flex justify-between items-center w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md"
+                    className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
                   >
                     Account Settings
                     <SettingsIcon

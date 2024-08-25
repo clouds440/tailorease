@@ -30,11 +30,18 @@ module.exports = {
           borderColor: "#ffffff", // White border color
         },
         ".theme-light": {
-          backgroundColor: "rgba(229, 231, 235, 0.9)", // Lighter background with 80% opacity
+          backgroundColor: "rgba(229, 231, 235, 0.75)", // Lighter background
           backdropFilter: "blur(16px)", // backdrop-blur-lg
-          boxShadow: "0 1px 2px 0 #5dade2", // light blue shadow color
+          boxShadow: "0 1px 2px 0 #546e7a", // gray shadow color
           color: "#000000", // Set all text to black
           borderColor: "#000000", // Black border color
+        },
+        ".theme-azure": {
+          backgroundColor: "rgba(13, 71, 161, 0.6)", // sky background
+          backdropFilter: "blur(16px)", // backdrop-blur-lg
+          boxShadow: "0 1px 2px 0 #5dade2", // light blue shadow color
+          color: "#bae6fd", // Set all text to sky-200
+          borderColor: "#1e88e5", // Bluish border color
         },
       };
 

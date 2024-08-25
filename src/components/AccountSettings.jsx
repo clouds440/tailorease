@@ -162,24 +162,39 @@ function AccountSettings({
     if (theme === "Default") {
       setTheme({
         mainTheme: "theme-default",
-        themeColor: "gray-100",
-        iconColor: "text-blue-400",
+        colorText: "text-gray-100",
+        colorBorder: "border-white",
+        iconColor: "text-blue-500",
+        hoverText: "hover:text-blue-500",
+        hoverBg: "hover:bg-gray-700",
       });
     } else if (theme === "Light") {
       setTheme({
         mainTheme: "theme-light",
-        themeColor: "black",
+        colorText: "text-black",
+        colorBorder: "border-black",
         iconColor: "text-black",
+        hoverText: "hover:text-gray-600",
+        hoverBg: "hover:bg-gray-300",
+      });
+    } else if (theme === "Azure") {
+      setTheme({
+        mainTheme: "theme-azure",
+        colorText: "text-sky-200",
+        colorBorder: "border-sky-600",
+        iconColor: "text-amber-400",
+        hoverText: "hover:text-amber-400",
+        hoverBg: "hover:bg-amber-300 hover:bg-opacity-50",
       });
     }
   };
 
   return (
     <div
-      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-10`}
+      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-10 select-none`}
     >
       <h2
-        className={`flex text-2xl font-semibold mb-6 pt-6 border-b border-${theme.themeColor}`}
+        className={`flex text-2xl font-semibold mb-6 pt-6 border-b ${theme.colorBorder}`}
       >
         Account Settings
         <SettingsIcon
@@ -193,7 +208,7 @@ function AccountSettings({
         <div className="flex justify-between items-center">
           <span>Full Name</span>
           <span
-            className="flex  cursor-pointer hover:text-blue-400"
+            className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("fullName")}
           >
             {userInfo.fullName}
@@ -211,7 +226,7 @@ function AccountSettings({
         <div className="flex justify-between items-center">
           <span>Phone</span>
           <span
-            className="flex  cursor-pointer hover:text-blue-400"
+            className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("phone")}
           >
             {userInfo.phone}
@@ -225,7 +240,7 @@ function AccountSettings({
         <div className="flex justify-between items-center">
           <span>Password</span>
           <span
-            className="flex  cursor-pointer hover:text-blue-400"
+            className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("password")}
           >
             {userInfo.password}
@@ -238,7 +253,7 @@ function AccountSettings({
         </div>
         <div>
           <h2
-            className={`flex text-2xl font-semibold mb-6 pt-6 border-b border-${theme.themeColor}`}
+            className={`flex text-2xl font-semibold mb-6 pt-6 border-b ${theme.colorBorder}`}
           >
             Preferences
             <AdjustmentsIcon
@@ -252,12 +267,13 @@ function AccountSettings({
           </label>
           <select
             id="theme-selector"
-            className={`ml-3 p-2 border border-gray-300 rounded-md ${theme.mainTheme}`}
+            className={`ml-3 p-2 outline-none rounded-md ${theme.mainTheme}`}
             value={selectedTheme}
             onChange={handleThemeChange}
           >
             <option value="Default">Default</option>
             <option value="Light">Light</option>
+            <option value="Azure">Azure</option>
           </select>
         </div>
       </div>

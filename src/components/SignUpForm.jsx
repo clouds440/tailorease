@@ -81,17 +81,16 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
     }
   };
 
-  const inputStyles =
-    "w-full p-1 mt-4 peer text-gray-100 border-b-2 z-10 border-gray-100 outline-none focus:border-blue-500 transition-all duration-300 bg-transparent";
-  const placeHolderStyles =
-    "absolute top-5 pointer-events-none left-2 text-gray-600 duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-100 peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500";
+  const inputStyles = `w-full p-1 mt-4 peer ${theme.colorText} border-b-2 z-10 ${theme.colorBorder} outline-none focus:border-blue-500 transition-all duration-300 bg-transparent`;
+
+  const placeHolderStyles = `absolute top-5 pointer-events-none left-2 ${theme.colorText} duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:${theme.colorText} peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500`;
 
   return (
     <div className="flex items-center justify-center mt-10">
       <div
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
-        <h2 className="text-xl text-gray-100 font-bold mb-4">Create Account</h2>
+        <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>Create Account</h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
             <input

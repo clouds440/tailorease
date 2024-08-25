@@ -29,8 +29,11 @@ function App() {
 
   const [theme, setTheme] = useState({
     mainTheme: "theme-default",
-    themeColor: "gray-100",
-    iconColor: "text-blue-400",
+    colorText: "text-gray-100",
+    colorBorder: "border-white",
+    iconColor: "text-blue-500",
+    hoverText: "hover:text-blue-500",
+    hoverBg: "hover:bg-gray-700",
   });
 
   const [userName, setUserName] = useState("");
