@@ -30,7 +30,7 @@ module.exports = {
           borderColor: "#ffffff", // White border color
         },
         ".theme-light": {
-          backgroundColor: "rgba(229, 231, 235, 0.75)", // Lighter background
+          backgroundColor: "rgba(220, 231, 235, 0.75)", // Lighter background
           backdropFilter: "blur(16px)", // backdrop-blur-lg
           boxShadow: "0 1px 2px 0 #546e7a", // gray shadow color
           color: "#000000", // Set all text to black
