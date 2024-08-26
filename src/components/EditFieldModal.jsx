@@ -30,14 +30,14 @@ function EditFieldModal({
     if (field === "fullName") {
       if (!inputValue.trim()) {
         setShowMessage({
-          type: "error",
+          type: "info",
           message: "Please enter your full name",
         });
         setTrigger("true");
         return;
       } else if (inputValue.length < 3) {
         setShowMessage({
-          type: "error",
+          type: "info",
           message: "Name must be at least 3 characters",
         });
         setTrigger("true");
@@ -74,7 +74,11 @@ function EditFieldModal({
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
           Change {fieldLabels[field]}
-          <EditIcon size={"6"} color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+          <EditIcon
+            size={"6"}
+            color={`${theme.iconColor}`}
+            extraClasses={"ml-3"}
+          />
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">

@@ -35,7 +35,7 @@ function AccountSettings({
       userData.phone !== "" ? (
         userData.phone
       ) : (
-        <span className="italic text-gray-400 hover:text-gray-300">
+        <span className={`italic text-gray-400 ${theme.hoverText}`}>
           Click to add phone
         </span>
       ),
@@ -106,7 +106,7 @@ function AccountSettings({
       setTrigger(true);
     } catch (error) {
       setShowMessage({
-        type: "error",
+        type: "danger",
         message: `Failed to update ${field}. ${error.message}`,
       });
       setTrigger(true);
@@ -146,7 +146,7 @@ function AccountSettings({
         errorMessage =
           "Too many failed attempts. Please contant customer support";
       }
-      setShowMessage({ type: "error", message: errorMessage });
+      setShowMessage({ type: "danger", message: errorMessage });
       setTrigger("true");
     } finally {
       setIsLoading(false);
@@ -181,7 +181,7 @@ function AccountSettings({
       setTheme({
         mainTheme: "theme-azure",
         colorText: "text-sky-200",
-        colorBorder: "border-sky-600",
+        colorBorder: "border-sky-200",
         iconColor: "text-amber-400",
         hoverText: "hover:text-amber-400",
         hoverBg: "hover:bg-amber-300 hover:bg-opacity-50",
@@ -191,7 +191,7 @@ function AccountSettings({
 
   return (
     <div
-      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-10 select-none`}
+      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-8 select-none`}
     >
       <h2
         className={`flex text-2xl font-semibold mb-6 pt-6 border-b ${theme.colorBorder}`}

@@ -29,14 +29,14 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
 
     if (!formData.fullName.trim()) {
       setShowMessage({
-        type: "error",
+        type: "info",
         message: "Please enter your full name",
       });
       setTrigger("true");
       return;
     } else if (formData.fullName.length < 3) {
       setShowMessage({
-        type: "error",
+        type: "info",
         message: "Name must be at least 3 characters",
       });
       setTrigger("true");
@@ -74,7 +74,7 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       } else if (error.code === "auth/missing-password") {
         errorMessage = "Please enter a password";
       }
-      setShowMessage({ type: "error", message: errorMessage });
+      setShowMessage({ type: "info", message: errorMessage });
       setTrigger("true");
     } finally {
       setIsLoading(false);
@@ -90,7 +90,9 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       <div
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
-        <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>Create Account</h2>
+        <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
+          Create Account
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="relative mb-4">
             <input

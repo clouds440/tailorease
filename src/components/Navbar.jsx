@@ -86,7 +86,7 @@ const Navbar = ({
               </span>
               {dropdownOpen && (
                 <div
-                  className={`absolute right-0 mt-5 w-48 rounded-md ${theme.mainTheme} z-20`}
+                  className={`absolute right-0 mt-6 w-48 rounded-md ${theme.mainTheme} z-20`}
                 >
                   <button
                     onClick={handleLogout}

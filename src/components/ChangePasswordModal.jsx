@@ -54,7 +54,7 @@ function ChangePasswordModal({
 
     if (errorMessage) {
       setShowMessage({
-        type: "error",
+        type: "info",
         message: errorMessage,
       });
       setTrigger("true");

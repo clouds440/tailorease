@@ -47,7 +47,7 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
         errorMessage =
           "Too many failed attempts. Please contant customer support";
       }
-      setShowMessage({ type: "error", message: errorMessage });
+      setShowMessage({ type: "danger", message: errorMessage });
       setTrigger("true");
     } finally {
       setIsLoading(false);
