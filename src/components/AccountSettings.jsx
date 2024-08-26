@@ -19,6 +19,7 @@ import {
   AdjustmentsIcon,
   EditIcon,
   SettingsIcon,
+  UserIcon,
 } from "../graphics/icons/svgIcons";
 
 function AccountSettings({
@@ -194,17 +195,16 @@ function AccountSettings({
       className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-8 select-none`}
     >
       <h2
-        className={`flex text-2xl font-semibold mb-6 pt-6 border-b ${theme.colorBorder}`}
+        className={`flex text-2xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
       >
         Account Settings
-        <SettingsIcon
-          size={"6"}
-          color={`${theme.iconColor}`}
-          extraClasses={"ml-3 mt-1"}
-        />
+        <SettingsIcon color={`${theme.iconColor}`} extraClasses={"ml-3 mt-1"} />
       </h2>
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold  mb-6">Persoanl Details</h2>
+        <h2 className="flex text-xl font-semibold  mb-6">
+          Persoanl Details
+          <UserIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+        </h2>
         <div className="flex justify-between items-center">
           <span>Full Name</span>
           <span
@@ -212,11 +212,7 @@ function AccountSettings({
             onClick={() => handleFieldClick("fullName")}
           >
             {userInfo.fullName}
-            <EditIcon
-              size={"6"}
-              color={`${theme.iconColor}`}
-              extraClasses={"ml-3"}
-            />
+            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
         <div className="flex justify-between items-center">
@@ -230,11 +226,7 @@ function AccountSettings({
             onClick={() => handleFieldClick("phone")}
           >
             {userInfo.phone}
-            <EditIcon
-              size={"6"}
-              color={`${theme.iconColor}`}
-              extraClasses={"ml-3"}
-            />
+            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
         <div className="flex justify-between items-center">
@@ -244,37 +236,30 @@ function AccountSettings({
             onClick={() => handleFieldClick("password")}
           >
             {userInfo.password}
-            <EditIcon
-              size={"6"}
-              color={`${theme.iconColor}`}
-              extraClasses={"ml-3"}
-            />
+            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
         <div>
-          <h2
-            className={`flex text-2xl font-semibold mb-6 pt-6 border-b ${theme.colorBorder}`}
-          >
+          <h2 className={`flex text-2xl font-semibold mb-6 pt-6`}>
             Preferences
             <AdjustmentsIcon
-              size={"6"}
               color={`${theme.iconColor}`}
               extraClasses={"ml-3 mt-1"}
             />
           </h2>
-          <label htmlFor="theme-selector" className="text-lg font-medium">
-            Theme
-          </label>
-          <select
-            id="theme-selector"
-            className={`ml-3 p-2 outline-none rounded-md ${theme.mainTheme}`}
-            value={selectedTheme}
-            onChange={handleThemeChange}
-          >
-            <option value="Default">Default</option>
-            <option value="Light">Light</option>
-            <option value="Azure">Azure</option>
-          </select>
+          <div className="flex justify-between items-center">
+            <label htmlFor="theme-selector">Theme</label>
+            <select
+              id="theme-selector"
+              className={`ml-3 p-2 outline-none rounded-md w-28 ${theme.mainTheme}`}
+              value={selectedTheme}
+              onChange={handleThemeChange}
+            >
+              <option value="Default">Default</option>
+              <option value="Light">Light</option>
+              <option value="Azure">Azure</option>
+            </select>
+          </div>
         </div>
       </div>
 
