@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
@@ -12,6 +12,7 @@ import {
   where,
   getDocs,
   onAuthStateChanged,
+  signOut,
 } from "./firebaseConfig";
 import AccountSettings from "./components/AccountSettings";
 
@@ -40,38 +41,21 @@ function App() {
   const [userUid, setUserUid] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // this is temperory, need to store login state in local session and cookie instead of firebase session manager
-        // User is signed in
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const querySnapshot = await getDocs(q);
+    const storedUserData =
+      sessionStorage.getItem("userData") || localStorage.getItem("userData");
 
-        if (!querySnapshot.empty) {
-          const userData = querySnapshot.docs[0].data();
-          setExportUserData(userData);
-          setUserLoggedIn(true);
-          setUserName(userData.fullName);
-          setUserUid(user.uid);
-
-          // NOT FINALIZED, shows a message about who's logged in. Might show every time the user opens something in a new tab
-          setShowMessage({
-            type: "success",
-            message: "Logged in as " + userData.fullName,
-          });
-          setPopUpMessageTrigger("true");
-        }
-      } else {
-        // User is signed out
-        setUserLoggedIn(false);
-        setUserName(null);
-        setUserUid(null);
-      }
-    });
-
-    // Clean up the subscription
-    return () => unsubscribe();
-  }, []);
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      setExportUserData(userData);
+      setUserLoggedIn(true);
+      setUserName(userData.fullName);
+      setUserUid(userData.uid);
+    } else {
+      setUserLoggedIn(false);
+      setUserName(null);
+      setUserUid(null);
+    }
+  });
 
   const handleSignUpButtonClick = () => {
     setShowSignUpForm(true);
@@ -97,11 +81,24 @@ function App() {
     setUserUid(uid);
   };
 
-  const handleLogout = () => {
-    setUserLoggedIn(false);
-    setUserName("");
-    setUserUid("");
-    handleLoginButtonClick();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out from Firebase
+
+      // Clear local storage and session storage
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userData");
+
+      // Reset local state
+      setUserLoggedIn(false);
+      setUserName("");
+      setUserUid("");
+
+      // Perform any additional logout actions
+      handleLoginButtonClick();
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
   };
 
   return (

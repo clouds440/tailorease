@@ -29,6 +29,11 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
+        // Store userData in localSession
+        sessionStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify(userData));
+
+        // Call the onLogin function with the user's full name and UID
         onLogin(userData.fullName, userData.uid);
       } else {
         console.error("No user data found!");
