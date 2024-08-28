@@ -33,32 +33,29 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
         sessionStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("userData", JSON.stringify(userData));
 
-        setShowMessage({
-          type: "success",
-          message: "Logged in as " + userData.fullName,
-        });
-        setTrigger("true");
-
         // Call the onLogin function with the user's full name and UID
-        onLogin(userData.fullName, userData.uid);
+        onLogin(userData.fullName);
       } else {
         console.error("No user data found!");
       }
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
+      let errorType = "danger";
       if (error.code === "auth/invalid-credential") {
         errorMessage = "Invalid credentials";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "Please enter an email";
+        errorType = "info";
       } else if (error.code === "auth/missing-password") {
         errorMessage = "Please enter a password";
+        errorType = "info";
       } else if (error.code === "auth/user-disabled") {
         errorMessage = "Account blocked! Please contact support";
       } else if (error.code === "auth/too-many-requests") {
         errorMessage =
           "Too many failed attempts. Please contant customer support";
       }
-      setShowMessage({ type: "danger", message: errorMessage });
+      setShowMessage({ type: errorType, message: errorMessage });
       setTrigger("true");
     } finally {
       setIsLoading(false);

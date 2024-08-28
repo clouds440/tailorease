@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
@@ -29,7 +29,6 @@ function App() {
   });
 
   const [userName, setUserName] = useState("");
-  const [userUid, setUserUid] = useState(null);
 
   useEffect(() => {
     const storedUserData =
@@ -40,11 +39,9 @@ function App() {
       setExportUserData(userData);
       setUserLoggedIn(true);
       setUserName(userData.fullName);
-      setUserUid(userData.uid);
     } else {
       setUserLoggedIn(false);
       setUserName(null);
-      setUserUid(null);
     }
   });
 
@@ -66,10 +63,9 @@ function App() {
     setShowSettings(true);
   };
 
-  const handleLogin = (name, uid) => {
+  const handleLogin = (name) => {
     setUserLoggedIn(true);
     setUserName(name);
-    setUserUid(uid);
   };
 
   const handleLogout = async () => {
@@ -83,7 +79,6 @@ function App() {
       // Reset local state
       setUserLoggedIn(false);
       setUserName("");
-      setUserUid("");
 
       // Perform any additional logout actions
       handleLoginButtonClick();
