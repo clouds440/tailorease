@@ -4,16 +4,7 @@ import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
 import Message from "./components/PopupMessage";
 import backgroundImage from "./graphics/images/background.jpg";
-import {
-  auth,
-  db,
-  collection,
-  query,
-  where,
-  getDocs,
-  onAuthStateChanged,
-  signOut,
-} from "./firebaseConfig";
+import { auth, signOut } from "./firebaseConfig";
 import AccountSettings from "./components/AccountSettings";
 
 function App() {

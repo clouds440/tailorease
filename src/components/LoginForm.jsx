@@ -33,6 +33,12 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
         sessionStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("userData", JSON.stringify(userData));
 
+        setShowMessage({
+          type: "success",
+          message: "Logged in as " + userData.fullName,
+        });
+        setTrigger("true");
+
         // Call the onLogin function with the user's full name and UID
         onLogin(userData.fullName, userData.uid);
       } else {

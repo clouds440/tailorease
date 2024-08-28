@@ -43,6 +43,15 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       return;
     }
 
+    if (!/^\d+$/.test(formData.phone)) {
+      setShowMessage({
+        type: "warning",
+        message: "Phone number must contain only digits",
+      });
+      setTrigger("true");
+      return;
+    }
+
     try {
       setIsLoading(true);
       const userCredential = await createUserWithEmailAndPassword(
@@ -65,16 +74,19 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       setTrigger("true");
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
+      let errorType = "info";
       if (error.code === "auth/email-already-in-use") {
         errorMessage = "This email is already in use";
+        errorType = "warning";
       } else if (error.code === "auth/weak-password") {
         errorMessage = "Password must be at least 6 characters";
+        errorType = "warning";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "Please enter an email";
       } else if (error.code === "auth/missing-password") {
         errorMessage = "Please enter a password";
       }
-      setShowMessage({ type: "info", message: errorMessage });
+      setShowMessage({ type: errorType, message: errorMessage });
       setTrigger("true");
     } finally {
       setIsLoading(false);
