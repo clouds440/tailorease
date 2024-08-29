@@ -12,7 +12,7 @@ import {
   doc,
 } from "../firebaseConfig";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { VisibilityContext } from "../utils/VisibilityContext";
@@ -31,18 +31,30 @@ function AccountSettings({
   theme,
 }) {
   const [userInfo, setUserInfo] = useState({
-    fullName: userData.fullName,
-    email: userData.email,
-    phone:
-      userData.phone !== "" ? (
-        userData.phone
-      ) : (
-        <span className={`italic text-gray-400 ${theme.hoverText}`}>
-          Click to add phone
-        </span>
-      ),
-    password: "********",
+    fullName: "",
+    email: "",
+    phone: "",
+    password: "",
   });
+
+  // Effect to update userInfo whenever userData or theme changes
+  useEffect(() => {
+    setUserInfo({
+      fullName: userData.fullName,
+      email: userData.email,
+      phone:
+        userData.phone !== "" ? (
+          userData.phone
+        ) : (
+          <span
+            className={`italic ${theme.colorText} ${theme.hoverText}`}
+          >
+            Click to add phone
+          </span>
+        ),
+      password: "********", // Keeping password masked
+    });
+  }, [userData, theme]);
 
   const [modalInfo, setModalInfo] = useState({
     isOpen: false,
@@ -222,7 +234,7 @@ function AccountSettings({
         </div>
         <div className="flex justify-between items-center">
           <span>Email</span>
-          <span className=" cursor-default">{userInfo.email}</span>
+          <span className=" cursor-default mr-9">{userInfo.email}</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Phone</span>

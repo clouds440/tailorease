@@ -39,8 +39,9 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
         sessionStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("userData", JSON.stringify(userData));
 
-        // Call the onLogin function with the user's full name and UID
-        onLogin(userData.fullName);
+        // Call the onLogin function with the user's data
+        onLogin(userData);
+        hideComponent("LoginForm");
       } else {
         console.error("No user data found!");
       }

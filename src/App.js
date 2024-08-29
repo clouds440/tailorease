@@ -9,7 +9,12 @@ import { VisibilityProvider } from "./utils/VisibilityContext";
 
 function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [exportUserData, setExportUserData] = useState(null);
+  const [userData, setUserData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
   const [popUpMessageTrigger, setPopUpMessageTrigger] = useState(false);
   const [showMessage, setShowMessage] = useState({
     type: "",
@@ -33,22 +38,24 @@ function App() {
 
     if (storedUserData) {
       const userData = JSON.parse(storedUserData);
-      setExportUserData(userData);
+      setUserData(userData);
       setUserLoggedIn(true);
       setUserName(userData.fullName);
     } else {
       setUserLoggedIn(false);
       setUserName(null);
     }
-  });
+  }, []);
+
+  const handleLogin = (loggedInUser) => {
+    setUserLoggedIn(true);
+    setUserName(loggedInUser.fullName);
+    setUserData(loggedInUser);
+    console.log(userData);
+  };
 
   const handleDismissMessage = () => {
     setPopUpMessageTrigger(false);
-  };
-
-  const handleLogin = (name) => {
-    setUserLoggedIn(true);
-    setUserName(name);
   };
 
   return (
@@ -59,40 +66,36 @@ function App() {
           backgroundImage: `url(${backgroundImage})`,
         }}
       >
-        <Navbar userLoggedIn={userLoggedIn} userName={userName} theme={theme} />
-
-        {!userLoggedIn && (
-          <SignUpForm
-            setShowMessage={setShowMessage}
-            setTrigger={setPopUpMessageTrigger}
-            theme={theme}
-          />
-        )}
-        {!userLoggedIn && (
-          <LoginForm
-            onLogin={handleLogin}
-            setShowMessage={setShowMessage}
-            setTrigger={setPopUpMessageTrigger}
-            theme={theme}
-          />
-        )}
-        {userLoggedIn && (
-          <AccountSettings
-            userData={exportUserData}
-            setShowMessage={setShowMessage}
-            setTrigger={setPopUpMessageTrigger}
-            setTheme={setTheme}
-            theme={theme}
-          />
-        )}
-        {
-          <Message
-            message={showMessage.message}
-            type={showMessage.type}
-            trigger={popUpMessageTrigger}
-            onDismiss={handleDismissMessage}
-          />
-        }
+        <Navbar
+          userLoggedIn={userLoggedIn}
+          setUserLoggedIn={setUserLoggedIn}
+          userName={userName}
+          theme={theme}
+        />
+        <SignUpForm
+          setShowMessage={setShowMessage}
+          setTrigger={setPopUpMessageTrigger}
+          theme={theme}
+        />
+        <LoginForm
+          onLogin={handleLogin}
+          setShowMessage={setShowMessage}
+          setTrigger={setPopUpMessageTrigger}
+          theme={theme}
+        />
+        <AccountSettings
+          userData={userData}
+          setShowMessage={setShowMessage}
+          setTrigger={setPopUpMessageTrigger}
+          setTheme={setTheme}
+          theme={theme}
+        />
+        <Message
+          message={showMessage.message}
+          type={showMessage.type}
+          trigger={popUpMessageTrigger}
+          onDismiss={handleDismissMessage}
+        />
       </div>
     </VisibilityProvider>
   );

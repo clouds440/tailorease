@@ -5,7 +5,7 @@ import { auth, signOut } from "../firebaseConfig";
 import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
 import { VisibilityContext } from "../utils/VisibilityContext";
 
-const Navbar = ({ userLoggedIn, userName, theme }) => {
+const Navbar = ({ userLoggedIn, setUserLoggedIn, userName, theme }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { showComponent, hideComponent, hideAllComponents } =
@@ -16,6 +16,7 @@ const Navbar = ({ userLoggedIn, userName, theme }) => {
       await signOut(auth);
       localStorage.removeItem("userData");
       sessionStorage.removeItem("userData");
+      setUserLoggedIn(false);
       hideAllComponents();
       setDropdownOpen(false);
     } catch (error) {
