@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
+import { VisibilityContext } from "../utils/VisibilityContext";
 import {
   auth,
   db,
@@ -17,7 +18,12 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
     phone: "",
   });
 
+  const { isComponentVisible, hideComponent } = useContext(VisibilityContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  if (!isComponentVisible("SignUpForm")) {
+    return null;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,6 +78,7 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
         message: "Registration Successful",
       });
       setTrigger("true");
+      hideComponent("SignUpForm");
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
       let errorType = "info";

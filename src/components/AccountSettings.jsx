@@ -12,9 +12,10 @@ import {
   doc,
 } from "../firebaseConfig";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
+import { VisibilityContext } from "../utils/VisibilityContext";
 import {
   AdjustmentsIcon,
   EditIcon,
@@ -50,6 +51,7 @@ function AccountSettings({
   });
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+  const { isComponentVisible } = useContext(VisibilityContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldClick = (field) => {
@@ -190,6 +192,9 @@ function AccountSettings({
     }
   };
 
+  if (!isComponentVisible("AccountSettings")) {
+    return null;
+  }
   return (
     <div
       className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-8 select-none`}

@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
+import { VisibilityContext } from "../utils/VisibilityContext";
 
-const Navbar = ({
-  userLoggedIn,
-  userName,
-  onSignUpClick,
-  onLoginClick,
-  onLogout,
-  onSettingsClick,
-  theme,
-}) => {
+const Navbar = ({ userLoggedIn, userName, theme }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { showComponent, hideComponent, hideAllComponents } =
+    useContext(VisibilityContext);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      onLogout();
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userData");
+      hideAllComponents();
       setDropdownOpen(false);
     } catch (error) {
       console.error("Error logging out:", error);
@@ -43,6 +40,35 @@ const Navbar = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
+
+  const dropdownOptions = [
+    {
+      text: "Account Settings",
+      icon: (
+        <SettingsIcon
+          size={"6"}
+          color={`${theme.iconColor}`}
+          extraClasses={"ml-3"}
+        />
+      ),
+      onClick: () => {
+        showComponent("AccountSettings");
+        setDropdownOpen(false);
+      },
+    },
+    {
+      text: "Logout",
+      icon: (
+        <LogoutIcon
+          size={"6"}
+          color={`${theme.iconColor}`}
+          extraClasses={"ml-3"}
+        />
+      ),
+      onClick: handleLogout,
+    },
+    // Add more options here as needed
+  ];
 
   return (
     <nav className={`p-4 rounded-md ${theme.mainTheme}`}>
@@ -88,43 +114,34 @@ const Navbar = ({
                 <div
                   className={`absolute right-0 mt-6 w-48 rounded-md ${theme.mainTheme} z-20`}
                 >
-                  <button
-                    onClick={handleLogout}
-                    className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
-                  >
-                    Logout
-                    <LogoutIcon
-                      size={"6"}
-                      color={`${theme.iconColor}`}
-                      extraClasses={"ml-3"}
-                    />
-                  </button>
-                  <button
-                    onClick={() => {
-                      onSettingsClick();
-                      setDropdownOpen(false);
-                    }}
-                    className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
-                  >
-                    Account Settings
-                    <SettingsIcon
-                      size={"6"}
-                      color={`${theme.iconColor}`}
-                      extraClasses={"ml-3"}
-                    />
-                  </button>
+                  {dropdownOptions.map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={option.onClick}
+                      className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
+                    >
+                      {option.text}
+                      {option.icon}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
           ) : (
             <>
               <SimpleButton
-                onClick={onSignUpClick}
+                onClick={() => {
+                  showComponent("SignUpForm");
+                  hideComponent("LoginForm");
+                }}
                 btnText={"Sign Up"}
                 type={"primary"}
               />
               <SimpleButton
-                onClick={onLoginClick}
+                onClick={() => {
+                  showComponent("LoginForm");
+                  hideComponent("SignUpForm");
+                }}
                 btnText={"Login"}
                 type={"primary"}
               />

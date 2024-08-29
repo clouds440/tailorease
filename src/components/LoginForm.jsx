@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { db, auth, collection, query, where, getDocs } from "../firebaseConfig";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
+import { VisibilityContext } from "../utils/VisibilityContext";
 
 const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const { isComponentVisible, hideComponent } = useContext(VisibilityContext);
+
+  if (!isComponentVisible("LoginForm")) {
+    return null;
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
