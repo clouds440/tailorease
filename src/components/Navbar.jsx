@@ -51,13 +51,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
   const dropdownOptions = [
     {
       text: "Settings",
-      icon: (
-        <SettingsIcon
-          size={"6"}
-          color={`${theme.iconColor}`}
-          extraClasses={"ml-3"}
-        />
-      ),
+      icon: <SettingsIcon size={"6"} color={`${theme.iconColor}`} />,
       onClick: () => {
         showComponent("AccountSettings");
         setDropdownOpen(false);
@@ -65,13 +59,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
     },
     {
       text: "Logout",
-      icon: (
-        <LogoutIcon
-          size={"6"}
-          color={`${theme.iconColor}`}
-          extraClasses={"ml-3"}
-        />
-      ),
+      icon: <LogoutIcon size={"6"} color={`${theme.iconColor}`} />,
       onClick: handleLogout,
     },
     // Add more options here as needed
@@ -134,37 +122,40 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
           </div>
         </div>
         <div
-          className={`flex items-center space-x-2 px-8 py-2 rounded-md w-full ${theme.hoverBg}`}
+          className={`flex items-center justify-center py-2 rounded-md w-full select-none cursor-pointer ${theme.hoverBg}`}
+          ref={dropdownRef}
+          onClick={() => setDropdownOpen(!dropdownOpen)}
         >
           {userLoggedIn && (
-            <div className="relative" ref={dropdownRef}>
-              <span
-                className="cursor-pointer flex items-center select-none"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
+            <div className="relative">
+              <span className="cursor-pointer flex items-center select-none">
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
                 <span className="hidden md:inline-block">Menu</span>
               </span>
               <AnimatePresence>
                 {dropdownOpen && (
-                  <motion.div
-                    className={`absolute bottom-8 mt-2 w-48 rounded-md z-20`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.1 }}
-                  >
-                    {dropdownOptions.map((option, index) => (
-                      <button
-                        key={index}
-                        onClick={option.onClick}
-                        className={`flex w-full py-2 ${theme.hoverBg} rounded-md`}
-                      >
-                        {option.icon}
-                        {option.text}
-                      </button>
-                    ))}
-                  </motion.div>
+                  <div className="flex w-full flex-col justify-center items-center absolute bottom-10 z-20">
+                    <motion.ul
+                      className={`rounded-lg w-36 px-2`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {dropdownOptions.map((option, index) => (
+                        <li
+                          key={index}
+                          onClick={option.onClick}
+                          className={`flex items-center justify-start space-x-2 px-2 py-3 my-4 ${theme.hoverBg} rounded-lg cursor-pointer`}
+                        >
+                          {option.icon}
+                          <span className="hidden md:inline-block">
+                            {option.text}
+                          </span>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  </div>
                 )}
               </AnimatePresence>
             </div>
