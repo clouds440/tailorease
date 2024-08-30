@@ -2,7 +2,16 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
-import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
+import {
+  SettingsIcon,
+  LogoutIcon,
+  MenuIcon,
+  HomeIcon,
+  CartIcon,
+  ServicesIcon,
+  ContactIcon,
+  SendIcon,
+} from "../graphics/icons/svgIcons";
 import { VisibilityContext } from "../utils/VisibilityContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -50,6 +59,14 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
 
   const dropdownOptions = [
     {
+      text: "Option 3",
+      icon: <SendIcon size={"6"} color={`${theme.iconColor}`} />,
+      onClick: () => {
+        showComponent("AccountSettings");
+        setDropdownOpen(false);
+      },
+    },
+    {
       text: "Settings",
       icon: <SettingsIcon size={"6"} color={`${theme.iconColor}`} />,
       onClick: () => {
@@ -93,71 +110,71 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
             </div>
           )}
           <div className="flex items-center justify-center mt-10">
-            <ul className="flex flex-col space-y-4 select-none">
+            <ul className="flex flex-col space-y-4 select-none w-full">
               <li
-                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
               >
-                {/* <HomeIcon size="5" className="text-blue-500" /> */}
-                <span className="hidden md:inline-block">Home</span>
+                <HomeIcon size={"5"} color={`${theme.iconColor}`} />
+                <span className="hidden md:inline-block ml-2">Home</span>
               </li>
               <li
-                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
               >
-                {/* <AboutIcon size="5" className="text-blue-500" /> */}
-                <span className="hidden md:inline-block">About</span>
+                <CartIcon size={"5"} color={`${theme.iconColor}`} />
+                <span className="hidden md:inline-block ml-2">Market</span>
               </li>
               <li
-                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
               >
-                {/* <ServicesIcon size="5" className="text-blue-500" /> */}
-                <span className="hidden md:inline-block">Services</span>
+                <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
+                <span className="hidden md:inline-block ml-2">Services</span>
               </li>
               <li
-                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
               >
-                {/* <ContactIcon size="5" className="text-blue-500" /> */}
-                <span className="hidden md:inline-block">Contact</span>
+                <ContactIcon size={"5"} color={`${theme.iconColor}`} />
+                <span className="hidden md:inline-block ml-2">Contact</span>
               </li>
             </ul>
           </div>
         </div>
+        <AnimatePresence>
+          {dropdownOpen && (
+            <div className="flex items-baseline justify-center">
+              <motion.ul
+                className={`flex flex-col space-y-4 select-none w-full`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+              >
+                {dropdownOptions.map((option, index) => (
+                  <li
+                    key={index}
+                    onClick={option.onClick}
+                    className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                  >
+                    {option.icon}
+                    <span className="hidden md:inline-block ml-2">
+                      {option.text}
+                    </span>
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
+          )}
+        </AnimatePresence>
         <div
-          className={`flex items-center justify-center py-2 rounded-md w-full select-none cursor-pointer ${theme.hoverBg}`}
+          className={`flex items-center md:justify-start justify-center px-4 py-2 rounded-lg w-full cursor-pointer ${theme.hoverBg}`}
           ref={dropdownRef}
           onClick={() => setDropdownOpen(!dropdownOpen)}
         >
           {userLoggedIn && (
-            <div className="relative">
-              <span className="cursor-pointer flex items-center select-none">
+            <div className="flex items-center">
+              <span className="flex items-center select-none">
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
-                <span className="hidden md:inline-block">Menu</span>
+                <span className="hidden md:inline-block ml-2">Menu</span>
               </span>
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <div className="flex w-full flex-col justify-center items-center absolute bottom-10 z-20">
-                    <motion.ul
-                      className={`rounded-lg w-36 px-2`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {dropdownOptions.map((option, index) => (
-                        <li
-                          key={index}
-                          onClick={option.onClick}
-                          className={`flex items-center justify-start space-x-2 px-2 py-3 my-4 ${theme.hoverBg} rounded-lg cursor-pointer`}
-                        >
-                          {option.icon}
-                          <span className="hidden md:inline-block">
-                            {option.text}
-                          </span>
-                        </li>
-                      ))}
-                    </motion.ul>
-                  </div>
-                )}
-              </AnimatePresence>
             </div>
           )}
         </div>
