@@ -18,7 +18,8 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
     phone: "",
   });
 
-  const { isComponentVisible, hideComponent } = useContext(VisibilityContext);
+  const { isComponentVisible, hideComponent, showComponent } =
+    useContext(VisibilityContext);
   const [isLoading, setIsLoading] = useState(false);
 
   if (!isComponentVisible("SignUpForm")) {
@@ -173,11 +174,25 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
           {isLoading ? (
             <LoadingSpinner size={28} extraClasses={"mt-4"} />
           ) : (
-            <SimpleButton
-              btnText={"Sign Up"}
-              type={"primary"}
-              extraclasses={"w-full"}
-            />
+            <>
+              <SimpleButton
+                btnText={"Sign Up"}
+                type={"primary"}
+                extraclasses={"w-full"}
+              />
+              <div className="items-center justify-center flex flex-col">
+                <span className="mt-8">Already have an account? </span>
+                <SimpleButton
+                  onClick={() => {
+                    showComponent("LoginForm");
+                    hideComponent("SignUpForm");
+                  }}
+                  btnText={"Log In Now"}
+                  type={"cancel"}
+                  extraclasses={"mt-1"}
+                />
+              </div>
+            </>
           )}
         </form>
       </div>

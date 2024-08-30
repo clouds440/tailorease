@@ -202,7 +202,7 @@ function AccountSettings({
         colorBorder: "border-white",
         iconColor: "text-blue-500",
         hoverText: "hover:text-blue-500",
-        hoverBg: "hover:bg-gray-700",
+        hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
       });
     } else if (theme === "Light") {
       setTheme({
@@ -211,7 +211,7 @@ function AccountSettings({
         colorBorder: "border-black",
         iconColor: "text-black",
         hoverText: "hover:text-gray-600",
-        hoverBg: "hover:bg-gray-300",
+        hoverBg: "hover:bg-gray-300 hover:bg-opacity-70",
       });
     } else if (theme === "Azure") {
       setTheme({
@@ -230,7 +230,7 @@ function AccountSettings({
   }
   return (
     <div
-      className={`max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} mt-8 select-none`}
+      className={`mt-8 max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} select-none`}
     >
       <h2
         className={`flex text-2xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}

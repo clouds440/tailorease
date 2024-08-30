@@ -27,7 +27,7 @@ function App() {
     colorBorder: "border-white",
     iconColor: "text-blue-500",
     hoverText: "hover:text-blue-500",
-    hoverBg: "hover:bg-gray-700",
+    hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
   });
 
   const [userName, setUserName] = useState("");
@@ -66,7 +66,7 @@ function App() {
   return (
     <VisibilityProvider>
       <div
-        className="h-screen bg-cover bg-center"
+        className="fixed inset-0 h-screen w-screen bg-cover bg-center z-[-1]"
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}

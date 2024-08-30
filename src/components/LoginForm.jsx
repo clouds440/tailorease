@@ -8,7 +8,8 @@ import { VisibilityContext } from "../utils/VisibilityContext";
 const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const { isComponentVisible, hideComponent } = useContext(VisibilityContext);
+  const { isComponentVisible, hideComponent, showComponent } =
+    useContext(VisibilityContext);
 
   if (!isComponentVisible("LoginForm")) {
     return null;
@@ -113,11 +114,25 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
           {isLoading ? (
             <LoadingSpinner size={28} extraClasses={"mt-4"} />
           ) : (
-            <SimpleButton
-              btnText={"Log In"}
-              type={"primary"}
-              extraclasses={"w-full"}
-            />
+            <>
+              <SimpleButton
+                btnText={"Log In"}
+                type={"primary"}
+                extraclasses={"w-full"}
+              />
+              <div className="items-center justify-center flex flex-col">
+                <span className="mt-8">Don't have an account? </span>
+                <SimpleButton
+                  onClick={() => {
+                    showComponent("SignUpForm");
+                    hideComponent("LoginForm");
+                  }}
+                  btnText={"Sign Up Now"}
+                  type={"cancel"}
+                  extraclasses={"mt-1"}
+                />
+              </div>
+            </>
           )}
         </form>
       </div>

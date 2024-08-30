@@ -49,7 +49,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
 
   const dropdownOptions = [
     {
-      text: "Account Settings",
+      text: "Settings",
       icon: (
         <SettingsIcon
           size={"6"}
@@ -77,49 +77,72 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
   ];
 
   return (
-    <nav className={`p-4 rounded-md ${theme.mainTheme}`}>
-      <div className="container mx-auto flex justify-between items-center">
-        <Logo />
-        <ul className="flex space-x-4 mx-auto select-none">
-          <li>
-            <a href="#home" className="hover:text-shadow-lg">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#about" className="hover:text-shadow-lg">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#services" className="hover:text-shadow-lg">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="hover:text-shadow-lg">
-              Contact
-            </a>
-          </li>
-        </ul>
-        <div className="flex space-x-4">
+    <nav
+      className={`fixed left-0 top-0 h-screen w-24 md:w-36 rounded-r-md ${theme.mainTheme} overflow-hidden`}
+    >
+      <div className="flex flex-col justify-between h-full">
+        <div>
+          <Logo
+            fontSize={"text-2xl"}
+            classes={"my-5 pb-5 border-b border-indigo-300"}
+          />
           {userLoggedIn ? (
+            <div className="mb-4 py-1 text-center select-none">
+              <span>{userFullName}</span>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <SimpleButton
+                onClick={() => {
+                  showComponent("LoginForm");
+                  hideComponent("SignUpForm");
+                }}
+                btnText={"Log In"}
+                type={"primary"}
+              />
+            </div>
+          )}
+          <div className="flex items-center justify-center mt-10">
+            <ul className="flex flex-col space-y-4 select-none">
+              <li
+                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+              >
+                {/* <HomeIcon size="5" className="text-blue-500" /> */}
+                <span className="hidden md:inline-block">Home</span>
+              </li>
+              <li
+                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+              >
+                {/* <AboutIcon size="5" className="text-blue-500" /> */}
+                <span className="hidden md:inline-block">About</span>
+              </li>
+              <li
+                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+              >
+                {/* <ServicesIcon size="5" className="text-blue-500" /> */}
+                <span className="hidden md:inline-block">Services</span>
+              </li>
+              <li
+                className={`flex items-center space-x-2 px-8 py-2 rounded-xl w-full ${theme.hoverBg}`}
+              >
+                {/* <ContactIcon size="5" className="text-blue-500" /> */}
+                <span className="hidden md:inline-block">Contact</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex flex-col space-y-4 p-5 items-center">
+          {userLoggedIn && (
             <div className="relative" ref={dropdownRef}>
               <span
                 className="cursor-pointer flex items-center hover:text-shadow-lg select-none"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Hello, {userFullName}
-                <MenuIcon
-                  size={"6"}
-                  color={"text-yellow-600"}
-                  extraClasses={"ml-2"}
-                />
+                <MenuIcon size={"5"} color={"text-yellow-600"} />
+                <span className="hidden md:inline-block">Menu</span>
               </span>
               {dropdownOpen && (
-                <div
-                  className={`absolute right-0 mt-6 w-48 rounded-md ${theme.mainTheme} z-20`}
-                >
+                <div className={`absolute bottom-8 mt-2 w-48 rounded-md z-20`}>
                   {dropdownOptions.map((option, index) => (
                     <button
                       key={index}
@@ -133,25 +156,6 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
                 </div>
               )}
             </div>
-          ) : (
-            <>
-              <SimpleButton
-                onClick={() => {
-                  showComponent("SignUpForm");
-                  hideComponent("LoginForm");
-                }}
-                btnText={"Sign Up"}
-                type={"primary"}
-              />
-              <SimpleButton
-                onClick={() => {
-                  showComponent("LoginForm");
-                  hideComponent("SignUpForm");
-                }}
-                btnText={"Login"}
-                type={"primary"}
-              />
-            </>
           )}
         </div>
       </div>
