@@ -3,11 +3,7 @@ import React, { createContext, useState, useMemo } from "react";
 export const VisibilityContext = createContext();
 
 export const VisibilityProvider = ({ children }) => {
-  const initialVisibleComponents = ["Navbar"];
-
-  const [visibleComponents, setVisibleComponents] = useState(
-    initialVisibleComponents
-  );
+  const [visibleComponents, setVisibleComponents] = useState([]);
 
   const showComponent = (componentName) => {
     setVisibleComponents((prev) => {
@@ -25,22 +21,21 @@ export const VisibilityProvider = ({ children }) => {
   };
 
   const hideAllComponents = () => {
-    setVisibleComponents(initialVisibleComponents);
+    setVisibleComponents([]);
   };
 
-  const isComponentVisible = (componentName) => {
-    return visibleComponents.includes(componentName);
-  };
+  const contextValue = useMemo(() => {
+    const isComponentVisible = (componentName) => {
+      return visibleComponents.includes(componentName);
+    };
 
-  const contextValue = useMemo(
-    () => ({
+    return {
       showComponent,
       hideComponent,
       hideAllComponents,
       isComponentVisible,
-    }),
-    [visibleComponents]
-  );
+    };
+  }, [visibleComponents]);
 
   return (
     <VisibilityContext.Provider value={contextValue}>

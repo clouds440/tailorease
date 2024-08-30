@@ -51,7 +51,12 @@ function App() {
     setUserLoggedIn(true);
     setUserName(loggedInUser.fullName);
     setUserData(loggedInUser);
-    console.log(userData);
+  };
+
+  const handleSignUp = (signedUpUser) => {
+    setUserLoggedIn(true);
+    setUserName(signedUpUser.fullName);
+    setUserData(signedUpUser);
   };
 
   const handleDismissMessage = () => {
@@ -69,10 +74,11 @@ function App() {
         <Navbar
           userLoggedIn={userLoggedIn}
           setUserLoggedIn={setUserLoggedIn}
-          userName={userName}
+          userData={userData}
           theme={theme}
         />
         <SignUpForm
+          onSignUp={handleSignUp}
           setShowMessage={setShowMessage}
           setTrigger={setPopUpMessageTrigger}
           theme={theme}
@@ -83,13 +89,16 @@ function App() {
           setTrigger={setPopUpMessageTrigger}
           theme={theme}
         />
-        <AccountSettings
-          userData={userData}
-          setShowMessage={setShowMessage}
-          setTrigger={setPopUpMessageTrigger}
-          setTheme={setTheme}
-          theme={theme}
-        />
+        {userLoggedIn && (
+          <AccountSettings
+            userData={userData}
+            setUserData={setUserData}
+            setShowMessage={setShowMessage}
+            setTrigger={setPopUpMessageTrigger}
+            setTheme={setTheme}
+            theme={theme}
+          />
+        )}
         <Message
           message={showMessage.message}
           type={showMessage.type}

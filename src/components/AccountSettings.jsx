@@ -27,6 +27,7 @@ function AccountSettings({
   setShowMessage,
   setTrigger,
   userData,
+  setUserData,
   setTheme,
   theme,
 }) {
@@ -46,9 +47,7 @@ function AccountSettings({
         userData.phone !== "" ? (
           userData.phone
         ) : (
-          <span
-            className={`italic ${theme.colorText} ${theme.hoverText}`}
-          >
+          <span className={`italic ${theme.colorText} ${theme.hoverText}`}>
             Click to add phone
           </span>
         ),
@@ -89,6 +88,16 @@ function AccountSettings({
         setModalInfo({ isOpen: false, field: "", value: "" });
         return;
       }
+      if (field === "phone") {
+        if (!/^\d*$/.test(newValue)) {
+          setShowMessage({
+            type: "warning",
+            message: "Phone number must contain only digits",
+          });
+          setTrigger("true");
+          return;
+        }
+      }
 
       // Query Firestore to find the document with the matching UID
       const userQuery = query(
@@ -108,6 +117,18 @@ function AccountSettings({
       await updateDoc(userDocRef, {
         [field]: newValue,
       });
+
+      // Update only the changed field in userData
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        [field]: newValue,
+      }));
+
+      userData[field] = newValue;
+
+      // Save the updated userData back to sessionStorage
+      sessionStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("userData", JSON.stringify(userData));
 
       setUserInfo({ ...userInfo, [field]: newValue });
       setModalInfo({ isOpen: false, field: "", value: "" });

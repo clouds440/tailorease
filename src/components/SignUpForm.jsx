@@ -10,7 +10,7 @@ import {
   addDoc,
 } from "../firebaseConfig";
 
-const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
+const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -49,7 +49,7 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       return;
     }
 
-    if (!/^\d+$/.test(formData.phone)) {
+    if (!/^\d*$/.test(formData.phone)) {
       setShowMessage({
         type: "warning",
         message: "Phone number must contain only digits",
@@ -79,6 +79,7 @@ const SignUpForm = ({ setShowMessage, setTrigger, theme }) => {
       });
       setTrigger("true");
       hideComponent("SignUpForm");
+      onSignUp(formData);
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
       let errorType = "info";

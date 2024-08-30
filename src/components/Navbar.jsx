@@ -5,7 +5,8 @@ import { auth, signOut } from "../firebaseConfig";
 import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
 import { VisibilityContext } from "../utils/VisibilityContext";
 
-const Navbar = ({ userLoggedIn, setUserLoggedIn, userName, theme }) => {
+const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
+  const [userFullName, setUserFullName] = useState(userData.fullName);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { showComponent, hideComponent, hideAllComponents } =
@@ -41,6 +42,10 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userName, theme }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
+
+  useEffect(() => {
+    setUserFullName(userData.fullName);
+  }, [userData]);
 
   const dropdownOptions = [
     {
@@ -104,7 +109,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userName, theme }) => {
                 className="cursor-pointer flex items-center hover:text-shadow-lg select-none"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Hello, {userName}
+                Hello, {userFullName}
                 <MenuIcon
                   size={"6"}
                   color={"text-yellow-600"}
