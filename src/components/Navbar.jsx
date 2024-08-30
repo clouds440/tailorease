@@ -4,6 +4,7 @@ import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { SettingsIcon, LogoutIcon, MenuIcon } from "../graphics/icons/svgIcons";
 import { VisibilityContext } from "../utils/VisibilityContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
   const [userFullName, setUserFullName] = useState(userData.fullName);
@@ -84,7 +85,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
         <div>
           <Logo
             fontSize={"text-2xl"}
-            classes={"my-5 pb-5 border-b border-indigo-300"}
+            classes={`my-5 pb-5 border-b ${theme.colorBorder}`}
           />
           {userLoggedIn ? (
             <div className="mb-4 py-1 text-center select-none">
@@ -99,6 +100,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
                 }}
                 btnText={"Log In"}
                 type={"primary"}
+                extraclasses="w-full mx-2"
               />
             </div>
           )}
@@ -131,30 +133,40 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col space-y-4 p-5 items-center">
+        <div
+          className={`flex items-center space-x-2 px-8 py-2 rounded-md w-full ${theme.hoverBg}`}
+        >
           {userLoggedIn && (
             <div className="relative" ref={dropdownRef}>
               <span
-                className="cursor-pointer flex items-center hover:text-shadow-lg select-none"
+                className="cursor-pointer flex items-center select-none"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
                 <span className="hidden md:inline-block">Menu</span>
               </span>
-              {dropdownOpen && (
-                <div className={`absolute bottom-8 mt-2 w-48 rounded-md z-20`}>
-                  {dropdownOptions.map((option, index) => (
-                    <button
-                      key={index}
-                      onClick={option.onClick}
-                      className={`flex justify-between items-center w-full text-left px-4 py-2 ${theme.hoverBg} rounded-md`}
-                    >
-                      {option.text}
-                      {option.icon}
-                    </button>
-                  ))}
-                </div>
-              )}
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    className={`absolute bottom-8 mt-2 w-48 rounded-md z-20`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.1 }}
+                  >
+                    {dropdownOptions.map((option, index) => (
+                      <button
+                        key={index}
+                        onClick={option.onClick}
+                        className={`flex w-full py-2 ${theme.hoverBg} rounded-md`}
+                      >
+                        {option.icon}
+                        {option.text}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
         </div>
