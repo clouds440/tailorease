@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 function Message({ message, type, trigger, onDismiss }) {
   const [visible, setVisible] = useState(false);
@@ -61,8 +62,11 @@ function Message({ message, type, trigger, onDismiss }) {
   };
 
   return (
-    <div
+    <motion.div
       className={`flex w-auto fixed top-5 right-1 px-5 py-1 rounded-lg z-50`}
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      transition={{ duration: 0.3 }}
     >
       <div className={`${bgColor} py-3 px-4 rounded-l-lg flex items-center`}>
         {icon}
@@ -84,7 +88,7 @@ function Message({ message, type, trigger, onDismiss }) {
           </svg>
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

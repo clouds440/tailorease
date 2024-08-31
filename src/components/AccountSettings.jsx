@@ -246,7 +246,7 @@ function AccountSettings({
       </h2>
       <div className="space-y-4">
         <h2 className="flex text-xl font-semibold  mb-6">
-          Persoanl Details
+          Personal Details
           <UserIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
         </h2>
         <div className="flex justify-between items-center">
