@@ -26,7 +26,7 @@ const OptionSelector = ({ options, value, onChange, theme }) => {
   return (
     <div className="relative inline-block text-left w-36" ref={dropdownRef}>
       <div
-        className={`p-2 flex items-center justify-between outline-none rounded-md cursor-pointer ${theme.mainTheme}`}
+        className={`p-2 flex items-center justify-between outline-none rounded-md cursor-pointer ${theme.mainTheme} ${theme.hoverBg}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>

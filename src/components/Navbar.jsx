@@ -43,13 +43,13 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
 
   useEffect(() => {
     if (dropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [dropdownOpen]);
 
