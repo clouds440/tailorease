@@ -84,7 +84,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
 
   return (
     <nav
-      className={`fixed left-0 top-0 h-screen w-24 md:w-36 rounded-r-md ${theme.mainTheme} overflow-hidden`}
+      className={`flex-shrink-0 fixed left-0 top-0 h-screen w-16 sm:w-20 md:w-36 rounded-r-md overflow-hidden ${theme.mainTheme}`}
     >
       <div className="flex flex-col justify-between h-full">
         <div>
@@ -146,7 +146,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.4 }}
               >
                 {dropdownOptions.map((option, index) => (
                   <li

@@ -16,6 +16,7 @@ import React, { useContext, useState, useEffect } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { VisibilityContext } from "../utils/VisibilityContext";
+import Optionselector from "./OptionSelector";
 import {
   AdjustmentsIcon,
   EditIcon,
@@ -189,6 +190,11 @@ function AccountSettings({
     }
   };
 
+  const themeOptions = [
+    { value: "Default", label: "Default" },
+    { value: "Light", label: "Light" },
+    { value: "Azure", label: "Azure" },
+  ];
   const [selectedTheme, setSelectedTheme] = useState("Default");
 
   const handleThemeChange = (e) => {
@@ -230,7 +236,7 @@ function AccountSettings({
   }
   return (
     <div
-      className={`mt-8 max-w-2xl mx-auto p-6 rounded-md ${theme.mainTheme} select-none`}
+      className={`mt-8 max-w-2xl w-80 sm:w-96 lg:w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
     >
       <h2
         className={`flex text-2xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
@@ -286,17 +292,13 @@ function AccountSettings({
             />
           </h2>
           <div className="flex justify-between items-center">
-            <label htmlFor="theme-selector">Theme</label>
-            <select
-              id="theme-selector"
-              className={`ml-3 p-2 outline-none rounded-md w-28 ${theme.mainTheme}`}
+            <label htmlFor="select-options">Theme</label>
+            <Optionselector
+              options={themeOptions}
               value={selectedTheme}
               onChange={handleThemeChange}
-            >
-              <option value="Default">Default</option>
-              <option value="Light">Light</option>
-              <option value="Azure">Azure</option>
-            </select>
+              theme={theme}
+            />
           </div>
         </div>
       </div>

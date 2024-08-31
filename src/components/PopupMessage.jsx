@@ -62,14 +62,12 @@ function Message({ message, type, trigger, onDismiss }) {
 
   return (
     <div
-      className={`flex bg-opacity-70 w-auto fixed top-5 right-1 px-5 py-1 rounded-2xl shadow-lg z-50`}
+      className={`flex w-auto fixed top-5 right-1 px-5 py-1 rounded-lg z-50`}
     >
-      <div
-        className={`${bgColor} py-3 px-4 rounded-l-lg flex items-center bg-opacity-70`}
-      >
+      <div className={`${bgColor} py-3 px-4 rounded-l-lg flex items-center`}>
         {icon}
       </div>
-      <div className="px-4 py-3 bg-white bg-opacity-70 rounded-r-lg flex justify-between items-center w-full select-none">
+      <div className="px-4 py-3 bg-white bg-opacity-80 rounded-r-lg flex justify-between items-center w-full select-none">
         <div>{message}</div>
         <button onClick={handleClose} className="ml-3">
           <svg

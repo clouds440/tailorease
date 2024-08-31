@@ -30,8 +30,6 @@ function App() {
     hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
   });
 
-  const [userName, setUserName] = useState("");
-
   useEffect(() => {
     const storedUserData =
       sessionStorage.getItem("userData") || localStorage.getItem("userData");
@@ -40,22 +38,18 @@ function App() {
       const userData = JSON.parse(storedUserData);
       setUserData(userData);
       setUserLoggedIn(true);
-      setUserName(userData.fullName);
     } else {
       setUserLoggedIn(false);
-      setUserName(null);
     }
   }, []);
 
   const handleLogin = (loggedInUser) => {
     setUserLoggedIn(true);
-    setUserName(loggedInUser.fullName);
     setUserData(loggedInUser);
   };
 
   const handleSignUp = (signedUpUser) => {
     setUserLoggedIn(true);
-    setUserName(signedUpUser.fullName);
     setUserData(signedUpUser);
   };
 
@@ -71,40 +65,44 @@ function App() {
           backgroundImage: `url(${backgroundImage})`,
         }}
       >
-        <Navbar
-          userLoggedIn={userLoggedIn}
-          setUserLoggedIn={setUserLoggedIn}
-          userData={userData}
-          theme={theme}
-        />
-        <SignUpForm
-          onSignUp={handleSignUp}
-          setShowMessage={setShowMessage}
-          setTrigger={setPopUpMessageTrigger}
-          theme={theme}
-        />
-        <LoginForm
-          onLogin={handleLogin}
-          setShowMessage={setShowMessage}
-          setTrigger={setPopUpMessageTrigger}
-          theme={theme}
-        />
-        {userLoggedIn && (
-          <AccountSettings
+        <div className="flex h-screen overflow-hidden bg-gray-600 bg-opacity-20 backdrop-blur-sm">
+          <Navbar
+            userLoggedIn={userLoggedIn}
+            setUserLoggedIn={setUserLoggedIn}
             userData={userData}
-            setUserData={setUserData}
-            setShowMessage={setShowMessage}
-            setTrigger={setPopUpMessageTrigger}
-            setTheme={setTheme}
             theme={theme}
           />
-        )}
-        <Message
-          message={showMessage.message}
-          type={showMessage.type}
-          trigger={popUpMessageTrigger}
-          onDismiss={handleDismissMessage}
-        />
+          <div className="flex-grow ml-24 md:ml-36 overflow-auto">
+            <SignUpForm
+              onSignUp={handleSignUp}
+              setShowMessage={setShowMessage}
+              setTrigger={setPopUpMessageTrigger}
+              theme={theme}
+            />
+            <LoginForm
+              onLogin={handleLogin}
+              setShowMessage={setShowMessage}
+              setTrigger={setPopUpMessageTrigger}
+              theme={theme}
+            />
+            {userLoggedIn && (
+              <AccountSettings
+                userData={userData}
+                setUserData={setUserData}
+                setShowMessage={setShowMessage}
+                setTrigger={setPopUpMessageTrigger}
+                setTheme={setTheme}
+                theme={theme}
+              />
+            )}
+            <Message
+              message={showMessage.message}
+              type={showMessage.type}
+              trigger={popUpMessageTrigger}
+              onDismiss={handleDismissMessage}
+            />
+          </div>
+        </div>
       </div>
     </VisibilityProvider>
   );
