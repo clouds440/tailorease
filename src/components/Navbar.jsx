@@ -11,6 +11,7 @@ import {
   ServicesIcon,
   ContactIcon,
   SendIcon,
+  LoginIcon,
 } from "../graphics/icons/svgIcons";
 import { VisibilityContext } from "../utils/VisibilityContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -104,8 +105,9 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
                   hideComponent("SignUpForm");
                 }}
                 btnText={"Log In"}
-                type={"primary"}
+                type={"simple"}
                 extraclasses="w-full mx-2"
+                icon={<LoginIcon size={"6"} />}
               />
             </div>
           )}
@@ -164,20 +166,20 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
             </div>
           )}
         </AnimatePresence>
-        <div
-          className={`flex items-center md:justify-start justify-center px-4 py-2 rounded-lg w-full cursor-pointer ${theme.hoverBg}`}
-          ref={dropdownRef}
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-        >
-          {userLoggedIn && (
+        {userLoggedIn && (
+          <div
+            className={`flex items-center md:justify-start justify-center px-4 py-2 rounded-lg w-full cursor-pointer ${theme.hoverBg}`}
+            ref={dropdownRef}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
             <div className="flex items-center">
               <span className="flex items-center select-none">
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
                 <span className="hidden md:inline-block ml-2">Menu</span>
               </span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </nav>
   );

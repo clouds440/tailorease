@@ -100,11 +100,11 @@ function EditFieldModal({
               type={"cancel"}
               onClick={onClose}
             />
-            {isLoading ? (
-              <LoadingSpinner size={28} extraClasses={"px-5"} />
-            ) : (
-              <SimpleButton btnText={"Save Changes"} type={"primary"} />
-            )}
+            <SimpleButton
+              btnText={isLoading ? <LoadingSpinner size={24} /> : `Save`}
+              type={"primary"}
+              extraclasses={"w-full"}
+            />
           </div>
         </form>
       </div>

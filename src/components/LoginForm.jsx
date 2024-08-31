@@ -111,29 +111,23 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
               Password
             </label>
           </div>
-          {isLoading ? (
-            <LoadingSpinner size={28} extraClasses={"mt-4"} />
-          ) : (
-            <>
-              <SimpleButton
-                btnText={"Log In"}
-                type={"primary"}
-                extraclasses={"w-full"}
-              />
-              <div className="items-center justify-center flex flex-col">
-                <span className="mt-8">Don't have an account? </span>
-                <SimpleButton
-                  onClick={() => {
-                    showComponent("SignUpForm");
-                    hideComponent("LoginForm");
-                  }}
-                  btnText={"Sign Up Now"}
-                  type={"cancel"}
-                  extraclasses={"mt-1"}
-                />
-              </div>
-            </>
-          )}
+          <SimpleButton
+            btnText={isLoading ? <LoadingSpinner size={24} /> : `Log In`}
+            type={"primary"}
+            extraclasses={"w-full"}
+          />
+          <div className="items-center justify-center flex flex-col">
+            <span className="mt-8">Don't have an account? </span>
+            <SimpleButton
+              onClick={() => {
+                showComponent("SignUpForm");
+                hideComponent("LoginForm");
+              }}
+              btnText={"Sign Up Now"}
+              type={"cancel"}
+              extraclasses={"mt-1"}
+            />
+          </div>
         </form>
       </div>
     </div>

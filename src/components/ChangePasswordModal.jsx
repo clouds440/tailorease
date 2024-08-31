@@ -137,11 +137,13 @@ function ChangePasswordModal({
               onClick={onClose}
               type={"cancel"}
             />
-            {isLoading ? (
-              <LoadingSpinner size={28} extraClasses={"px-5"} />
-            ) : (
-              <SimpleButton btnText={"Save Password"} type={"primary"} />
-            )}
+            <SimpleButton
+              btnText={
+                isLoading ? <LoadingSpinner size={24} /> : `Change Password`
+              }
+              type={"primary"}
+              extraclasses={"w-full"}
+            />
           </div>
         </form>
       </div>

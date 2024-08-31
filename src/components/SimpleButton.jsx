@@ -1,19 +1,36 @@
-function SimpleButton({ onClick, btnText, type, extraclasses = "" }) {
+function SimpleButton({
+  onClick,
+  btnText,
+  type,
+  extraclasses = "",
+  icon = null,
+}) {
   const primary =
-    "bg-sky-500 bg-opacity-55 text-white px-4 py-1 rounded hover:bg-opacity-45 " +
+    "bg-sky-500 bg-opacity-55 text-white hover:bg-opacity-45 " + extraclasses;
+  const simple =
+    "bg-gray-100 text-black opacity-85 text-gray-800 hover:bg-opacity-75 " +
     extraclasses;
-  const cancel =
-    "bg-gray-100 opacity-85 text-gray-800 px-4 py-1 rounded hover:bg-opacity-75 " +
-    extraclasses;
+  const danger = "bg-red-600 text-white hover:bg-opacity-55 " + extraclasses;
 
-  const style = type === "primary" ? primary : cancel;
+  let style;
+  switch (type) {
+    case "primary":
+      style = primary;
+      break;
+    case "danger":
+      style = danger;
+      break;
+    default:
+      style = simple;
+  }
 
   return (
     <button
-      type={type === "primary" ? "submit" : "button"} // Assigning type attribute
-      className={`${style}`}
+      type={type === "primary" ? "submit" : "button"}
+      className={`${style} flex items-center justify-center px-4 py-1 rounded`}
       onClick={onClick}
     >
+      {icon && <span className="mr-2">{icon}</span>}
       {btnText}
     </button>
   );

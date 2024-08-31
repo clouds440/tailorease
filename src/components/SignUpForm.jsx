@@ -171,29 +171,23 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
               Phone <span className="text-xs">(optional)</span>
             </label>
           </div>
-          {isLoading ? (
-            <LoadingSpinner size={28} extraClasses={"mt-4"} />
-          ) : (
-            <>
-              <SimpleButton
-                btnText={"Sign Up"}
-                type={"primary"}
-                extraclasses={"w-full"}
-              />
-              <div className="items-center justify-center flex flex-col">
-                <span className="mt-8">Already have an account? </span>
-                <SimpleButton
-                  onClick={() => {
-                    showComponent("LoginForm");
-                    hideComponent("SignUpForm");
-                  }}
-                  btnText={"Log In Now"}
-                  type={"cancel"}
-                  extraclasses={"mt-1"}
-                />
-              </div>
-            </>
-          )}
+          <SimpleButton
+            btnText={isLoading ? <LoadingSpinner size={24} /> : `Sign Up`}
+            type={"primary"}
+            extraclasses={"w-full"}
+          />
+          <div className="items-center justify-center flex flex-col">
+            <span className="mt-8">Already have an account? </span>
+            <SimpleButton
+              onClick={() => {
+                showComponent("LoginForm");
+                hideComponent("SignUpForm");
+              }}
+              btnText={"Log In Now"}
+              type={"cancel"}
+              extraclasses={"mt-1"}
+            />
+          </div>
         </form>
       </div>
     </div>
