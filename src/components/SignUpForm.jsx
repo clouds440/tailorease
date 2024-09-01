@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 import {
   auth,
   db,
@@ -10,7 +11,9 @@ import {
   addDoc,
 } from "../firebaseConfig";
 
-const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
+const SignUpForm = ({ setShowMessage, setTrigger }) => {
+  const { theme, setUserData, userLoggedIn, setUserLoggedIn } =
+    useContext(UserContext);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -74,11 +77,12 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
         message: "Registration Successful",
       });
       setTrigger("true");
-      onSignUp(formData);
+      setUserLoggedIn(true);
+      setUserData(formData);
       navigate("/");
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
-      let errorType = "info";
+      let errorType = "danger";
       if (error.code === "auth/email-already-in-use") {
         errorMessage = "This email is already in use";
         errorType = "warning";
@@ -87,8 +91,10 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
         errorType = "warning";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "Please enter an email";
+        errorType = "info";
       } else if (error.code === "auth/missing-password") {
         errorMessage = "Please enter a password";
+        errorType = "info";
       }
       setShowMessage({ type: errorType, message: errorMessage });
       setTrigger("true");
@@ -100,6 +106,10 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
   const inputStyles = `w-full p-1 mt-4 peer ${theme.colorText} border-b-2 z-10 ${theme.colorBorder} outline-none focus:border-blue-500 transition-all duration-300 bg-transparent`;
 
   const placeHolderStyles = `absolute top-5 pointer-events-none left-2 ${theme.colorText} duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:${theme.colorText} peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500`;
+
+  if (userLoggedIn) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="flex items-center justify-center mt-10">

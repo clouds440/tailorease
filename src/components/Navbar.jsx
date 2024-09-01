@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
+import { UserContext } from "../utils/UserContext";
 import {
   SettingsIcon,
   LogoutIcon,
@@ -14,9 +15,11 @@ import {
   LoginIcon,
 } from "../graphics/icons/svgIcons";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
+const Navbar = () => {
+  const { userData, theme, userLoggedIn, setUserLoggedIn } =
+    useContext(UserContext);
   const [userFullName, setUserFullName] = useState(userData.fullName);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);

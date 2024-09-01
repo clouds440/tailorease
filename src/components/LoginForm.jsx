@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { db, auth, collection, query, where, getDocs } from "../firebaseConfig";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { UserContext } from "../utils/UserContext";
 
-const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
+const LoginForm = ({ setShowMessage, setTrigger }) => {
+  const { theme, setUserData, userLoggedIn, setUserLoggedIn } =
+    useContext(UserContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -35,8 +38,9 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
         sessionStorage.setItem("userData", JSON.stringify(userData));
         localStorage.setItem("userData", JSON.stringify(userData));
 
-        // Call the onLogin function with the user's data
-        onLogin(userData);
+        // set the user logged in state to true
+        setUserLoggedIn(true);
+        setUserData(userData);
         navigate("/");
       } else {
         console.error("No user data found!");
@@ -68,6 +72,10 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
   const inputStyles = `w-full p-1 mt-4 peer ${theme.colorText} border-b-2 z-10 ${theme.colorBorder} outline-none focus:border-blue-500 transition-all duration-300 bg-transparent`;
 
   const placeHolderStyles = `absolute top-5 pointer-events-none left-2 ${theme.colorText} duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:${theme.colorText} peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500`;
+
+  if (userLoggedIn) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="flex items-center justify-center mt-10">

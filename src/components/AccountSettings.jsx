@@ -12,10 +12,11 @@ import {
   doc,
 } from "../firebaseConfig";
 
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
 import Optionselector from "./OptionSelector";
+import UserContext from "../utils/UserContext";
 import {
   AdjustmentsIcon,
   EditIcon,
@@ -23,15 +24,11 @@ import {
   UserIcon,
 } from "../graphics/icons/svgIcons";
 import SimpleButton from "./SimpleButton";
+import { Navigate } from "react-router-dom";
 
-function AccountSettings({
-  setShowMessage,
-  setTrigger,
-  userData,
-  setUserData,
-  setTheme,
-  theme,
-}) {
+function AccountSettings({ setShowMessage, setTrigger }) {
+  const { userData, theme, userLoggedIn, setUserData, setTheme } =
+    useContext(UserContext);
   const [userInfo, setUserInfo] = useState({
     fullName: "",
     email: "",
@@ -239,6 +236,10 @@ function AccountSettings({
     setTrigger("true");
     // Code to save the changes to the account here
   };
+
+  if (!userLoggedIn) {
+    return <Navigate to={"/login"} />;
+  }
 
   return (
     <div

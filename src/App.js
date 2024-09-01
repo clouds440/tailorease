@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import SignUpForm from "./components/SignUpForm";
@@ -16,55 +11,11 @@ import Home from "./components/Home";
 import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    phone: "",
-  });
   const [popUpMessageTrigger, setPopUpMessageTrigger] = useState(false);
   const [showMessage, setShowMessage] = useState({
     type: "",
     message: "",
   });
-
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme
-      ? JSON.parse(savedTheme)
-      : {
-          mainTheme: "theme-default",
-          colorText: "text-gray-100",
-          colorBorder: "border-white",
-          iconColor: "text-blue-500",
-          hoverText: "hover:text-blue-500",
-          hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
-        };
-  });
-
-  useEffect(() => {
-    const storedUserData =
-      sessionStorage.getItem("userData") || localStorage.getItem("userData");
-
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      setUserData(userData);
-      setUserLoggedIn(true);
-    } else {
-      setUserLoggedIn(false);
-    }
-  }, []);
-
-  const handleLogin = (loggedInUser) => {
-    setUserLoggedIn(true);
-    setUserData(loggedInUser);
-  };
-
-  const handleSignUp = (signedUpUser) => {
-    setUserLoggedIn(true);
-    setUserData(signedUpUser);
-  };
 
   const handleDismissMessage = () => {
     setPopUpMessageTrigger(false);
@@ -79,60 +30,35 @@ function App() {
         }}
       >
         <div className="flex h-screen overflow-hidden bg-gray-600 bg-opacity-20 backdrop-blur-sm">
-          <Navbar
-            userLoggedIn={userLoggedIn}
-            setUserLoggedIn={setUserLoggedIn}
-            userData={userData}
-            theme={theme}
-          />
+          <Navbar />
           <div className="flex-grow ml-24 md:ml-36 overflow-auto">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route
                 path="/signup"
                 element={
-                  userLoggedIn ? (
-                    <Navigate to="/" replace />
-                  ) : (
-                    <SignUpForm
-                      onSignUp={handleSignUp}
-                      setShowMessage={setShowMessage}
-                      setTrigger={setPopUpMessageTrigger}
-                      theme={theme}
-                    />
-                  )
+                  <SignUpForm
+                    setShowMessage={setShowMessage}
+                    setTrigger={setPopUpMessageTrigger}
+                  />
                 }
               />
               <Route
                 path="/login"
                 element={
-                  userLoggedIn ? (
-                    <Navigate to="/" replace />
-                  ) : (
-                    <LoginForm
-                      onLogin={handleLogin}
-                      setShowMessage={setShowMessage}
-                      setTrigger={setPopUpMessageTrigger}
-                      theme={theme}
-                    />
-                  )
+                  <LoginForm
+                    setShowMessage={setShowMessage}
+                    setTrigger={setPopUpMessageTrigger}
+                  />
                 }
               />
               <Route
                 path="/settings"
                 element={
-                  userLoggedIn ? (
-                    <AccountSettings
-                      userData={userData}
-                      setUserData={setUserData}
-                      setShowMessage={setShowMessage}
-                      setTrigger={setPopUpMessageTrigger}
-                      setTheme={setTheme}
-                      theme={theme}
-                    />
-                  ) : (
-                    <Navigate to="/login" replace />
-                  )
+                  <AccountSettings
+                    setShowMessage={setShowMessage}
+                    setTrigger={setPopUpMessageTrigger}
+                  />
                 }
               />
               <Route path="*" element={<NotFoundPage />} />
