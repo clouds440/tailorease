@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
@@ -13,15 +13,14 @@ import {
   SendIcon,
   LoginIcon,
 } from "../graphics/icons/svgIcons";
-import { VisibilityContext } from "../utils/VisibilityContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
   const [userFullName, setUserFullName] = useState(userData.fullName);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { showComponent, hideComponent, hideAllComponents } =
-    useContext(VisibilityContext);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -29,7 +28,6 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
       localStorage.removeItem("userData");
       sessionStorage.removeItem("userData");
       setUserLoggedIn(false);
-      hideAllComponents();
       setDropdownOpen(false);
     } catch (error) {
       console.error("Error logging out:", error);
@@ -63,7 +61,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
       text: "Option 3",
       icon: <SendIcon size={"6"} color={`${theme.iconColor}`} />,
       onClick: () => {
-        showComponent("AccountSettings");
+        navigate("/settings");
         setDropdownOpen(false);
       },
     },
@@ -71,7 +69,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
       text: "Settings",
       icon: <SettingsIcon size={"6"} color={`${theme.iconColor}`} />,
       onClick: () => {
-        showComponent("AccountSettings");
+        navigate("/settings");
         setDropdownOpen(false);
       },
     },
@@ -100,10 +98,7 @@ const Navbar = ({ userLoggedIn, setUserLoggedIn, userData, theme }) => {
           ) : (
             <div className="flex items-center justify-center">
               <SimpleButton
-                onClick={() => {
-                  showComponent("LoginForm");
-                  hideComponent("SignUpForm");
-                }}
+                onClick={() => navigate("/login")}
                 btnText={"Log In"}
                 type={"simple"}
                 extraclasses="w-full mx-2"

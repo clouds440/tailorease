@@ -1,19 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { db, auth, collection, query, where, getDocs } from "../firebaseConfig";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { VisibilityContext } from "../utils/VisibilityContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const { isComponentVisible, hideComponent, showComponent } =
-    useContext(VisibilityContext);
-
-  if (!isComponentVisible("LoginForm")) {
-    return null;
-  }
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +37,7 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
 
         // Call the onLogin function with the user's data
         onLogin(userData);
-        hideComponent("LoginForm");
+        navigate("/");
       } else {
         console.error("No user data found!");
       }
@@ -113,15 +108,14 @@ const LoginForm = ({ onLogin, setShowMessage, setTrigger, theme }) => {
           </div>
           <SimpleButton
             btnText={isLoading ? <LoadingSpinner size={24} /> : `Log In`}
-            type={"primary"}
+            type={"primary-submit"}
             extraclasses={"w-full"}
           />
           <div className="items-center justify-center flex flex-col">
             <span className="mt-8">Don't have an account? </span>
             <SimpleButton
               onClick={() => {
-                showComponent("SignUpForm");
-                hideComponent("LoginForm");
+                navigate("/signup");
               }}
               btnText={"Sign Up Now"}
               type={"cancel"}

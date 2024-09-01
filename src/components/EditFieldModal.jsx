@@ -102,7 +102,7 @@ function EditFieldModal({
             />
             <SimpleButton
               btnText={isLoading ? <LoadingSpinner size={24} /> : `Save`}
-              type={"primary"}
+              type={"primary-submit"}
               extraclasses={"w-full"}
             />
           </div>

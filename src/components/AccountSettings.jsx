@@ -12,10 +12,9 @@ import {
   doc,
 } from "../firebaseConfig";
 
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
-import { VisibilityContext } from "../utils/VisibilityContext";
 import Optionselector from "./OptionSelector";
 import {
   AdjustmentsIcon,
@@ -23,6 +22,7 @@ import {
   SettingsIcon,
   UserIcon,
 } from "../graphics/icons/svgIcons";
+import SimpleButton from "./SimpleButton";
 
 function AccountSettings({
   setShowMessage,
@@ -63,7 +63,6 @@ function AccountSettings({
   });
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-  const { isComponentVisible } = useContext(VisibilityContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldClick = (field) => {
@@ -231,9 +230,16 @@ function AccountSettings({
     }
   };
 
-  if (!isComponentVisible("AccountSettings")) {
-    return null;
-  }
+  const handleSavePreferences = () => {
+    localStorage.setItem("theme", JSON.stringify(theme));
+    setShowMessage({
+      type: "success",
+      message: "Changes saved!",
+    });
+    setTrigger("true");
+    // Code to save the changes to the account here
+  };
+
   return (
     <div
       className={`mt-8 max-w-2xl w-80 sm:w-96 lg:w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
@@ -283,7 +289,7 @@ function AccountSettings({
             <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
-        <div>
+        <div className="space-y-4">
           <h2 className={`flex text-2xl font-semibold mb-6 pt-6`}>
             Preferences
             <AdjustmentsIcon
@@ -298,6 +304,14 @@ function AccountSettings({
               value={selectedTheme}
               onChange={handleThemeChange}
               theme={theme}
+            />
+          </div>
+          <div className="flex justify-end items-center">
+            <SimpleButton
+              onClick={handleSavePreferences}
+              btnText={"Save Changes"}
+              type={"primary"}
+              extraclasses={"w-full"}
             />
           </div>
         </div>

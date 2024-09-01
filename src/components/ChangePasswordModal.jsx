@@ -141,7 +141,7 @@ function ChangePasswordModal({
               btnText={
                 isLoading ? <LoadingSpinner size={24} /> : `Change Password`
               }
-              type={"primary"}
+              type={"primary-submit"}
               extraclasses={"w-full"}
             />
           </div>

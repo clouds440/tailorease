@@ -6,7 +6,7 @@ function SimpleButton({
   icon = null,
 }) {
   const primary =
-    "bg-sky-500 bg-opacity-55 text-white hover:bg-opacity-45 " + extraclasses;
+    "bg-sky-500 bg-opacity-80 text-white hover:bg-opacity-60 " + extraclasses;
   const simple =
     "bg-gray-100 text-black opacity-85 text-gray-800 hover:bg-opacity-75 " +
     extraclasses;
@@ -15,6 +15,7 @@ function SimpleButton({
   let style;
   switch (type) {
     case "primary":
+    case "primary-submit":
       style = primary;
       break;
     case "danger":
@@ -26,7 +27,7 @@ function SimpleButton({
 
   return (
     <button
-      type={type === "primary" ? "submit" : "button"}
+      type={type === "primary-submit" ? "submit" : "button"}
       className={`${style} flex items-center justify-center px-4 py-1 rounded`}
       onClick={onClick}
     >

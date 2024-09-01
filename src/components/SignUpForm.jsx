@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { VisibilityContext } from "../utils/VisibilityContext";
+import { useNavigate } from "react-router-dom";
 import {
   auth,
   db,
@@ -18,13 +18,8 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
     phone: "",
   });
 
-  const { isComponentVisible, hideComponent, showComponent } =
-    useContext(VisibilityContext);
   const [isLoading, setIsLoading] = useState(false);
-
-  if (!isComponentVisible("SignUpForm")) {
-    return null;
-  }
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,8 +74,8 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
         message: "Registration Successful",
       });
       setTrigger("true");
-      hideComponent("SignUpForm");
       onSignUp(formData);
+      navigate("/");
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
       let errorType = "info";
@@ -173,15 +168,14 @@ const SignUpForm = ({ onSignUp, setShowMessage, setTrigger, theme }) => {
           </div>
           <SimpleButton
             btnText={isLoading ? <LoadingSpinner size={24} /> : `Sign Up`}
-            type={"primary"}
+            type={"primary-submit"}
             extraclasses={"w-full"}
           />
           <div className="items-center justify-center flex flex-col">
             <span className="mt-8">Already have an account? </span>
             <SimpleButton
               onClick={() => {
-                showComponent("LoginForm");
-                hideComponent("SignUpForm");
+                navigate("/login");
               }}
               btnText={"Log In Now"}
               type={"cancel"}
