@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import UserContext from "../utils/UserContext";
 
-function Message({ message, type, trigger, onDismiss }) {
+function PopupMessage() {
+  const { showMessage, popUpMessageTrigger, resetPopUpMessageTrigger } =
+    useContext(UserContext);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (trigger) {
+    if (popUpMessageTrigger) {
       setVisible(true);
       const timer = setTimeout(() => {
         setVisible(false);
-        onDismiss();
+        resetPopUpMessageTrigger(); // Reset the trigger after showing the message
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [trigger, onDismiss]);
+  }, [popUpMessageTrigger, resetPopUpMessageTrigger]);
 
   if (!visible) return null;
 
   let iconPath, bgColor;
 
-  switch (type) {
+  switch (showMessage.type) {
     case "success":
       iconPath =
         "M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z";
@@ -58,7 +61,7 @@ function Message({ message, type, trigger, onDismiss }) {
 
   const handleClose = () => {
     setVisible(false);
-    onDismiss();
+    resetPopUpMessageTrigger();
   };
 
   return (
@@ -71,8 +74,8 @@ function Message({ message, type, trigger, onDismiss }) {
       <div className={`${bgColor} py-3 px-4 rounded-l-lg flex items-center`}>
         {icon}
       </div>
-      <div className="px-4 py-3 bg-white bg-opacity-80 rounded-r-lg flex justify-between items-center w-full select-none">
-        <div>{message}</div>
+      <div className="px-4 py-3 bg-white bg-opacity-85 rounded-r-lg flex justify-between items-center w-full select-none">
+        <div>{showMessage.message}</div>
         <button onClick={handleClose} className="ml-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -92,4 +95,4 @@ function Message({ message, type, trigger, onDismiss }) {
   );
 }
 
-export default Message;
+export default PopupMessage;

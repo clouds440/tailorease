@@ -12,7 +12,7 @@ import {
   doc,
 } from "../firebaseConfig";
 
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
 import Optionselector from "./OptionSelector";
@@ -26,32 +26,16 @@ import {
 import SimpleButton from "./SimpleButton";
 import { Navigate } from "react-router-dom";
 
-function AccountSettings({ setShowMessage, setTrigger }) {
-  const { userData, theme, userLoggedIn, setUserData, setTheme } =
-    useContext(UserContext);
-  const [userInfo, setUserInfo] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    password: "",
-  });
-
-  // Effect to update userInfo whenever userData or theme changes
-  useEffect(() => {
-    setUserInfo({
-      fullName: userData.fullName,
-      email: userData.email,
-      phone:
-        userData.phone !== "" ? (
-          userData.phone
-        ) : (
-          <span className={`italic ${theme.colorText} ${theme.hoverText}`}>
-            Click to add phone
-          </span>
-        ),
-      password: "********", // Keeping password masked
-    });
-  }, [userData, theme]);
+function AccountSettings() {
+  const {
+    userData,
+    theme,
+    userLoggedIn,
+    setUserData,
+    setTheme,
+    setShowMessage,
+    setPopUpMessageTrigger,
+  } = useContext(UserContext);
 
   const [modalInfo, setModalInfo] = useState({
     isOpen: false,
@@ -69,7 +53,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
       setModalInfo({
         isOpen: true,
         field: field,
-        value: typeof userInfo[field] !== "object" ? userInfo[field] : "",
+        value: typeof userData[field] !== "object" ? userData[field] : "",
       });
     }
   };
@@ -91,7 +75,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
             type: "warning",
             message: "Phone number must contain only digits",
           });
-          setTrigger("true");
+          setPopUpMessageTrigger("true");
           return;
         }
       }
@@ -127,7 +111,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
       sessionStorage.setItem("userData", JSON.stringify(userData));
       localStorage.setItem("userData", JSON.stringify(userData));
 
-      setUserInfo({ ...userInfo, [field]: newValue });
+      setUserData({ ...userData, [field]: newValue });
       setModalInfo({ isOpen: false, field: "", value: "" });
 
       setShowMessage({
@@ -136,13 +120,13 @@ function AccountSettings({ setShowMessage, setTrigger }) {
           field.charAt(0).toUpperCase() + field.slice(1)
         } updated successfully!`,
       });
-      setTrigger(true);
+      setPopUpMessageTrigger("true");
     } catch (error) {
       setShowMessage({
         type: "danger",
         message: `Failed to update ${field}. ${error.message}`,
       });
-      setTrigger(true);
+      setPopUpMessageTrigger("true");
     } finally {
       setIsLoading(false);
     }
@@ -166,7 +150,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
         type: "success",
         message: "Password saved!",
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
 
       setIsPasswordModalOpen(false); // Close the modal
     } catch (error) {
@@ -180,7 +164,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
           "Too many failed attempts. Please contant customer support";
       }
       setShowMessage({ type: "danger", message: errorMessage });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
     } finally {
       setIsLoading(false);
     }
@@ -233,7 +217,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
       type: "success",
       message: "Changes saved!",
     });
-    setTrigger("true");
+    setPopUpMessageTrigger("true");
     // Code to save the changes to the account here
   };
 
@@ -262,13 +246,13 @@ function AccountSettings({ setShowMessage, setTrigger }) {
             className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("fullName")}
           >
-            {userInfo.fullName}
+            {userData.fullName}
             <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
         <div className="flex justify-between items-center">
           <span>Email</span>
-          <span className=" cursor-default mr-9">{userInfo.email}</span>
+          <span className=" cursor-default mr-9">{userData.email}</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Phone</span>
@@ -276,7 +260,13 @@ function AccountSettings({ setShowMessage, setTrigger }) {
             className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("phone")}
           >
-            {userInfo.phone}
+            {userData.phone !== "" ? (
+              userData.phone
+            ) : (
+              <span className={`italic ${theme.colorText} ${theme.hoverText}`}>
+                Click to add phone
+              </span>
+            )}
             <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
@@ -286,7 +276,7 @@ function AccountSettings({ setShowMessage, setTrigger }) {
             className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("password")}
           >
-            {userInfo.password}
+            **********
             <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>
@@ -320,25 +310,19 @@ function AccountSettings({ setShowMessage, setTrigger }) {
 
       {modalInfo.isOpen && (
         <EditFieldModal
-          setShowMessage={setShowMessage}
-          setTrigger={setTrigger}
           field={modalInfo.field}
           value={modalInfo.value}
           onClose={() => setModalInfo({ isOpen: false, field: "", value: "" })}
           onSave={handleFieldSave}
           isLoading={isLoading}
-          theme={theme}
         />
       )}
 
       {isPasswordModalOpen && (
         <ChangePasswordModal
-          setShowMessage={setShowMessage}
-          setTrigger={setTrigger}
           onClose={() => setIsPasswordModalOpen(false)}
           onSave={hadleChangePassword}
           isLoading={isLoading}
-          theme={theme}
         />
       )}
     </div>

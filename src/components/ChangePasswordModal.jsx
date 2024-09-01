@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SimpleButton from "./SimpleButton";
 import LoadingSpinner from "./LoadingSpinner";
 import { EditIcon } from "../graphics/icons/svgIcons";
+import UserContext from "../utils/UserContext";
 
-function ChangePasswordModal({
-  onClose,
-  onSave,
-  setShowMessage,
-  setTrigger,
-  isLoading,
-  theme,
-}) {
+function ChangePasswordModal({ onClose, onSave, isLoading }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { theme, setShowMessage, setPopUpMessageTrigger } =
+    useContext(UserContext);
 
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -57,7 +53,7 @@ function ChangePasswordModal({
         type: "info",
         message: errorMessage,
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
       return;
     }
     onSave(formData);

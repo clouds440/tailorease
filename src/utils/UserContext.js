@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 // Create the context
 export const UserContext = createContext();
@@ -32,13 +32,15 @@ export const UserProvider = ({ children }) => {
   // Determine if the user is logged in
   const [userLoggedIn, setUserLoggedIn] = useState(!!userData.uid);
 
-  useEffect(() => {
-    // Whenever userData or theme changes, update localStorage
-    localStorage.setItem("userData", JSON.stringify(userData));
-    sessionStorage.setItem("userData", JSON.stringify(userData));
-    localStorage.setItem("theme", JSON.stringify(theme));
-    setUserLoggedIn(!!userData.uid);
-  }, [userData, theme]);
+  const [popUpMessageTrigger, setPopUpMessageTrigger] = useState(false);
+  const [showMessage, setShowMessage] = useState({
+    type: "",
+    message: "",
+  });
+
+  const resetPopUpMessageTrigger = () => {
+    setPopUpMessageTrigger(false);
+  };
 
   return (
     <UserContext.Provider
@@ -49,6 +51,11 @@ export const UserProvider = ({ children }) => {
         setTheme,
         userLoggedIn,
         setUserLoggedIn,
+        popUpMessageTrigger,
+        setPopUpMessageTrigger,
+        showMessage,
+        setShowMessage,
+        resetPopUpMessageTrigger,
       }}
     >
       {children}

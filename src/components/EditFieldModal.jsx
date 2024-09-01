@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SimpleButton from "./SimpleButton";
 import { EditIcon } from "../graphics/icons/svgIcons";
 import LoadingSpinner from "./LoadingSpinner";
+import UserContext from "../utils/UserContext";
 
-function EditFieldModal({
-  field,
-  value,
-  onClose,
-  onSave,
-  setShowMessage,
-  setTrigger,
-  isLoading,
-  theme,
-}) {
+function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
   const [inputValue, setInputValue] = useState(value);
+  const { theme, setShowMessage, setPopUpMessageTrigger } =
+    useContext(UserContext);
 
   const fieldLabels = {
     fullName: "Full Name",
@@ -33,14 +27,14 @@ function EditFieldModal({
           type: "info",
           message: "Please enter your full name",
         });
-        setTrigger("true");
+        setPopUpMessageTrigger("true");
         return;
       } else if (inputValue.length < 3) {
         setShowMessage({
           type: "info",
           message: "Name must be at least 3 characters",
         });
-        setTrigger("true");
+        setPopUpMessageTrigger("true");
         return;
       }
     }

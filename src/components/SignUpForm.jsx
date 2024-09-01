@@ -11,9 +11,15 @@ import {
   addDoc,
 } from "../firebaseConfig";
 
-const SignUpForm = ({ setShowMessage, setTrigger }) => {
-  const { theme, setUserData, userLoggedIn, setUserLoggedIn } =
-    useContext(UserContext);
+const SignUpForm = () => {
+  const {
+    theme,
+    setUserData,
+    userLoggedIn,
+    setUserLoggedIn,
+    setShowMessage,
+    setPopUpMessageTrigger,
+  } = useContext(UserContext);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -37,14 +43,14 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
         type: "info",
         message: "Please enter your full name",
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
       return;
     } else if (formData.fullName.length < 3) {
       setShowMessage({
         type: "info",
         message: "Name must be at least 3 characters",
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
       return;
     }
 
@@ -53,7 +59,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
         type: "warning",
         message: "Phone number must contain only digits",
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
       return;
     }
 
@@ -76,7 +82,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
         type: "success",
         message: "Registration Successful",
       });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
       setUserLoggedIn(true);
       setUserData(formData);
       navigate("/");
@@ -97,7 +103,7 @@ const SignUpForm = ({ setShowMessage, setTrigger }) => {
         errorType = "info";
       }
       setShowMessage({ type: errorType, message: errorMessage });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
     } finally {
       setIsLoading(false);
     }

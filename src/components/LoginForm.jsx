@@ -6,9 +6,15 @@ import SimpleButton from "./SimpleButton";
 import { useNavigate, Navigate } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 
-const LoginForm = ({ setShowMessage, setTrigger }) => {
-  const { theme, setUserData, userLoggedIn, setUserLoggedIn } =
-    useContext(UserContext);
+const LoginForm = () => {
+  const {
+    theme,
+    setUserData,
+    userLoggedIn,
+    setUserLoggedIn,
+    setShowMessage,
+    setPopUpMessageTrigger,
+  } = useContext(UserContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -63,7 +69,7 @@ const LoginForm = ({ setShowMessage, setTrigger }) => {
           "Too many failed attempts. Please contant customer support";
       }
       setShowMessage({ type: errorType, message: errorMessage });
-      setTrigger("true");
+      setPopUpMessageTrigger("true");
     } finally {
       setIsLoading(false);
     }
