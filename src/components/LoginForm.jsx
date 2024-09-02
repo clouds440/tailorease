@@ -1,9 +1,17 @@
 import React, { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { db, auth, collection, query, where, getDocs } from "../firebaseConfig";
+import {
+  db,
+  auth,
+  collection,
+  query,
+  where,
+  getDocs,
+  sendPasswordResetEmail,
+} from "../firebaseConfig";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 
 const LoginForm = () => {
@@ -26,6 +34,15 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      setShowMessage({
+        type: "warning",
+        message: "Please enter a valid email address.",
+      });
+      setPopUpMessageTrigger(true);
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -75,6 +92,33 @@ const LoginForm = () => {
     }
   };
 
+  const handlePasswordReset = async () => {
+    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      setShowMessage({
+        type: "warning",
+        message: "Please enter a valid email address.",
+      });
+      setPopUpMessageTrigger(true);
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, formData.email);
+      setShowMessage({
+        type: "success",
+        message:
+          "If you've provided a valid email, you'll receive a password reset email.",
+      });
+      setPopUpMessageTrigger(true);
+    } catch (error) {
+      setShowMessage({
+        type: "danger",
+        message: "Error sending password reset email. Please try again.",
+      });
+      setPopUpMessageTrigger(true);
+    }
+  };
+
   const inputStyles = `w-full p-1 mt-4 peer ${theme.colorText} border-b-2 z-10 ${theme.colorBorder} outline-none focus:border-blue-500 transition-all duration-300 bg-transparent`;
 
   const placeHolderStyles = `absolute top-5 pointer-events-none left-2 ${theme.colorText} duration-300 transform -translate-y-7 scale-75 origin-left peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:${theme.colorText} peer-focus:-translate-y-7 peer-focus:scale-75 peer-focus:text-blue-500`;
@@ -84,14 +128,14 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-10">
+    <div className="flex items-center justify-center mt-10 select-none">
       <div
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
           Log In
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="relative mb-4">
             <input
               type="email"
@@ -125,16 +169,22 @@ const LoginForm = () => {
             type={"primary-submit"}
             extraclasses={"w-full"}
           />
-          <div className="items-center justify-center flex flex-col">
-            <span className="mt-8">Don't have an account? </span>
-            <SimpleButton
-              onClick={() => {
-                navigate("/signup");
-              }}
-              btnText={"Sign Up Now"}
-              type={"cancel"}
-              extraclasses={"mt-1"}
-            />
+          <div className="items-center justify-center flex flex-row mt-8">
+            <span>Forgot password? &nbsp;</span>
+            <span
+              className="text-blue-800 hover:text-blue-600 cursor-pointer"
+              onClick={handlePasswordReset}
+            >
+              Send a reset email
+            </span>
+          </div>
+          <div className="items-center justify-center flex flex-row mt-8">
+            <span>Need to create an &nbsp;</span>
+            <Link to={"/signup"}>
+              <span className="text-blue-800 hover:text-blue-600">
+                account?
+              </span>
+            </Link>
           </div>
         </form>
       </div>

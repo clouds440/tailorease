@@ -19,6 +19,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   updatePassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -54,4 +55,5 @@ export {
   updatePassword,
   setDoc,
   getDoc,
+  sendPasswordResetEmail,
 };

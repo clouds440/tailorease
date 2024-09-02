@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import {
   auth,
@@ -51,6 +51,15 @@ const SignUpForm = () => {
         message: "Name must be at least 3 characters",
       });
       setPopUpMessageTrigger("true");
+      return;
+    }
+
+    if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
+      setShowMessage({
+        type: "warning",
+        message: "Please enter a valid email address.",
+      });
+      setPopUpMessageTrigger(true);
       return;
     }
 
@@ -118,14 +127,14 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-10">
+    <div className="flex items-center justify-center mt-10 select-none">
       <div
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
           Create Account
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="relative mb-4">
             <input
               type="text"
@@ -187,16 +196,11 @@ const SignUpForm = () => {
             type={"primary-submit"}
             extraclasses={"w-full"}
           />
-          <div className="items-center justify-center flex flex-col">
-            <span className="mt-8">Already have an account? </span>
-            <SimpleButton
-              onClick={() => {
-                navigate("/login");
-              }}
-              btnText={"Log In Now"}
-              type={"cancel"}
-              extraclasses={"mt-1"}
-            />
+          <div className="items-center justify-center flex flex-row mt-8">
+            <Link to={"/login"}>
+              <span className="text-blue-800 hover:text-blue-600">Login</span>
+            </Link>
+            <span>&nbsp; to your existing account</span>
           </div>
         </form>
       </div>

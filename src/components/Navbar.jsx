@@ -62,7 +62,7 @@ const Navbar = () => {
   const dropdownOptions = [
     {
       text: "Option 3",
-      icon: <SendIcon size={"6"} color={`${theme.iconColor}`} />,
+      icon: <SendIcon size={"5"} color={`${theme.iconColor}`} />,
       onClick: () => {
         navigate("/settings");
         setDropdownOpen(false);
@@ -70,7 +70,7 @@ const Navbar = () => {
     },
     {
       text: "Settings",
-      icon: <SettingsIcon size={"6"} color={`${theme.iconColor}`} />,
+      icon: <SettingsIcon size={"5"} color={`${theme.iconColor}`} />,
       onClick: () => {
         navigate("/settings");
         setDropdownOpen(false);
@@ -78,11 +78,13 @@ const Navbar = () => {
     },
     {
       text: "Logout",
-      icon: <LogoutIcon size={"6"} color={`${theme.iconColor}`} />,
+      icon: <LogoutIcon size={"5"} color={`${theme.iconColor}`} />,
       onClick: handleLogout,
     },
     // Add more options here as needed
   ];
+
+  const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full duration-500 ${theme.hoverBg}`;
 
   return (
     <nav
@@ -111,27 +113,19 @@ const Navbar = () => {
           )}
           <div className="flex items-center justify-center mt-10">
             <ul className="flex flex-col space-y-4 select-none w-full">
-              <li
-                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
-              >
+              <li className={linkStyles}>
                 <HomeIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className="hidden md:inline-block ml-2">Home</span>
               </li>
-              <li
-                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
-              >
+              <li className={linkStyles}>
                 <CartIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className="hidden md:inline-block ml-2">Market</span>
               </li>
-              <li
-                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
-              >
+              <li className={linkStyles}>
                 <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className="hidden md:inline-block ml-2">Services</span>
               </li>
-              <li
-                className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
-              >
+              <li className={linkStyles}>
                 <ContactIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className="hidden md:inline-block ml-2">Contact</span>
               </li>
@@ -152,7 +146,7 @@ const Navbar = () => {
                   <li
                     key={index}
                     onClick={option.onClick}
-                    className={`flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full ${theme.hoverBg}`}
+                    className={linkStyles}
                   >
                     {option.icon}
                     <span className="hidden md:inline-block ml-2">
@@ -166,7 +160,7 @@ const Navbar = () => {
         </AnimatePresence>
         {userLoggedIn && (
           <div
-            className={`flex items-center md:justify-start justify-center px-4 py-2 rounded-lg w-full cursor-pointer ${theme.hoverBg}`}
+            className={linkStyles}
             ref={dropdownRef}
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
