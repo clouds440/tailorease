@@ -5,6 +5,12 @@ const OptionSelector = ({ options, value, onChange, theme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  const dropdownVariants = {
+    hidden: { scaleY: 0, transformOrigin: "top" },
+    visible: { scaleY: 1, transformOrigin: "top" },
+    exit: { scaleY: 0, transformOrigin: "top" },
+  };
+
   const handleSelect = (optionValue) => {
     onChange({ target: { value: optionValue } });
     setIsOpen(false);
@@ -39,22 +45,20 @@ const OptionSelector = ({ options, value, onChange, theme }) => {
         {isOpen && (
           <motion.ul
             className={`absolute mt-2 p-2 items-center justify-center rounded-md w-full ${theme.mainTheme} z-10`}
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            transition={{ duration: 0.4 }}
+            initial="hidden"
+            animate={isOpen ? "visible" : "hidden"}
+            exit="exit"
+            variants={dropdownVariants}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
           >
             {options.map((option, index) => (
-              <motion.li
+              <li
                 key={index}
                 className={`cursor-pointer p-2 rounded-md ${theme.hoverBg}`}
                 onClick={() => handleSelect(option.value)}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
               >
                 {option.label}
-              </motion.li>
+              </li>
             ))}
           </motion.ul>
         )}

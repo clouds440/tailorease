@@ -273,10 +273,10 @@ function AccountSettings() {
         <div className="flex justify-between items-center">
           <span>Password</span>
           <span
-            className={`flex  cursor-pointer ${theme.hoverText}`}
+            className={`flex cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("password")}
           >
-            **********
+            ●●●●●●●●
             <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
           </span>
         </div>

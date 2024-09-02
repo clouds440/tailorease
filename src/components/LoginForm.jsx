@@ -13,6 +13,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import SimpleButton from "./SimpleButton";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
+import { BarLoader } from "react-spinners";
 
 const LoginForm = () => {
   const {
@@ -25,6 +26,7 @@ const LoginForm = () => {
   } = useContext(UserContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const [isResetLoading, setIsResetLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -65,8 +67,6 @@ const LoginForm = () => {
         setUserLoggedIn(true);
         setUserData(userData);
         navigate("/");
-      } else {
-        console.error("No user data found!");
       }
     } catch (error) {
       let errorMessage = `An error occurred: ${error.message}`;
@@ -82,8 +82,7 @@ const LoginForm = () => {
       } else if (error.code === "auth/user-disabled") {
         errorMessage = "Account blocked! Please contact support";
       } else if (error.code === "auth/too-many-requests") {
-        errorMessage =
-          "Too many failed attempts. Please contant customer support";
+        errorMessage = "Too many failed attempts. Please try again later";
       }
       setShowMessage({ type: errorType, message: errorMessage });
       setPopUpMessageTrigger("true");
@@ -103,6 +102,7 @@ const LoginForm = () => {
     }
 
     try {
+      setIsResetLoading(true);
       await sendPasswordResetEmail(auth, formData.email);
       setShowMessage({
         type: "success",
@@ -116,6 +116,8 @@ const LoginForm = () => {
         message: "Error sending password reset email. Please try again.",
       });
       setPopUpMessageTrigger(true);
+    } finally {
+      setIsResetLoading(false);
     }
   };
 
@@ -171,12 +173,16 @@ const LoginForm = () => {
           />
           <div className="items-center justify-center flex flex-row mt-8">
             <span>Forgot password? &nbsp;</span>
-            <span
-              className="text-blue-800 hover:text-blue-600 cursor-pointer"
-              onClick={handlePasswordReset}
-            >
-              Send a reset email
-            </span>
+            {isResetLoading ? (
+              <BarLoader color="#0000ff" width={137} />
+            ) : (
+              <span
+                className="text-blue-800 hover:text-blue-600 cursor-pointer"
+                onClick={handlePasswordReset}
+              >
+                Send a reset email
+              </span>
+            )}
           </div>
           <div className="items-center justify-center flex flex-row mt-8">
             <span>Need to create an &nbsp;</span>
