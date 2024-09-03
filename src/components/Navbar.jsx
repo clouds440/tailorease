@@ -99,7 +99,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`flex-shrink-0 fixed top-0 left-0 rtl:right-0 h-screen w-16 sm:w-20 md:w-36 rounded-md overflow-hidden ${theme.mainTheme}`}
+      className={`flex-shrink-0 fixed top-0 ltr:left-0 rtl:right-0 h-screen w-16 sm:w-20 md:w-36 rounded-md overflow-hidden ${theme.mainTheme}`}
     >
       <div className="flex flex-col justify-between h-full">
         <div>
@@ -126,25 +126,25 @@ const Navbar = () => {
             <ul className="flex flex-col space-y-4 select-none w-full">
               <li className={linkStyles}>
                 <HomeIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
                   {t("home")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <CartIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
                   {t("market")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
                   {t("services")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <ContactIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
                   {t("contactUs")}
                 </span>
               </li>
@@ -168,7 +168,9 @@ const Navbar = () => {
                     className={linkStyles}
                   >
                     {option.icon}
-                    <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                    <span
+                      className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}
+                    >
                       {option.text}
                     </span>
                   </li>
@@ -186,7 +188,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <span className="flex items-center select-none">
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
-                <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
+                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
                   {t("menu")}
                 </span>
               </span>

@@ -254,7 +254,7 @@ function AccountSettings() {
       className={`mt-8 max-w-2xl w-80 sm:w-96 lg:w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
     >
       <h2
-        className={`flex text-2xl rtl:text-xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
+        className={`flex ltr:text-2xl rtl:text-xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
       >
         {t("accountSettings")}
         <SettingsIcon
@@ -263,11 +263,11 @@ function AccountSettings() {
         />
       </h2>
       <div className="space-y-4">
-        <h2 className="flex text-xl rtl:text-lg font-semibold  mb-6">
+        <h2 className="flex ltr:text-xl rtl:text-lg font-semibold  mb-6">
           {t("personalDetails")}
           <UserIcon
             color={`${theme.iconColor}`}
-            extraClasses={"ml-3 rtl:mr-3 mt-1"}
+            extraClasses={"ltr:ml-3 rtl:mr-3 mt-1"}
           />
         </h2>
         <div className="flex justify-between items-center">
@@ -279,7 +279,7 @@ function AccountSettings() {
             {userData.fullName}
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={"ml-3 rtl:mr-3 mt-1"}
+              extraClasses={"ltr:ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
@@ -302,7 +302,7 @@ function AccountSettings() {
             )}
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={"ml-3 rtl:mr-3 mt-1"}
+              extraClasses={"ltr:ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
@@ -315,16 +315,18 @@ function AccountSettings() {
             ●●●●●●●●
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={"ml-3 rtl:mr-3 mt-1"}
+              extraClasses={"ltr:ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
         <div className="space-y-4">
-          <h2 className={`flex text-xl rtl:text-lg font-semibold mb-6 pt-6`}>
+          <h2
+            className={`flex ltr:text-xl rtl:text-lg font-semibold mb-6 pt-6`}
+          >
             {t("preferences")}
             <AdjustmentsIcon
               color={`${theme.iconColor}`}
-              extraClasses={"ml-3 rtl:mr-3 mt-1"}
+              extraClasses={"ltr:ml-3 rtl:mr-3 mt-1"}
             />
           </h2>
           <div className="flex justify-between items-center">
