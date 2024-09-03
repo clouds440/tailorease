@@ -24,6 +24,16 @@
     "theme": "Theme",
     "language": "Language",
     "saveChanges": "Save Changes",
-    "select": "Select"
+    "select": "Select",
+
+    "couldntLogout": "Couldn't log out. Please try again!",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Log In",
+    "home": "Home",
+    "market": "Market",
+    "services": "Services",
+    "contactUs": "Contact",
+    "menu": "Menu"
   }
   

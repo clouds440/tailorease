@@ -178,23 +178,25 @@ function AccountSettings() {
   };
 
   const themeOptions = [
-    { value: "Default", label: t("default") },
-    { value: "Light", label: t("light") },
-    { value: "Azure", label: t("azure") },
+    { value: "default", label: t("default") },
+    { value: "light", label: t("light") },
+    { value: "azure", label: t("azure") },
   ];
   const languageOptions = [
-    { value: "English", label: t("english") },
-    { value: "Urdu", label: t("urdu") },
+    { value: "en", label: t("english") },
+    { value: "ur", label: t("urdu") },
   ];
-  const [selectedTheme, setSelectedTheme] = useState(t("default"));
-  const [selectedLanguage, setSelectedLanguage] = useState(t("english"));
+  const [selectedTheme, setSelectedTheme] = useState(theme.themeName);
+  const savedLanguage = JSON.parse(localStorage.getItem("lang")) || "en";
+  const [selectedLanguage, setSelectedLanguage] = useState(savedLanguage);
 
   const handleThemeChange = (e) => {
     const themeName = e.target.value;
     setSelectedTheme(themeName);
 
-    if (themeName === "Default") {
+    if (themeName === "default") {
       setTheme({
+        themeName: "default",
         mainTheme: "theme-default",
         colorText: "text-gray-100",
         colorBorder: "border-white",
@@ -202,8 +204,9 @@ function AccountSettings() {
         hoverText: "hover:text-blue-500",
         hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
       });
-    } else if (themeName === "Light") {
+    } else if (themeName === "light") {
       setTheme({
+        themeName: "light",
         mainTheme: "theme-light",
         colorText: "text-black",
         colorBorder: "border-black",
@@ -211,8 +214,9 @@ function AccountSettings() {
         hoverText: "hover:text-gray-600",
         hoverBg: "hover:bg-gray-300 hover:bg-opacity-70",
       });
-    } else if (themeName === "Azure") {
+    } else if (themeName === "azure") {
       setTheme({
+        themeName: "azure",
         mainTheme: "theme-azure",
         colorText: "text-sky-200",
         colorBorder: "border-sky-200",
@@ -226,12 +230,13 @@ function AccountSettings() {
   const handleLanguageChange = (e) => {
     const language = e.target.value;
     setSelectedLanguage(language);
-    i18n.changeLanguage(language === "English" ? "en" : "ur");
-    setDirection(language === "English" ? "ltr" : "rtl");
+    i18n.changeLanguage(language);
+    setDirection(language === "en" ? "ltr" : "rtl");
   };
 
   const handleSavePreferences = () => {
     localStorage.setItem("theme", JSON.stringify(theme));
+    localStorage.setItem("lang", JSON.stringify(selectedLanguage));
     setShowMessage({
       type: "success",
       message: t("changesSaved"),

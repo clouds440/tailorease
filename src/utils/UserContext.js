@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
     return savedTheme
       ? JSON.parse(savedTheme)
       : {
+          themeName: "default",
           mainTheme: "theme-default",
           colorText: "text-gray-100",
           colorBorder: "border-white",

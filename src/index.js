@@ -10,11 +10,11 @@ import "./utils/LanguageSwitcher";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DirectionProvider>
-      <UserProvider>
+    <UserProvider>
+      <DirectionProvider>
         <PopupMessage />
         <App />
-      </UserProvider>
-    </DirectionProvider>
+      </DirectionProvider>
+    </UserProvider>
   </React.StrictMode>
 );

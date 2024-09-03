@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { UserContext } from "../utils/UserContext";
+import { useTranslation } from "react-i18next";
 import {
   SettingsIcon,
   LogoutIcon,
@@ -11,19 +12,25 @@ import {
   CartIcon,
   ServicesIcon,
   ContactIcon,
-  SendIcon,
   LoginIcon,
 } from "../graphics/icons/svgIcons";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { userData, theme, userLoggedIn, setUserLoggedIn } =
-    useContext(UserContext);
+  const {
+    userData,
+    theme,
+    userLoggedIn,
+    setUserLoggedIn,
+    setShowmessage,
+    setPopUpMessageTrigger,
+  } = useContext(UserContext);
   const [userFullName, setUserFullName] = useState(userData.fullName);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = async () => {
     try {
@@ -33,7 +40,11 @@ const Navbar = () => {
       setUserLoggedIn(false);
       setDropdownOpen(false);
     } catch (error) {
-      console.error("Error logging out:", error);
+      setShowmessage({
+        type: "danger",
+        message: t("couldntLogout"),
+      });
+      setPopUpMessageTrigger("true");
     }
   };
 
@@ -60,16 +71,16 @@ const Navbar = () => {
   }, [userData]);
 
   const dropdownOptions = [
+    // {
+    //   text: "Option 3",
+    //   icon: <SendIcon size={"5"} color={`${theme.iconColor}`} />,
+    //   onClick: () => {
+    //     navigate("/settings");
+    //     setDropdownOpen(false);
+    //   },
+    // },
     {
-      text: "Option 3",
-      icon: <SendIcon size={"5"} color={`${theme.iconColor}`} />,
-      onClick: () => {
-        navigate("/settings");
-        setDropdownOpen(false);
-      },
-    },
-    {
-      text: "Settings",
+      text: t("settings"),
       icon: <SettingsIcon size={"5"} color={`${theme.iconColor}`} />,
       onClick: () => {
         navigate("/settings");
@@ -77,7 +88,7 @@ const Navbar = () => {
       },
     },
     {
-      text: "Logout",
+      text: t("logout"),
       icon: <LogoutIcon size={"5"} color={`${theme.iconColor}`} />,
       onClick: handleLogout,
     },
@@ -104,7 +115,7 @@ const Navbar = () => {
             <div className="flex items-center justify-center">
               <SimpleButton
                 onClick={() => navigate("/login")}
-                btnText={"Log In"}
+                btnText={t("login")}
                 type={"simple"}
                 extraclasses="w-full mx-2"
                 icon={<LoginIcon size={"6"} />}
@@ -116,25 +127,25 @@ const Navbar = () => {
               <li className={linkStyles}>
                 <HomeIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
-                  Home
+                  {t("home")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <CartIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
-                  Market
+                  {t("market")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
-                  Services
+                  {t("services")}
                 </span>
               </li>
               <li className={linkStyles}>
                 <ContactIcon size={"5"} color={`${theme.iconColor}`} />
                 <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
-                  Contact
+                  {t("contactUs")}
                 </span>
               </li>
             </ul>
@@ -176,7 +187,7 @@ const Navbar = () => {
               <span className="flex items-center select-none">
                 <MenuIcon size={"5"} color={"text-yellow-600"} />
                 <span className={"hidden md:inline-block ml-2 rtl:mr-2"}>
-                  Menu
+                  {t("menu")}
                 </span>
               </span>
             </div>
