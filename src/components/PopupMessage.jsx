@@ -69,35 +69,41 @@ function PopupMessage() {
 
   return (
     <AnimatePresence>
-      <motion.div
-        className={`flex w-auto fixed top-5 ltr:right-1 rtl:left-1 px-5 py-1 rounded-lg z-50 ${fontFamily}`}
-        initial={{ x: direction === "rtl" ? "-100%" : "100%" }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div
-          className={`${bgColor} py-3 px-4 ltr:rounded-l-lg rtl:rounded-r-lg flex items-center`}
+      {visible && (
+        <motion.div
+          className={`flex w-auto fixed top-5 ltr:right-1 rtl:left-1 px-5 py-1 rounded-lg z-50 ${fontFamily}`}
+          initial={{ x: direction === "rtl" ? "-100%" : "100%" }}
+          animate={{ x: 0 }}
+          exit={{ x: direction === "rtl" ? "-100%" : "100%" }}
+          transition={{ duration: 0.3 }}
         >
-          {icon}
-        </div>
-        <div className="px-4 py-3 bg-white text-black font-medium bg-opacity-85 ltr:rounded-r-lg rtl:rounded-l-lg flex justify-between items-center w-full select-none">
-          <div>{showMessage.message}</div>
-          <button onClick={handleClose} className="ltr:ml-3 rtl:mr-3 py-1 px-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="fill-current "
-              viewBox="0 0 16 16"
-              width="20"
-              height="20"
+          <div
+            className={`${bgColor} py-3 px-4 ltr:rounded-l-lg rtl:rounded-r-lg flex items-center`}
+          >
+            {icon}
+          </div>
+          <div className="px-4 py-3 bg-white text-black font-medium bg-opacity-85 ltr:rounded-r-lg rtl:rounded-l-lg flex justify-between items-center w-full select-none">
+            <div>{showMessage.message}</div>
+            <button
+              onClick={handleClose}
+              className="ltr:ml-3 rtl:mr-3 py-1 px-1"
             >
-              <path
-                fillRule="evenodd"
-                d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </motion.div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="fill-current "
+                viewBox="0 0 16 16"
+                width="20"
+                height="20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }
