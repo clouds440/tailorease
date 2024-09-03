@@ -17,6 +17,7 @@ import EditFieldModal from "./EditFieldModal";
 import ChangePasswordModal from "./ChangePasswordModal";
 import Optionselector from "./OptionSelector";
 import UserContext from "../utils/UserContext";
+import { DirectionContext } from "../utils/LayoutDirectionContext";
 import {
   AdjustmentsIcon,
   EditIcon,
@@ -37,6 +38,7 @@ function AccountSettings() {
     setPopUpMessageTrigger,
   } = useContext(UserContext);
 
+  const { margins, setDirection } = useContext(DirectionContext);
   const [modalInfo, setModalInfo] = useState({
     isOpen: false,
     field: "",
@@ -175,13 +177,18 @@ function AccountSettings() {
     { value: "Light", label: "Light" },
     { value: "Azure", label: "Azure" },
   ];
+  const languageOptions = [
+    { value: "English", label: "English" },
+    { value: "Urdu", label: "Urdu" },
+  ];
   const [selectedTheme, setSelectedTheme] = useState("Default");
+  const [selectedLanguage, setSelectedLanguage] = useState("English");
 
   const handleThemeChange = (e) => {
-    const theme = e.target.value;
-    setSelectedTheme(theme);
+    const themeName = e.target.value;
+    setSelectedTheme(themeName);
 
-    if (theme === "Default") {
+    if (themeName === "Default") {
       setTheme({
         mainTheme: "theme-default",
         colorText: "text-gray-100",
@@ -190,7 +197,7 @@ function AccountSettings() {
         hoverText: "hover:text-blue-500",
         hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
       });
-    } else if (theme === "Light") {
+    } else if (themeName === "Light") {
       setTheme({
         mainTheme: "theme-light",
         colorText: "text-black",
@@ -199,7 +206,7 @@ function AccountSettings() {
         hoverText: "hover:text-gray-600",
         hoverBg: "hover:bg-gray-300 hover:bg-opacity-70",
       });
-    } else if (theme === "Azure") {
+    } else if (themeName === "Azure") {
       setTheme({
         mainTheme: "theme-azure",
         colorText: "text-sky-200",
@@ -209,6 +216,12 @@ function AccountSettings() {
         hoverBg: "hover:bg-amber-300 hover:bg-opacity-50",
       });
     }
+  };
+
+  const handleLanguageChange = (e) => {
+    const language = e.target.value;
+    setSelectedLanguage(language);
+    setDirection(language === "English" ? "ltr" : "rtl");
   };
 
   const handleSavePreferences = () => {
@@ -233,12 +246,15 @@ function AccountSettings() {
         className={`flex text-2xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
       >
         Account Settings
-        <SettingsIcon color={`${theme.iconColor}`} extraClasses={"ml-3 mt-1"} />
+        <SettingsIcon
+          color={`${theme.iconColor}`}
+          extraClasses={`${margins}3 mt-1`}
+        />
       </h2>
       <div className="space-y-4">
         <h2 className="flex text-xl font-semibold  mb-6">
           Personal Details
-          <UserIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+          <UserIcon color={`${theme.iconColor}`} extraClasses={`${margins}3`} />
         </h2>
         <div className="flex justify-between items-center">
           <span>Full Name</span>
@@ -247,12 +263,17 @@ function AccountSettings() {
             onClick={() => handleFieldClick("fullName")}
           >
             {userData.fullName}
-            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+            <EditIcon
+              color={`${theme.iconColor}`}
+              extraClasses={`${margins}3`}
+            />
           </span>
         </div>
         <div className="flex justify-between items-center">
           <span>Email</span>
-          <span className=" cursor-default mr-9">{userData.email}</span>
+          <span className={`cursor-default`}>
+            {userData.email}
+          </span>
         </div>
         <div className="flex justify-between items-center">
           <span>Phone</span>
@@ -267,7 +288,10 @@ function AccountSettings() {
                 Click to add phone
               </span>
             )}
-            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+            <EditIcon
+              color={`${theme.iconColor}`}
+              extraClasses={`${margins}3`}
+            />
           </span>
         </div>
         <div className="flex justify-between items-center">
@@ -277,7 +301,10 @@ function AccountSettings() {
             onClick={() => handleFieldClick("password")}
           >
             ●●●●●●●●
-            <EditIcon color={`${theme.iconColor}`} extraClasses={"ml-3"} />
+            <EditIcon
+              color={`${theme.iconColor}`}
+              extraClasses={`${margins}3`}
+            />
           </span>
         </div>
         <div className="space-y-4">
@@ -285,7 +312,7 @@ function AccountSettings() {
             Preferences
             <AdjustmentsIcon
               color={`${theme.iconColor}`}
-              extraClasses={"ml-3 mt-1"}
+              extraClasses={`${margins}3 mt-1`}
             />
           </h2>
           <div className="flex justify-between items-center">
@@ -294,6 +321,15 @@ function AccountSettings() {
               options={themeOptions}
               value={selectedTheme}
               onChange={handleThemeChange}
+              theme={theme}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <label htmlFor="select-options">Language</label>
+            <Optionselector
+              options={languageOptions}
+              value={selectedLanguage}
+              onChange={handleLanguageChange}
               theme={theme}
             />
           </div>
