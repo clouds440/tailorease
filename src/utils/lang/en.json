@@ -17,7 +17,7 @@
     "personalDetails": "Personal Details",
     "fullName": "Full Name",
     "email": "Email",
-    "phone": "Phone",
+    "phone": "Phone Number",
     "clickToAddPhone": "Click to add phone",
     "password": "Password",
     "preferences": "Preferences",
@@ -34,6 +34,20 @@
     "market": "Market",
     "services": "Services",
     "contactUs": "Contact",
-    "menu": "Menu"
+    "menu": "Menu",
+
+    "newPasswordsDoNotMatch": "New passwords do not match",
+    "newPasswordCannotBeSameAsOld": "New password cannot be the same as the old password",
+    "newPasswordMinLength": "New password must be at least 6 characters",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "cancel": "Cancel",
+
+    "enterFullName": "Please enter your full name",
+    "nameMinLength": "Name must be at least 3 characters",
+    "phoneNumberDigitsOnly": "Phone number must contain only digits",
+    "changeField": "Change {{field}}"
   }
   

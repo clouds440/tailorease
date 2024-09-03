@@ -3,6 +3,7 @@ import SimpleButton from "./SimpleButton";
 import LoadingSpinner from "./LoadingSpinner";
 import { EditIcon } from "../graphics/icons/svgIcons";
 import UserContext from "../utils/UserContext";
+import { useTranslation } from "react-i18next";
 
 function ChangePasswordModal({ onClose, onSave, isLoading }) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -10,6 +11,7 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { theme, setShowMessage, setPopUpMessageTrigger } =
     useContext(UserContext);
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -41,11 +43,11 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
     let errorMessage = "";
 
     if (newPassword !== confirmPassword) {
-      errorMessage = "New passwords do not match";
+      errorMessage = t("newPasswordsDoNotMatch");
     } else if (newPassword === currentPassword) {
-      errorMessage = "New password cannot be the same as the old password";
+      errorMessage = t("newPasswordCannotBeSameAsOld");
     } else if (newPassword.length < 6) {
-      errorMessage = "New password must be at least 6 characters";
+      errorMessage = t("newPasswordMinLength");
     }
 
     if (errorMessage) {
@@ -83,7 +85,7 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
         className={`${theme.mainTheme} p-6 rounded-lg w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
-          Change Password
+          {t("changePassword")}
           <EditIcon
             size={"6"}
             color={`${theme.iconColor}`}
@@ -101,7 +103,9 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
               placeholder=" "
               required
             />
-            <label className={`${placeHolderStyles}`}>Current Password</label>
+            <label className={`${placeHolderStyles}`}>
+              {t("currentPassword")}
+            </label>
           </div>
           <div className="relative mb-4">
             <input
@@ -113,7 +117,7 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
               placeholder=" "
               required
             />
-            <label className={`${placeHolderStyles}`}>New Password</label>
+            <label className={`${placeHolderStyles}`}>{t("newPassword")}</label>
           </div>
           <div className="relative mb-4">
             <input
@@ -125,17 +129,19 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
               placeholder=" "
               required
             />
-            <label className={`${placeHolderStyles}`}>Confirm Password</label>
+            <label className={`${placeHolderStyles}`}>
+              {t("confirmPassword")}
+            </label>
           </div>
           <div className="flex justify-end space-x-2 rtl:space-x-reverse">
             <SimpleButton
-              btnText={"Cancel"}
+              btnText={t("cancel")}
               onClick={onClose}
               type={"cancel"}
             />
             <SimpleButton
               btnText={
-                isLoading ? <LoadingSpinner size={24} /> : `Change Password`
+                isLoading ? <LoadingSpinner size={24} /> : t("changePassword")
               }
               type={"primary-submit"}
               extraclasses={"w-full"}

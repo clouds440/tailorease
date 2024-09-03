@@ -3,6 +3,7 @@ import SimpleButton from "./SimpleButton";
 import { EditIcon } from "../graphics/icons/svgIcons";
 import LoadingSpinner from "./LoadingSpinner";
 import UserContext from "../utils/UserContext";
+import { t } from "i18next";
 
 function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
   const [inputValue, setInputValue] = useState(value);
@@ -10,8 +11,8 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
     useContext(UserContext);
 
   const fieldLabels = {
-    fullName: "Full Name",
-    phone: "Phone Number",
+    fullName: t("fullName"),
+    phone: t("phone"),
   };
 
   const handleChange = (e) => {
@@ -25,14 +26,24 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
       if (!inputValue.trim()) {
         setShowMessage({
           type: "info",
-          message: "Please enter your full name",
+          message: t("enterFullName"),
         });
         setPopUpMessageTrigger("true");
         return;
       } else if (inputValue.length < 3) {
         setShowMessage({
           type: "info",
-          message: "Name must be at least 3 characters",
+          message: t("nameMinLength"),
+        });
+        setPopUpMessageTrigger("true");
+        return;
+      }
+    }
+    if (field === "phone") {
+      if (!/^\d*$/.test(inputValue)) {
+        setShowMessage({
+          type: "warning",
+          message: t("phoneNumberDigitsOnly"),
         });
         setPopUpMessageTrigger("true");
         return;
@@ -67,7 +78,7 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
         className={`${theme.mainTheme} rounded-lg p-6 w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
-          Change {fieldLabels[field]}
+          {t("changeField", { field: fieldLabels[field] })}
           <EditIcon
             size={"6"}
             color={`${theme.iconColor}`}
@@ -90,12 +101,14 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
           </div>
           <div className="flex justify-center space-x-2 rtl:space-x-reverse">
             <SimpleButton
-              btnText={"Cancel"}
+              btnText={t("cancel")}
               type={"cancel"}
               onClick={onClose}
             />
             <SimpleButton
-              btnText={isLoading ? <LoadingSpinner size={24} /> : `Save`}
+              btnText={
+                isLoading ? <LoadingSpinner size={24} /> : t("saveChanges")
+              }
               type={"primary-submit"}
               extraclasses={"w-full"}
             />
