@@ -92,7 +92,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`flex-shrink-0 fixed top-0 h-screen w-16 sm:w-20 md:w-36 rounded-r-md overflow-hidden ${theme.mainTheme} ${position}`}
+      className={`flex-shrink-0 fixed top-0 h-screen w-16 sm:w-20 md:w-36 rounded-md overflow-hidden ${theme.mainTheme} ${position}`}
     >
       <div className="flex flex-col justify-between h-full">
         <div>
