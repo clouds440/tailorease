@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import UserContext from "../utils/UserContext";
+import { DirectionContext } from "../utils/LayoutDirectionContext";
 
 function PopupMessage() {
   const { showMessage, popUpMessageTrigger, resetPopUpMessageTrigger } =
     useContext(UserContext);
   const [visible, setVisible] = useState(false);
+  const { direction } = useContext(DirectionContext);
+  const fontFamily = direction === "ltr" ? "font-sans" : "font-urdu";
 
   useEffect(() => {
     if (popUpMessageTrigger) {
@@ -66,7 +69,8 @@ function PopupMessage() {
 
   return (
     <motion.div
-      className={`flex w-auto fixed top-5 right-1 px-5 py-1 rounded-lg z-50`}
+      dir="ltr"
+      className={`flex w-auto fixed top-5 right-1 px-5 py-1 rounded-lg z-50 ${fontFamily}`}
       initial={{ x: "100%" }}
       animate={{ x: 0 }}
       transition={{ duration: 0.3 }}

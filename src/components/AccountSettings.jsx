@@ -26,8 +26,11 @@ import {
 } from "../graphics/icons/svgIcons";
 import SimpleButton from "./SimpleButton";
 import { Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 function AccountSettings() {
+  const { t } = useTranslation();
   const {
     userData,
     theme,
@@ -38,7 +41,7 @@ function AccountSettings() {
     setPopUpMessageTrigger,
   } = useContext(UserContext);
 
-  const { margins, setDirection } = useContext(DirectionContext);
+  const { setDirection } = useContext(DirectionContext);
   const [modalInfo, setModalInfo] = useState({
     isOpen: false,
     field: "",
@@ -47,6 +50,11 @@ function AccountSettings() {
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const fieldLabels = {
+    fullName: t("fullName"),
+    phone: t("phone"),
+  };
 
   const handleFieldClick = (field) => {
     if (field === "password") {
@@ -75,7 +83,7 @@ function AccountSettings() {
         if (!/^\d*$/.test(newValue)) {
           setShowMessage({
             type: "warning",
-            message: "Phone number must contain only digits",
+            message: t("phoneNumberDigitsError"),
           });
           setPopUpMessageTrigger("true");
           return;
@@ -118,15 +126,13 @@ function AccountSettings() {
 
       setShowMessage({
         type: "success",
-        message: `${
-          field.charAt(0).toUpperCase() + field.slice(1)
-        } updated successfully!`,
+        message: `${fieldLabels[field]} ` + t("updateSuccess"),
       });
       setPopUpMessageTrigger("true");
     } catch (error) {
       setShowMessage({
         type: "danger",
-        message: `Failed to update ${field}. ${error.message}`,
+        message: t("updateFail") + ` ${fieldLabels[field]}. ${error.message}`,
       });
       setPopUpMessageTrigger("true");
     } finally {
@@ -150,20 +156,19 @@ function AccountSettings() {
       await updatePassword(user, data.newPassword);
       setShowMessage({
         type: "success",
-        message: "Password saved!",
+        message: t("passwordSaved"),
       });
       setPopUpMessageTrigger("true");
 
       setIsPasswordModalOpen(false); // Close the modal
     } catch (error) {
-      let errorMessage = `An error occurred: ${error.message}`;
+      let errorMessage = t("errorOccurred") + ` ${error.message}`;
       if (error.code === "auth/invalid-credential") {
-        errorMessage = "Invalid current password";
+        errorMessage = t("invalidCurrentPassword");
       } else if (error.code === "auth/missing-password") {
-        errorMessage = "Please enter a password";
+        errorMessage = t("enterPassword");
       } else if (error.code === "auth/too-many-requests") {
-        errorMessage =
-          "Too many failed attempts. Please contant customer support";
+        errorMessage = t("tooManyFailedAttempts");
       }
       setShowMessage({ type: "danger", message: errorMessage });
       setPopUpMessageTrigger("true");
@@ -173,16 +178,16 @@ function AccountSettings() {
   };
 
   const themeOptions = [
-    { value: "Default", label: "Default" },
-    { value: "Light", label: "Light" },
-    { value: "Azure", label: "Azure" },
+    { value: "Default", label: t("default") },
+    { value: "Light", label: t("light") },
+    { value: "Azure", label: t("azure") },
   ];
   const languageOptions = [
-    { value: "English", label: "English" },
-    { value: "Urdu", label: "Urdu" },
+    { value: "English", label: t("english") },
+    { value: "Urdu", label: t("urdu") },
   ];
-  const [selectedTheme, setSelectedTheme] = useState("Default");
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const [selectedTheme, setSelectedTheme] = useState(t("default"));
+  const [selectedLanguage, setSelectedLanguage] = useState(t("english"));
 
   const handleThemeChange = (e) => {
     const themeName = e.target.value;
@@ -221,6 +226,7 @@ function AccountSettings() {
   const handleLanguageChange = (e) => {
     const language = e.target.value;
     setSelectedLanguage(language);
+    i18n.changeLanguage(language === "English" ? "en" : "ur");
     setDirection(language === "English" ? "ltr" : "rtl");
   };
 
@@ -228,7 +234,7 @@ function AccountSettings() {
     localStorage.setItem("theme", JSON.stringify(theme));
     setShowMessage({
       type: "success",
-      message: "Changes saved!",
+      message: t("changesSaved"),
     });
     setPopUpMessageTrigger("true");
     // Code to save the changes to the account here
@@ -243,21 +249,24 @@ function AccountSettings() {
       className={`mt-8 max-w-2xl w-80 sm:w-96 lg:w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
     >
       <h2
-        className={`flex text-2xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
+        className={`flex text-2xl rtl:text-xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}
       >
-        Account Settings
+        {t("accountSettings")}
         <SettingsIcon
           color={`${theme.iconColor}`}
-          extraClasses={`${margins}3 mt-1`}
+          extraClasses={"ml-3 rtl:mr-3 mt-1"}
         />
       </h2>
       <div className="space-y-4">
-        <h2 className="flex text-xl font-semibold  mb-6">
-          Personal Details
-          <UserIcon color={`${theme.iconColor}`} extraClasses={`${margins}3`} />
+        <h2 className="flex text-xl rtl:text-lg font-semibold  mb-6">
+          {t("personalDetails")}
+          <UserIcon
+            color={`${theme.iconColor}`}
+            extraClasses={"ml-3 rtl:mr-3 mt-1"}
+          />
         </h2>
         <div className="flex justify-between items-center">
-          <span>Full Name</span>
+          <span>{t("fullName")}</span>
           <span
             className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("fullName")}
@@ -265,18 +274,16 @@ function AccountSettings() {
             {userData.fullName}
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={`${margins}3`}
+              extraClasses={"ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span>Email</span>
-          <span className={`cursor-default`}>
-            {userData.email}
-          </span>
+          <span>{t("email")}</span>
+          <span className={`cursor-default`}>{userData.email}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span>Phone</span>
+          <span>{t("phone")}</span>
           <span
             className={`flex  cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("phone")}
@@ -285,17 +292,17 @@ function AccountSettings() {
               userData.phone
             ) : (
               <span className={`italic ${theme.colorText} ${theme.hoverText}`}>
-                Click to add phone
+                {t("clickToAddPhone")}
               </span>
             )}
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={`${margins}3`}
+              extraClasses={"ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span>Password</span>
+          <span>{t("password")}</span>
           <span
             className={`flex cursor-pointer ${theme.hoverText}`}
             onClick={() => handleFieldClick("password")}
@@ -303,20 +310,20 @@ function AccountSettings() {
             ●●●●●●●●
             <EditIcon
               color={`${theme.iconColor}`}
-              extraClasses={`${margins}3`}
+              extraClasses={"ml-3 rtl:mr-3 mt-1"}
             />
           </span>
         </div>
         <div className="space-y-4">
-          <h2 className={`flex text-2xl font-semibold mb-6 pt-6`}>
-            Preferences
+          <h2 className={`flex text-xl rtl:text-lg font-semibold mb-6 pt-6`}>
+            {t("preferences")}
             <AdjustmentsIcon
               color={`${theme.iconColor}`}
-              extraClasses={`${margins}3 mt-1`}
+              extraClasses={"ml-3 rtl:mr-3 mt-1"}
             />
           </h2>
           <div className="flex justify-between items-center">
-            <label htmlFor="select-options">Theme</label>
+            <label htmlFor="select-options">{t("theme")}</label>
             <Optionselector
               options={themeOptions}
               value={selectedTheme}
@@ -325,7 +332,7 @@ function AccountSettings() {
             />
           </div>
           <div className="flex justify-between items-center">
-            <label htmlFor="select-options">Language</label>
+            <label htmlFor="select-options">{t("language")}</label>
             <Optionselector
               options={languageOptions}
               value={selectedLanguage}
@@ -336,7 +343,7 @@ function AccountSettings() {
           <div className="flex justify-end items-center">
             <SimpleButton
               onClick={handleSavePreferences}
-              btnText={"Save Changes"}
+              btnText={t("saveChanges")}
               type={"primary"}
               extraclasses={"w-full"}
             />

@@ -87,7 +87,7 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
           <EditIcon
             size={"6"}
             color={`${theme.iconColor}`}
-            extraClasses={"ml-3"}
+            extraClasses={"ml-3 rtl:mr-3"}
           />
         </h2>
         <form onSubmit={handleSubmit}>
@@ -127,7 +127,7 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
             />
             <label className={`${placeHolderStyles}`}>Confirm Password</label>
           </div>
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end space-x-2 rtl:space-x-reverse">
             <SimpleButton
               btnText={"Cancel"}
               onClick={onClose}

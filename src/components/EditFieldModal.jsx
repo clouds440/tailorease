@@ -71,7 +71,7 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
           <EditIcon
             size={"6"}
             color={`${theme.iconColor}`}
-            extraClasses={"ml-3"}
+            extraClasses={"ml-3 rtl:mr-3"}
           />
         </h2>
         <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ function EditFieldModal({ field, value, onClose, onSave, isLoading }) {
               {fieldLabels[field]}
             </label>
           </div>
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-center space-x-2 rtl:space-x-reverse">
             <SimpleButton
               btnText={"Cancel"}
               type={"cancel"}

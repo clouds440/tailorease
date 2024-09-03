@@ -13,11 +13,12 @@ function App() {
   const { direction } = useContext(DirectionContext);
   const margins =
     direction === "ltr" ? "ml-16 sm:ml-20 md:ml-36" : "mr-16 sm:mr-20 md:mr-36";
+  const fontFamily = direction === "ltr" ? "font-sans" : "font-urdu";
 
   return (
     <Router>
       <div
-        className="fixed inset-0 h-screen w-screen bg-cover bg-center z-[-1]"
+        className={`fixed inset-0 h-screen w-screen bg-cover bg-center z-[-1] ${fontFamily}`}
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}

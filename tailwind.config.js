@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Moderustic", "sans-serif"],
+        urdu: ['Noto Nastaliq Urdu', 'serif'],
       },
     },
   },
