@@ -26,11 +26,10 @@ import {
 } from "../graphics/icons/svgIcons";
 import SimpleButton from "./SimpleButton";
 import { Navigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 import i18n from "i18next";
 
 function AccountSettings() {
-  const { t } = useTranslation();
   const {
     userData,
     theme,
@@ -183,8 +182,8 @@ function AccountSettings() {
     { value: "azure", label: t("azure") },
   ];
   const languageOptions = [
-    { value: "en", label: t("english") },
-    { value: "ur", label: t("urdu") },
+    { value: "en", label: "English" },
+    { value: "ur", label: "اردو" },
   ];
   const [selectedTheme, setSelectedTheme] = useState(theme.themeName);
   const savedLanguage = JSON.parse(localStorage.getItem("lang")) || "en";

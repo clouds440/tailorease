@@ -3,7 +3,7 @@ import SimpleButton from "./SimpleButton";
 import LoadingSpinner from "./LoadingSpinner";
 import { EditIcon } from "../graphics/icons/svgIcons";
 import UserContext from "../utils/UserContext";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 function ChangePasswordModal({ onClose, onSave, isLoading }) {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -11,7 +11,6 @@ function ChangePasswordModal({ onClose, onSave, isLoading }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { theme, setShowMessage, setPopUpMessageTrigger } =
     useContext(UserContext);
-  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     currentPassword: "",

@@ -5,7 +5,7 @@
     "passwordSaved": "Password saved!",
     "errorOccurred": "An error occurred:",
     "invalidCurrentPassword": "Invalid current password",
-    "enterPassword": "Please enter a password",
+    "enterPassword": "Please provide a password",
     "tooManyFailedAttempts": "Too many failed attempts. Please try again later!",
     "default": "Default",
     "light": "Light",
@@ -38,7 +38,7 @@
 
     "newPasswordsDoNotMatch": "New passwords do not match",
     "newPasswordCannotBeSameAsOld": "New password cannot be the same as the old password",
-    "newPasswordMinLength": "New password must be at least 6 characters",
+    "newPasswordMinLength": "Password must be at least 6 characters",
     "changePassword": "Change Password",
     "currentPassword": "Current Password",
     "newPassword": "New Password",
@@ -48,6 +48,23 @@
     "enterFullName": "Please enter your full name",
     "nameMinLength": "Name must be at least 3 characters",
     "phoneNumberDigitsOnly": "Phone number must contain only digits",
-    "changeField": "Change {{field}}"
+    "changeField": "Change {{field}}",
+
+    "provideValidEmail": "Please provide a valid email address",
+    "registrationSuccessful": "Registration successful",
+    "emailInUse": "This email is already in use",
+    "createAccount": "Create Account",
+    "optional": "(optional)",
+    "signUp": "Sign Up",
+    "toExistingAccount": "to your existing account",
+
+    "invalidCredentials": "Invalid credentials",
+    "accountBlocked": "Account blocked! Please contact support",
+    "validEmailReset": "If you've provided a valid email, you'll receive a password reset email",
+    "errorResetEmail": "Error sending password reset email. Please try again",
+    "forgotPassword": "Forgot password?",
+    "sendResetEmail": "Send a reset email",
+    "needCreateAccount": "Need to create an ",
+    "account": "account?"
   }
   

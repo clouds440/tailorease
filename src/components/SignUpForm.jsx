@@ -10,6 +10,7 @@ import {
   collection,
   addDoc,
 } from "../firebaseConfig";
+import { t } from "i18next";
 
 const SignUpForm = () => {
   const {
@@ -41,14 +42,14 @@ const SignUpForm = () => {
     if (!formData.fullName.trim()) {
       setShowMessage({
         type: "info",
-        message: "Please enter your full name",
+        message: t("enterFullName"),
       });
       setPopUpMessageTrigger("true");
       return;
     } else if (formData.fullName.length < 3) {
       setShowMessage({
         type: "info",
-        message: "Name must be at least 3 characters",
+        message: t("nameMinLength"),
       });
       setPopUpMessageTrigger("true");
       return;
@@ -57,7 +58,7 @@ const SignUpForm = () => {
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       setShowMessage({
         type: "warning",
-        message: "Please enter a valid email address.",
+        message: t("provideValidEmail"),
       });
       setPopUpMessageTrigger(true);
       return;
@@ -66,7 +67,7 @@ const SignUpForm = () => {
     if (!/^\d*$/.test(formData.phone)) {
       setShowMessage({
         type: "warning",
-        message: "Phone number must contain only digits",
+        message: t("phoneNumberDigitsOnly"),
       });
       setPopUpMessageTrigger("true");
       return;
@@ -89,26 +90,26 @@ const SignUpForm = () => {
       });
       setShowMessage({
         type: "success",
-        message: "Registration Successful",
+        message: t("registrationSuccessful"),
       });
       setPopUpMessageTrigger("true");
       setUserLoggedIn(true);
       setUserData(formData);
       navigate("/");
     } catch (error) {
-      let errorMessage = `An error occurred: ${error.message}`;
+      let errorMessage = t("errorOccurred") + ` ${error.message}`;
       let errorType = "danger";
       if (error.code === "auth/email-already-in-use") {
-        errorMessage = "This email is already in use";
+        errorMessage = t("emailInUse");
         errorType = "warning";
       } else if (error.code === "auth/weak-password") {
-        errorMessage = "Password must be at least 6 characters";
+        errorMessage = t("newPasswordMinLength");
         errorType = "warning";
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Please enter an email";
+        errorMessage = t("provideValidEmail");
         errorType = "info";
       } else if (error.code === "auth/missing-password") {
-        errorMessage = "Please enter a password";
+        errorMessage = t("enterPassword");
         errorType = "info";
       }
       setShowMessage({ type: errorType, message: errorMessage });
@@ -132,7 +133,7 @@ const SignUpForm = () => {
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
-          Create Account
+          {t("createAccount")}
         </h2>
         <form onSubmit={handleSubmit} noValidate>
           <div className="relative mb-4">
@@ -146,7 +147,7 @@ const SignUpForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="fullName">
-              Full Name
+              {t("fullName")}
             </label>
           </div>
           <div className="relative mb-4">
@@ -160,7 +161,7 @@ const SignUpForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="email">
-              Email
+              {t("email")}
             </label>
           </div>
           <div className="relative mb-4">
@@ -174,7 +175,7 @@ const SignUpForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="password">
-              Password
+              {t("password")}
             </label>
           </div>
           <div className="relative mb-4">
@@ -188,19 +189,21 @@ const SignUpForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="phone">
-              Phone <span className="text-xs">(optional)</span>
+              {t("phone")} <span className="text-xs">{t("optional")}</span>
             </label>
           </div>
           <SimpleButton
-            btnText={isLoading ? <LoadingSpinner size={24} /> : `Sign Up`}
+            btnText={isLoading ? <LoadingSpinner size={24} /> : t("signUp")}
             type={"primary-submit"}
             extraclasses={"w-full"}
           />
           <div className="items-center justify-center flex flex-row mt-8">
             <Link to={"/login"}>
-              <span className="text-blue-800 hover:text-blue-600">Login</span>
+              <span className="text-blue-800 hover:text-blue-600">
+                {t("login")}
+              </span>
             </Link>
-            <span>&nbsp; to your existing account</span>
+            <span>&nbsp; {t("toExistingAccount")}</span>
           </div>
         </form>
       </div>

@@ -14,6 +14,7 @@ import SimpleButton from "./SimpleButton";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { UserContext } from "../utils/UserContext";
 import { BarLoader } from "react-spinners";
+import { t } from "i18next";
 
 const LoginForm = () => {
   const {
@@ -40,7 +41,7 @@ const LoginForm = () => {
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       setShowMessage({
         type: "warning",
-        message: "Please enter a valid email address.",
+        message: t("provideValidEmail"),
       });
       setPopUpMessageTrigger(true);
       return;
@@ -69,20 +70,20 @@ const LoginForm = () => {
         navigate("/");
       }
     } catch (error) {
-      let errorMessage = `An error occurred: ${error.message}`;
+      let errorMessage = t("errorOccurred") + ` ${error.message}`;
       let errorType = "danger";
       if (error.code === "auth/invalid-credential") {
-        errorMessage = "Invalid credentials";
+        errorMessage = t("invalidCredentials");
       } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Please enter an email";
+        errorMessage = t("provideValidEmail");
         errorType = "info";
       } else if (error.code === "auth/missing-password") {
-        errorMessage = "Please enter a password";
+        errorMessage = t("enterPassword");
         errorType = "info";
       } else if (error.code === "auth/user-disabled") {
-        errorMessage = "Account blocked! Please contact support";
+        errorMessage = t("accountBlocked");
       } else if (error.code === "auth/too-many-requests") {
-        errorMessage = "Too many failed attempts. Please try again later";
+        errorMessage = t("tooManyFailedAttempts");
       }
       setShowMessage({ type: errorType, message: errorMessage });
       setPopUpMessageTrigger("true");
@@ -95,7 +96,7 @@ const LoginForm = () => {
     if (!formData.email || !/^\S+@\S+\.\S+$/.test(formData.email)) {
       setShowMessage({
         type: "warning",
-        message: "Please enter a valid email address.",
+        message: t("provideValidEmail"),
       });
       setPopUpMessageTrigger(true);
       return;
@@ -106,14 +107,13 @@ const LoginForm = () => {
       await sendPasswordResetEmail(auth, formData.email);
       setShowMessage({
         type: "success",
-        message:
-          "If you've provided a valid email, you'll receive a password reset email.",
+        message: t("validEmailReset"),
       });
       setPopUpMessageTrigger(true);
     } catch (error) {
       setShowMessage({
         type: "danger",
-        message: "Error sending password reset email. Please try again.",
+        message: t("errorResetEmail"),
       });
       setPopUpMessageTrigger(true);
     } finally {
@@ -135,7 +135,7 @@ const LoginForm = () => {
         className={`p-6 rounded-lg ${theme.mainTheme} w-full max-w-md relative`}
       >
         <h2 className={`flex text-xl text-${theme.themeColor} font-bold mb-4`}>
-          Log In
+          {t("login")}
         </h2>
         <form onSubmit={handleSubmit} noValidate>
           <div className="relative mb-4">
@@ -149,7 +149,7 @@ const LoginForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="email">
-              Email
+              {t("email")}
             </label>
           </div>
           <div className="relative mb-4">
@@ -163,16 +163,16 @@ const LoginForm = () => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="password">
-              Password
+              {t("password")}
             </label>
           </div>
           <SimpleButton
-            btnText={isLoading ? <LoadingSpinner size={24} /> : `Log In`}
+            btnText={isLoading ? <LoadingSpinner size={24} /> : t("login")}
             type={"primary-submit"}
             extraclasses={"w-full"}
           />
           <div className="items-center justify-center flex flex-row mt-8">
-            <span>Forgot password? &nbsp;</span>
+            <span>{t("forgotPassword")} &nbsp;</span>
             {isResetLoading ? (
               <BarLoader color="#0000ff" width={137} />
             ) : (
@@ -180,15 +180,15 @@ const LoginForm = () => {
                 className="text-blue-800 hover:text-blue-600 cursor-pointer"
                 onClick={handlePasswordReset}
               >
-                Send a reset email
+                {t("sendResetEmail")}
               </span>
             )}
           </div>
           <div className="items-center justify-center flex flex-row mt-8">
-            <span>Need to create an &nbsp;</span>
+            <span>{t("needCreateAccount")}&nbsp;</span>
             <Link to={"/signup"}>
               <span className="text-blue-800 hover:text-blue-600">
-                account?
+                {t("account")}
               </span>
             </Link>
           </div>

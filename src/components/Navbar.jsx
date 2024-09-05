@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { UserContext } from "../utils/UserContext";
-import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 import {
   SettingsIcon,
   LogoutIcon,
@@ -30,7 +30,6 @@ const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleLogout = async () => {
     try {

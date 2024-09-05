@@ -48,5 +48,22 @@
     "enterFullName": "براہ کرم اپنا پورا نام درج کریں",
     "nameMinLength": "نام کم از کم 3 حروف کا ہونا چاہیے",
     "phoneNumberDigitsOnly": "فون نمبر میں صرف ہندسے ہونے چاہئیں",
-    "changeField": "{{field}} تبدیل کریں"
+    "changeField": "{{field}} تبدیل کریں",
+
+    "provideValidEmail": "براہ کرم ایک درست ای میل ایڈریس درج کریں",
+    "registrationSuccessful": "اندراج کامیاب",
+    "emailInUse": "یہ ای میل پہلے سے استعمال میں ہے",
+    "createAccount": "اکاؤنٹ بنائیں",
+    "optional": "(اختیاری)",
+    "signUp": "سائن اپ کریں",
+    "toExistingAccount": "کریں اپنے موجودہ اکاؤنٹ میں",
+
+    "invalidCredentials": "غلط اسناد",
+    "accountBlocked": "اکاؤنٹ بلاک کر دیا گیا! براہ کرم سپورٹ سے رابطہ کریں",
+    "validEmailReset": "اگر آپ نے درست ای میل فراہم کی ہے تو آپ کو پاس ورڈ ریسیٹ ای میل موصول ہوگی",
+    "errorResetEmail": "پاس ورڈ ریسیٹ ای میل بھیجنے میں خرابی۔ براہ کرم دوبارہ کوشش کریں",
+    "forgotPassword": "پاس ورڈ بھول گئے؟",
+    "sendResetEmail": "ریسیٹ ای میل بھیجیں",
+    "needCreateAccount": "کیا آپ ایک ",
+    "account": "اکاؤنٹ بنانا چاہتے ہیں؟"
   }  
