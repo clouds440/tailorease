@@ -56,10 +56,17 @@ const OptionSelector = ({ options, value, onChange, theme }) => {
             {options.map((option, index) => (
               <li
                 key={index}
-                className={`cursor-pointer p-2 rounded-md ${theme.hoverBg}`}
+                className={`flex justify-between cursor-pointer p-2 rounded-md ${theme.hoverBg}`}
                 onClick={() => handleSelect(option.value)}
               >
                 {option.label}
+                {option.img && (
+                  <img
+                    src={option.img}
+                    alt={`${option.label} flag`}
+                    className="w-6 h-6 flex"
+                  />
+                )}
               </li>
             ))}
           </motion.ul>

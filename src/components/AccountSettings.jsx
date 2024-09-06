@@ -28,6 +28,8 @@ import SimpleButton from "./SimpleButton";
 import { Navigate } from "react-router-dom";
 import { t } from "i18next";
 import i18n from "i18next";
+import pk from "../graphics/icons/pk.png";
+import uk from "../graphics/icons/uk.png";
 
 function AccountSettings() {
   const {
@@ -181,9 +183,10 @@ function AccountSettings() {
     { value: "light", label: t("light") },
     { value: "azure", label: t("azure") },
   ];
+
   const languageOptions = [
-    { value: "en", label: "English" },
-    { value: "ur", label: "اردو" },
+    { value: "en", label: "English", img: uk },
+    { value: "ur", label: "اردو", img: pk },
   ];
   const [selectedTheme, setSelectedTheme] = useState(theme.themeName);
   const savedLanguage = JSON.parse(localStorage.getItem("lang")) || "en";
