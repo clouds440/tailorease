@@ -177,7 +177,7 @@ const LoginForm = () => {
               <BarLoader color="#0000ff" width={137} />
             ) : (
               <span
-                className="text-blue-800 hover:text-blue-600 cursor-pointer"
+                className={`cursor-pointer ${theme.iconColor} ${theme.hoverText}`}
                 onClick={handlePasswordReset}
               >
                 {t("sendResetEmail")}
@@ -187,7 +187,7 @@ const LoginForm = () => {
           <div className="items-center justify-center flex flex-row mt-8">
             <span>{t("needCreateAccount")}&nbsp;</span>
             <Link to={"/signup"}>
-              <span className="text-blue-800 hover:text-blue-600">
+              <span className={`${theme.iconColor} ${theme.hoverText}`}>
                 {t("account")}
               </span>
             </Link>

@@ -199,7 +199,7 @@ const SignUpForm = () => {
           />
           <div className="items-center justify-center flex flex-row mt-8">
             <Link to={"/login"}>
-              <span className="text-blue-800 hover:text-blue-600">
+              <span className={`${theme.iconColor} ${theme.hoverText}`}>
                 {t("login")}
               </span>
             </Link>

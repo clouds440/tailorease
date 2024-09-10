@@ -14,9 +14,9 @@ export const UserProvider = ({ children }) => {
           themeName: "default",
           mainTheme: "theme-default",
           colorText: "text-gray-100",
-          colorBorder: "border-white",
-          iconColor: "text-blue-500",
-          hoverText: "hover:text-blue-500",
+          colorBorder: "border-gray-100",
+          iconColor: "text-blue-600",
+          hoverText: "hover:text-blue-400",
           hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
         };
   });

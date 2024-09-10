@@ -201,9 +201,9 @@ function AccountSettings() {
         themeName: "default",
         mainTheme: "theme-default",
         colorText: "text-gray-100",
-        colorBorder: "border-white",
+        colorBorder: "border-gray-100",
         iconColor: "text-blue-500",
-        hoverText: "hover:text-blue-500",
+        hoverText: "hover:text-blue-400",
         hoverBg: "hover:bg-indigo-400 hover:bg-opacity-30",
       });
     } else if (themeName === "light") {
@@ -212,7 +212,7 @@ function AccountSettings() {
         mainTheme: "theme-light",
         colorText: "text-black",
         colorBorder: "border-black",
-        iconColor: "text-black",
+        iconColor: "text-blue-600",
         hoverText: "hover:text-gray-600",
         hoverBg: "hover:bg-gray-300 hover:bg-opacity-70",
       });
@@ -223,7 +223,7 @@ function AccountSettings() {
         colorText: "text-sky-200",
         colorBorder: "border-sky-200",
         iconColor: "text-amber-400",
-        hoverText: "hover:text-amber-400",
+        hoverText: "hover:text-amber-300",
         hoverBg: "hover:bg-amber-300 hover:bg-opacity-50",
       });
     }
