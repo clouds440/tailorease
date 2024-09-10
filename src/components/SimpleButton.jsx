@@ -6,11 +6,11 @@ function SimpleButton({
   icon = null,
 }) {
   const primary =
-    "bg-sky-500 bg-opacity-80 text-white hover:bg-opacity-60 " + extraclasses;
+    "bg-sky-500 bg-opacity-80 text-white hover:bg-sky-400 " + extraclasses;
   const simple =
-    "bg-gray-100 text-black opacity-85 text-gray-800 hover:bg-opacity-75 " +
+    "bg-gray-100 text-black opacity-85 text-gray-800 hover:bg-gray-300 " +
     extraclasses;
-  const danger = "bg-red-600 text-white hover:bg-opacity-55 " + extraclasses;
+  const danger = "bg-red-600 text-white hover:bg-red-500 " + extraclasses;
 
   let style;
   switch (type) {
@@ -28,10 +28,10 @@ function SimpleButton({
   return (
     <button
       type={type === "primary-submit" ? "submit" : "button"}
-      className={`${style} flex items-center justify-center px-4 py-1 rounded duration-500`}
+      className={`${style} flex items-center justify-center px-4 py-1 rounded-md duration-500`}
       onClick={onClick}
     >
-      {icon && <span className="mr-2">{icon}</span>}
+      {icon && <span className="md:mr-2">{icon}</span>}
       {btnText}
     </button>
   );

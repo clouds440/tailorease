@@ -114,9 +114,11 @@ const Navbar = () => {
             <div className="flex items-center justify-center">
               <SimpleButton
                 onClick={() => navigate("/login")}
-                btnText={t("login")}
+                btnText={
+                  <span className="hidden md:inline-block">{t("login")}</span>
+                }
                 type={"simple"}
-                extraclasses="w-full mx-2"
+                extraclasses="w-full"
                 icon={<LoginIcon size={"6"} />}
               />
             </div>
