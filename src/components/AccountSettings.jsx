@@ -253,7 +253,7 @@ function AccountSettings() {
 
   return (
     <div
-      className={`mt-8 max-w-2xl w-80 sm:w-96 lg:w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
+      className={`mt-8 max-w-2xl w-auto mx-auto p-6 rounded-md select-none ${theme.mainTheme}`}
     >
       <h2
         className={`flex ltr:text-2xl rtl:text-xl font-bold mb-6 pt-6 border-b ${theme.colorBorder}`}

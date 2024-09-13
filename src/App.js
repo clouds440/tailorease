@@ -11,8 +11,7 @@ import { DirectionContext } from "./utils/LayoutDirectionContext";
 
 function App() {
   const { direction } = useContext(DirectionContext);
-  const margins =
-    direction === "ltr" ? "ml-16 sm:ml-20 md:ml-36" : "mr-16 sm:mr-20 md:mr-36";
+  const margins = direction === "ltr" ? "md:ml-36" : "md:mr-36";
   const fontFamily = direction === "ltr" ? "font-sans" : "font-urdu";
 
   return (
@@ -25,7 +24,7 @@ function App() {
       >
         <div className="flex h-screen overflow-hidden bg-gray-600 bg-opacity-20 backdrop-blur-sm">
           <Navbar />
-          <div className={`flex-grow ${margins} overflow-auto`}>
+          <div className={`flex-grow mt-20 md:mt-0 ${margins} overflow-auto`}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUpForm />} />

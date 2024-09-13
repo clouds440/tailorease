@@ -82,7 +82,7 @@ function PopupMessage() {
           >
             {icon}
           </div>
-          <div className="px-4 py-3 bg-white text-black font-medium bg-opacity-85 ltr:rounded-r-lg rtl:rounded-l-lg flex justify-between items-center w-full select-none">
+          <div className="px-4 py-3 bg-gray-300 text-black font-medium ltr:rounded-r-lg rtl:rounded-l-lg flex justify-between items-center w-full select-none">
             <div>{showMessage.message}</div>
             <button
               onClick={handleClose}
