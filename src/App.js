@@ -25,7 +25,7 @@ function App() {
         <div className="flex h-screen overflow-hidden bg-gray-600 bg-opacity-20 backdrop-blur-sm">
           <Navbar />
           <div
-            className={`flex-grow mt-20 md:mt-0 md:mx-5 ${margins} overflow-auto`}
+            className={`flex-grow mt-20 md:mt-0 px-3 ${margins} overflow-auto`}
           >
             <Routes>
               <Route path="/" element={<Home />} />

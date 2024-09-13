@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
-import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { UserContext } from "../utils/UserContext";
 import { t } from "i18next";
@@ -12,10 +11,10 @@ import {
   CartIcon,
   ServicesIcon,
   ContactIcon,
-  LoginIcon,
+  UserAddIcon,
 } from "../graphics/icons/svgIcons";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const {
@@ -104,24 +103,27 @@ const Navbar = () => {
       >
         <div className="justify-between h-full">
           <div>
-            <div className={`flex md:block justify-between mt-1`}>
+            <div
+              className={`flex md:block justify-between px-3 border-b md:border-b-0 border-gray-500`}
+            >
               <Logo
                 fontSize={"text-2xl"}
-                classes={`md:my-5 md:pb-5 mx-2 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
+                classes={`md:my-5 md:pb-5 md:border-b ${theme.colorBorder}`}
               />
               {userLoggedIn ? (
-                <div className="md:mb-4 py-1 text-center mx-5 md:mx-0 select-none">
+                <div className="md:mb-4 text-center select-none">
                   <span>{userFullName}</span>
                 </div>
               ) : (
-                <div className="flex items-center justify-center">
-                  <SimpleButton
-                    onClick={() => navigate("/login")}
-                    btnText={t("login")}
-                    type={"simple"}
-                    extraclasses="w-full mx-2"
-                    icon={<LoginIcon size={"5"} />}
-                  />
+                <div className={`flex items-center justify-center`}>
+                  <Link to="/login" className="flex items-center">
+                    <UserAddIcon size="5" color={"text-white"} />
+                    <span
+                      className={`text-sm mx-2 cursor-pointer italic hover:underline`}
+                    >
+                      Guest User
+                    </span>
+                  </Link>
                 </div>
               )}
             </div>

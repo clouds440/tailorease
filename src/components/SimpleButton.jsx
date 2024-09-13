@@ -10,7 +10,7 @@ function SimpleButton({
   const simple =
     "bg-gray-100 text-black opacity-85 text-gray-800 hover:bg-gray-300 " +
     extraclasses;
-  const danger = "bg-red-600 text-white hover:bg-red-500 " + extraclasses;
+  const danger = "bg-red-800 text-white hover:bg-rose-500 " + extraclasses;
 
   let style;
   switch (type) {

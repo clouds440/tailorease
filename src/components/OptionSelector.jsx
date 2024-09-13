@@ -41,6 +41,15 @@ const OptionSelector = ({ options, value, onChange, theme }) => {
           {options.find((option) => option.value === value)?.label ||
             t("select")}
         </span>
+        {options.find((option) => option.value === value)?.img && (
+          <img
+            src={options.find((option) => option.value === value).img}
+            alt={`${
+              options.find((option) => option.value === value).label
+            } flag`}
+            className="w-6 h-6 flex"
+          />
+        )}
         <span>{isOpen ? "▲" : "▼"}</span>
       </div>
       <AnimatePresence>
