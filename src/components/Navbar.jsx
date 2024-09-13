@@ -94,110 +94,130 @@ const Navbar = () => {
     // Add more options here as needed
   ];
 
-  const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-full duration-500 ${theme.hoverBg}`;
+  const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
-    <nav
-      className={`flex-shrink-0 fixed top-0 ltr:left-0 rtl:right-0 h-screen w-16 sm:w-20 md:w-36 rounded-md overflow-hidden ${theme.mainTheme}`}
-    >
-      <div className="flex flex-col justify-between h-full">
-        <div>
-          <Logo
-            fontSize={"text-2xl"}
-            classes={`my-5 pb-5 border-b ${theme.colorBorder}`}
-          />
-          {userLoggedIn ? (
-            <div className="mb-4 py-1 text-center select-none">
-              <span>{userFullName}</span>
-            </div>
-          ) : (
-            <div className="flex items-center justify-center">
-              <SimpleButton
-                onClick={() => navigate("/login")}
-                btnText={
-                  <span className="hidden md:inline-block">{t("login")}</span>
-                }
-                type={"simple"}
-                extraclasses="w-full"
-                icon={<LoginIcon size={"6"} />}
+    <div class="min-h-screen flex">
+      <nav
+        className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-full md:w-36 rounded-md ${theme.mainTheme}`}
+      >
+        <div className="justify-between h-full">
+          <div>
+            <div className="flex md:block justify-between">
+              <Logo
+                fontSize={"text-2xl"}
+                classes={`md:my-5 md:pb-5 mx-5 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
               />
+              {userLoggedIn ? (
+                <div className="md:mb-4 py-1 text-center mx-5 md:mx-0 select-none">
+                  <span>{userFullName}</span>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center">
+                  <SimpleButton
+                    onClick={() => navigate("/login")}
+                    btnText={
+                      <span className="hidden md:inline-block">
+                        {t("login")}
+                      </span>
+                    }
+                    type={"simple"}
+                    extraclasses="w-full"
+                    icon={<LoginIcon size={"5"} />}
+                  />
+                </div>
+              )}
             </div>
-          )}
-          <div className="flex items-center justify-center mt-10">
-            <ul className="flex flex-col space-y-4 select-none w-full">
-              <li className={linkStyles}>
-                <HomeIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
-                  {t("home")}
-                </span>
-              </li>
-              <li className={linkStyles}>
-                <CartIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
-                  {t("market")}
-                </span>
-              </li>
-              <li className={linkStyles}>
-                <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
-                  {t("services")}
-                </span>
-              </li>
-              <li className={linkStyles}>
-                <ContactIcon size={"5"} color={`${theme.iconColor}`} />
-                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
-                  {t("contactUs")}
-                </span>
-              </li>
-            </ul>
+            <div className="flex items-center justify-between md:mt-10">
+              <ul className="md:space-y-4 justify-evenly select-none w-full md:inline grid grid-flow-col">
+                <li className={linkStyles}>
+                  <HomeIcon size={"5"} color={`${theme.iconColor}`} />
+                  <span
+                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
+                  >
+                    {t("home")}
+                  </span>
+                </li>
+                <li className={linkStyles}>
+                  <CartIcon size={"5"} color={`${theme.iconColor}`} />
+                  <span
+                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
+                  >
+                    {t("market")}
+                  </span>
+                </li>
+                <li className={linkStyles}>
+                  <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
+                  <span
+                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
+                  >
+                    {t("services")}
+                  </span>
+                </li>
+                <li className={linkStyles}>
+                  <ContactIcon size={"5"} color={`${theme.iconColor}`} />
+                  <span
+                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
+                  >
+                    {t("contactUs")}
+                  </span>
+                </li>
+                <div>
+                  <div className="relative md:absolute md:bottom-1 w-full">
+                    {userLoggedIn && (
+                      <div
+                        className={linkStyles}
+                        ref={dropdownRef}
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      >
+                        <div className="flex">
+                          <span className="flex items-center select-none">
+                            <MenuIcon size={"5"} color={"text-yellow-600"} />
+                            <span
+                              className={
+                                "hidden md:inline-block ltr:ml-2 rtl:mr-2"
+                              }
+                            >
+                              {t("menu")}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </ul>
+            </div>
           </div>
         </div>
-        <AnimatePresence>
-          {dropdownOpen && (
-            <div className="flex items-baseline justify-center">
-              <motion.ul
-                className={`flex flex-col space-y-4 select-none w-full`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.4 }}
-              >
-                {dropdownOptions.map((option, index) => (
-                  <li
-                    key={index}
-                    onClick={option.onClick}
-                    className={linkStyles}
-                  >
-                    {option.icon}
-                    <span
-                      className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}
-                    >
-                      {option.text}
-                    </span>
-                  </li>
-                ))}
-              </motion.ul>
-            </div>
-          )}
-        </AnimatePresence>
-        {userLoggedIn && (
+      </nav>
+      <AnimatePresence>
+        {dropdownOpen && (
           <div
-            className={linkStyles}
-            ref={dropdownRef}
-            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className={`absolute w-auto md:w-36 ${
+              window.innerWidth >= 768
+                ? "md:pt-4 md:bottom-14"
+                : "right-1 top-20 px-2 py-2 rounded-md " + theme.mainTheme
+            }`}
           >
-            <div className="flex items-center">
-              <span className="flex items-center select-none">
-                <MenuIcon size={"5"} color={"text-yellow-600"} />
-                <span className={"hidden md:inline-block ltr:ml-2 rtl:mr-2"}>
-                  {t("menu")}
-                </span>
-              </span>
-            </div>
+            <motion.ul
+              className={`md:space-y-4 justify-between md:justify-center select-none w-full`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.4 }}
+            >
+              {dropdownOptions.map((option, index) => (
+                <li key={index} onClick={option.onClick} className={linkStyles}>
+                  {option.icon}
+                  <span className={"ltr:ml-2 rtl:mr-2"}>{option.text}</span>
+                </li>
+              ))}
+            </motion.ul>
           </div>
         )}
-      </div>
-    </nav>
+      </AnimatePresence>
+    </div>
   );
 };
 
