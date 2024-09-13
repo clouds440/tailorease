@@ -4,3 +4,21 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&display=swap');
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(#1b1b1b, #2f2f2f); /* Dark gradient for a sleek look */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#4eaaff, #0072ff); /* Neon-like gradient */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#2400a7, #8133ff); /* Changes color on hover */
+}

@@ -98,7 +98,7 @@ const Navbar = () => {
   const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
-    <div class="min-h-screen flex">
+    <div class="flex">
       <nav
         className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
       >
@@ -107,7 +107,7 @@ const Navbar = () => {
             <div className={`flex md:block justify-between mt-1`}>
               <Logo
                 fontSize={"text-2xl"}
-                classes={`md:my-5 md:pb-5 mx-5 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
+                classes={`md:my-5 md:pb-5 mx-2 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
               />
               {userLoggedIn ? (
                 <div className="md:mb-4 py-1 text-center mx-5 md:mx-0 select-none">
