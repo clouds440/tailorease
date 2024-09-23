@@ -63,7 +63,7 @@
     "validEmailReset": "If you've provided a valid email, you'll receive a password reset email",
     "errorResetEmail": "Error sending password reset email. Please try again",
     "forgotPassword": "Forgot password?",
-    "sendResetEmail": "Send a reset email",
+    "sendResetEmail": "Reset here",
     "needCreateAccount": "Need to create an ",
     "account": "account?"
   }
