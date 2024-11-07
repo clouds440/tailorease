@@ -8,6 +8,7 @@ import AccountSettings from "./components/AccountSettings";
 import Home from "./components/Home";
 import NotFoundPage from "./components/NotFoundPage";
 import { DirectionContext } from "./utils/LayoutDirectionContext";
+import BecomeTailor from "./components/BecomeTailor";
 
 function App() {
   const { direction } = useContext(DirectionContext);
@@ -31,6 +32,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/login" element={<LoginForm />} />
+              <Route path="/become-tailor" element={<BecomeTailor />} />
               <Route path="/settings" element={<AccountSettings />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
