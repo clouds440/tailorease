@@ -18,10 +18,11 @@
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #006dac, #001a3a); /* Neon-like gradient */
     border-radius: 10px;
-    border-bottom: 2px solid rgb(255, 255, 255);
-    border-top: 2px solid rgb(255, 255, 255);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to bottom, #ac0064, #3f0000);
 }
+
+  
+  

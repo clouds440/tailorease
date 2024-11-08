@@ -57,6 +57,7 @@
     "optional": "(optional)",
     "signUp": "Sign Up",
     "toExistingAccount": "to your existing account",
+    "termsAndConditions": "Terms and Conditions",
 
     "invalidCredentials": "Invalid credentials",
     "accountBlocked": "Account blocked! Please contact support",
@@ -65,6 +66,32 @@
     "forgotPassword": "Forgot password?",
     "sendResetEmail": "Reset here",
     "needCreateAccount": "Need to create an ",
-    "account": "account?"
+    "account": "account?",
+
+    "becomeTailor": "Become a Tailor",
+    "experience": "Experience (in years)",
+    "openTime": "Opening Time",
+    "closeTime": "Closing Time",
+    "menSpecialist": "Men Specialist",
+    "womenSpecialist": "Women Specialist",
+    "kidsSpecialist": "Kids Specialist",
+    "alterations": "Alterations",
+    "customTailoring": "Custom Tailoring",
+    "other": "Other",
+    "back": "Back",
+    "submitApplication": "Submit Application",
+    "termsTailors": "Read Terms for Tailors",
+    "clickToUpload": "Click to upload",
+    "dragAndDrop": "or drag and drop",
+    "allowedFormats": "SVG, PNG, JPG, or GIF (MAX. 800x400px)",
+
+    "businessName": "Business Name",
+    "businessPhone": "Business Phone",
+    "businessAddress": "Business Address",
+    "description": "Description",
+    "next": "Next",
+    "enterFullBusinessName": "Please enter the full business name.",
+    "businessPhoneRequired": "Business phone is required.",
+    "businessAddressRequired": "Business address is required."
   }
   

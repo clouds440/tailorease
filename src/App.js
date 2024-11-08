@@ -18,25 +18,28 @@ function App() {
   return (
     <Router>
       <div
-        className={`fixed inset-0 h-screen w-screen bg-cover bg-center z-[-1] ${fontFamily}`}
+        className={`overflow-auto inset-0 h-screen w-screen bg-cover bg-center z-[-1] ${fontFamily}`}
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}
       >
-        <div className="flex h-screen overflow-hidden bg-gray-600 bg-opacity-20 backdrop-blur-sm">
+        {/* Navbar with fixed position */}
+        <div className="fixed top-0 left-0 w-full md:w-36 bg-opacity-20 backdrop-blur-sm">
           <Navbar />
-          <div
-            className={`flex-grow mt-20 md:mt-0 px-3 ${margins} overflow-auto`}
-          >
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/become-tailor" element={<BecomeTailor />} />
-              <Route path="/settings" element={<AccountSettings />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </div>
+        </div>
+
+        {/* Main content with auto overflow */}
+        <div
+          className={`flex-grow mt-20 md:mt-0 px-3 ${margins} overflow-auto h-screen`}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/become-tailor" element={<BecomeTailor />} />
+            <Route path="/settings" element={<AccountSettings />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
         </div>
       </div>
     </Router>

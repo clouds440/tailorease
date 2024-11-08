@@ -97,7 +97,7 @@ const Navbar = () => {
   const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
-    <div class="flex">
+    <div className="flex">
       <nav
         className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
       >
@@ -129,14 +129,18 @@ const Navbar = () => {
             </div>
             <div className="flex items-center justify-between md:mt-10">
               <ul className="md:space-y-4 justify-evenly select-none w-full md:inline grid grid-flow-col">
-                <li className={linkStyles}>
-                  <HomeIcon size={"5"} color={`${theme.iconColor}`} />
-                  <span
-                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
-                  >
-                    {t("home")}
-                  </span>
-                </li>
+                <Link to={"/"}>
+                  <li className={linkStyles}>
+                    <HomeIcon size={"5"} color={`${theme.iconColor}`} />
+                    <span
+                      className={
+                        "hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"
+                      }
+                    >
+                      {t("home")}
+                    </span>
+                  </li>
+                </Link>
                 <li className={linkStyles}>
                   <CartIcon size={"5"} color={`${theme.iconColor}`} />
                   <span
