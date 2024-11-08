@@ -132,7 +132,7 @@ const TailorApplicationForm = ({ onNext }) => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className={`${inputStyles} min-h-9`}
+              className={`${inputStyles} min-h-9 max-h-[130px]`}
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="description">

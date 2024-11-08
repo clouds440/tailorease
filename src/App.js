@@ -12,7 +12,6 @@ import BecomeTailor from "./components/BecomeTailor";
 
 function App() {
   const { direction } = useContext(DirectionContext);
-  const margins = direction === "ltr" ? "md:ml-36" : "md:mr-36";
   const fontFamily = direction === "ltr" ? "font-sans" : "font-urdu";
 
   return (
@@ -31,7 +30,7 @@ function App() {
         </div>
 
         {/* Main content with scrollable overflow */}
-        <div className={`overflow-y-auto flex-1 ${margins} mt-20 md:mt-0`}>
+        <div className={`overflow-y-auto flex-1 mt-20 md:mt-0 px-2`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUpForm />} />
