@@ -26,6 +26,20 @@ const TailorSpecialitiesForm = ({
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
+    // Validate file type
+    if (name === "businessPicture" && files[0]) {
+      const file = files[0];
+      const allowedTypes = ["image/jpeg", "image/png", "image/svg+xml"];
+      if (!allowedTypes.includes(file.type)) {
+        setShowMessage({
+          type: "warning",
+          message: t("invalidFileType"),
+        });
+        setPopUpMessageTrigger(true);
+        return;
+      }
+    }
+
     if (name === "specialities") {
       const selectedOption = value;
       setSpecialitiesData((prevData) => ({
@@ -152,13 +166,14 @@ const TailorSpecialitiesForm = ({
                     drag and drop
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                    PNG or JPG (MAX. 800x400px)
                   </p>
                 </div>
               )}
               <input
                 id="businessPicture"
                 type="file"
+                accept=".jpg, .jpeg, .png"
                 name="businessPicture"
                 className="hidden"
                 onChange={handleChange}
@@ -264,7 +279,7 @@ const TailorSpecialitiesForm = ({
             />
           </div>
 
-          <div className="items-center justify-center flex flex-row mt-8">
+          <div className="items-center justify-center flex flex-row mt-4">
             <Link to={"/terms/tailors"}>
               <span className={`${theme.iconColor} ${theme.hoverText}`}>
                 {t("termsTailors")}

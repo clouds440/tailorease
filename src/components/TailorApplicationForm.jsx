@@ -145,7 +145,7 @@ const TailorApplicationForm = ({ onNext }) => {
             type={"primary-submit"}
             extraclasses={"w-full"}
           />
-          <div className="items-center justify-center flex flex-row mt-8">
+          <div className="items-center justify-center flex flex-row mt-4">
             <Link to={"/terms/tailors"}>
               <span className={`${theme.iconColor} ${theme.hoverText}`}>
                 {t("termsTailors")}

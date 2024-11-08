@@ -87,6 +87,7 @@
     "profilePictureRequired": "Profile picture is required",
     "openingClosingTimeRequired": "Please specify opening and closing times",
     "atLeastOneSpecialityRequired": "Select at least 1 speciality",
+    "invalidFileType": "Please upload a JPG or PNG image file.",
 
     "businessName": "Business Name",
     "businessPhone": "Business Phone",
