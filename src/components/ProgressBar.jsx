@@ -5,7 +5,7 @@ const ProgressBar = ({ steps, currentStep, stepNames }) => {
   const stepWidth = 100 / (steps - 2);
 
   return (
-    <div className="w-3/5 md:3/6 lg:w-6/12 mx-auto my-4 select-none">
+    <div className="w-3/5 md:3/6 lg:w-6/12 mx-auto my-4 select-none -z-10">
       <div className="relative flex items-center">
         {/* Line for the progress */}
         <div className="absolute w-full bg-gray-200" />

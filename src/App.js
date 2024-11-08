@@ -18,20 +18,20 @@ function App() {
   return (
     <Router>
       <div
-        className={`overflow-auto inset-0 h-screen w-screen bg-cover bg-center z-[-1] ${fontFamily}`}
+        className={`relative flex h-screen w-screen ${fontFamily}`}
         style={{
           backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         {/* Navbar with fixed position */}
-        <div className="fixed top-0 left-0 w-full md:w-36 bg-opacity-20 backdrop-blur-sm">
+        <div className="fixed md:relative w-full md:w-36 z-50">
           <Navbar />
         </div>
 
-        {/* Main content with auto overflow */}
-        <div
-          className={`flex-grow mt-20 md:mt-0 px-3 ${margins} overflow-auto h-screen`}
-        >
+        {/* Main content with scrollable overflow */}
+        <div className={`overflow-y-auto flex-1 ${margins} mt-20 md:mt-0`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUpForm />} />

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import Logo from "./Logo";
+import SimpleButton from "./SimpleButton";
 import { auth, signOut } from "../firebaseConfig";
 import { UserContext } from "../utils/UserContext";
 import { t } from "i18next";
@@ -11,10 +12,10 @@ import {
   CartIcon,
   ServicesIcon,
   ContactIcon,
-  UserAddIcon,
+  LoginIcon,
 } from "../graphics/icons/svgIcons";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const {
@@ -97,50 +98,43 @@ const Navbar = () => {
   const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
-    <div className="flex">
+    <div class="flex">
       <nav
         className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
       >
         <div className="justify-between h-full">
           <div>
-            <div
-              className={`flex md:block justify-between px-3 border-b md:border-b-0 border-gray-500`}
-            >
+            <div className={`flex md:block justify-between mt-1`}>
               <Logo
                 fontSize={"text-2xl"}
-                classes={`md:my-5 md:pb-5 md:border-b ${theme.colorBorder}`}
+                classes={`md:my-5 md:pb-5 mx-5 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
               />
               {userLoggedIn ? (
-                <div className="md:mb-4 text-center select-none">
+                <div className="md:mb-4 py-1 text-center mx-5 md:mx-0 select-none">
                   <span>{userFullName}</span>
                 </div>
               ) : (
-                <div className={`flex items-center justify-center`}>
-                  <Link to="/login" className="flex items-center">
-                    <UserAddIcon size="5" color={"text-white"} />
-                    <span
-                      className={`text-sm mx-2 cursor-pointer italic hover:underline`}
-                    >
-                      Guest User
-                    </span>
-                  </Link>
+                <div className="flex items-center justify-center">
+                  <SimpleButton
+                    onClick={() => navigate("/login")}
+                    btnText={t("login")}
+                    type={"simple"}
+                    extraclasses="w-full mx-2"
+                    icon={<LoginIcon size={"5"} />}
+                  />
                 </div>
               )}
             </div>
             <div className="flex items-center justify-between md:mt-10">
               <ul className="md:space-y-4 justify-evenly select-none w-full md:inline grid grid-flow-col">
-                <Link to={"/"}>
-                  <li className={linkStyles}>
-                    <HomeIcon size={"5"} color={`${theme.iconColor}`} />
-                    <span
-                      className={
-                        "hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"
-                      }
-                    >
-                      {t("home")}
-                    </span>
-                  </li>
-                </Link>
+                <li className={linkStyles}>
+                  <HomeIcon size={"5"} color={`${theme.iconColor}`} />
+                  <span
+                    className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
+                  >
+                    {t("home")}
+                  </span>
+                </li>
                 <li className={linkStyles}>
                   <CartIcon size={"5"} color={`${theme.iconColor}`} />
                   <span

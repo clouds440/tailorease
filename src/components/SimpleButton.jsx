@@ -28,7 +28,7 @@ function SimpleButton({
   return (
     <button
       type={type === "primary-submit" ? "submit" : "button"}
-      className={`${style} flex items-center justify-center px-4 py-1 rounded-md duration-500`}
+      className={`${style} flex items-center justify-center px-4 py-1 rounded-md duration-500 select-none`}
       onClick={onClick}
     >
       {icon && <span className="md:mr-2">{icon}</span>}
