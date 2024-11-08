@@ -49,7 +49,7 @@ const TailorSpecialitiesForm = ({
     e.preventDefault();
 
     // Validate profile picture
-    if (!formData.profilePicture) {
+    if (!specialitiesData.businessPicture) {
       setShowMessage({
         type: "warning",
         message: t("profilePictureRequired"),
@@ -59,7 +59,7 @@ const TailorSpecialitiesForm = ({
     }
 
     // Validate opening and closing times
-    if (!formData.openingTime || !formData.closingTime) {
+    if (!specialitiesData.openTime || !specialitiesData.closeTime) {
       setShowMessage({
         type: "warning",
         message: t("openingClosingTimeRequired"),
@@ -69,7 +69,10 @@ const TailorSpecialitiesForm = ({
     }
 
     // Validate that at least one speciality is selected
-    if (!specialitiesData || !Object.values(specialitiesData).some(Boolean)) {
+    if (
+      !specialitiesData.specialities ||
+      !Object.values(specialitiesData.specialities).some(Boolean)
+    ) {
       setShowMessage({
         type: "warning",
         message: t("atLeastOneSpecialityRequired"),
@@ -81,7 +84,7 @@ const TailorSpecialitiesForm = ({
     onNext(onNext);
 
     // Combine form data and specialities data
-    const combinedData = { ...formData, specialities: specialitiesData };
+    const combinedData = { ...formData, ...specialitiesData };
 
     // Call the parent component's submit handler
     onSubmit(combinedData);

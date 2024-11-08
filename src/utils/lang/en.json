@@ -84,6 +84,9 @@
     "clickToUpload": "Click to upload",
     "dragAndDrop": "or drag and drop",
     "allowedFormats": "SVG, PNG, JPG, or GIF (MAX. 800x400px)",
+    "profilePictureRequired": "Profile picture is required",
+    "openingClosingTimeRequired": "Please specify opening and closing times",
+    "atLeastOneSpecialityRequired": "Select at least 1 speciality",
 
     "businessName": "Business Name",
     "businessPhone": "Business Phone",
