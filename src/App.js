@@ -25,7 +25,7 @@ function App() {
         }}
       >
         {/* Navbar with fixed position */}
-        <div className="fixed md:relative w-full md:w-36 z-50">
+        <div className="fixed md:relative w-full md:w-36 z-40">
           <Navbar />
         </div>
 
