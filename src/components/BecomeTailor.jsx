@@ -25,7 +25,7 @@ import SimpleButton from "./SimpleButton";
 
 const BecomeTailor = () => {
   const [step, setStep] = useState(1);
-  const { userData, setPopUpMessageTrigger, setShowMessage } =
+  const { userData, userLoggedIn, setPopUpMessageTrigger, setShowMessage } =
     useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
@@ -35,7 +35,9 @@ const BecomeTailor = () => {
 
   useEffect(() => {
     const checkBusinessAccount = async () => {
-      if (!userData?.uid) return; // Exit if userData or uid is not available
+      if (!userLoggedIn) {
+        navigate("/signup");
+      } // Exit if userData or uid is not available
 
       try {
         const userQuery = query(
@@ -147,9 +149,15 @@ const BecomeTailor = () => {
 
   return hasBusinessAccount ? (
     <div className="flex flex-col justify-center items-center h-full bg-gray-700 backdrop-blur-md bg-opacity-30">
-      <span className="text-2xl text-white mb-4">
-        You already have a business account!
-      </span>
+      <div className="text-white max-w-xl mb-4">
+        <span className="flex text-2xl">
+          You already have a business account!
+        </span>
+        <span className="">
+          If you don't see your business dashboard, please check your email for
+          a confirmation email from TailorEase.
+        </span>
+      </div>
       <Link to={"/"}>
         <SimpleButton
           btnText={"Go home"}

@@ -16,7 +16,7 @@ function PopupMessage() {
       const timer = setTimeout(() => {
         setVisible(false);
         resetPopUpMessageTrigger(); // Reset the trigger after showing the message
-      }, 3000);
+      }, 4000); // message active time (in ms)
 
       return () => clearTimeout(timer);
     }
