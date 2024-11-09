@@ -5,7 +5,7 @@ import ProgressBar from "./ProgressBar";
 import { UserContext } from "../utils/UserContext";
 import { t } from "i18next";
 import { MoonLoader } from "react-spinners";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   db,
   auth,
@@ -29,6 +29,7 @@ const BecomeTailor = () => {
     useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const [hasBusinessAccount, setHasBusinessAccount] = useState(null);
 
@@ -123,6 +124,7 @@ const BecomeTailor = () => {
         message: t("verifyEmail"),
       });
       setPopUpMessageTrigger(true);
+      navigate("/");
     } catch (error) {
       console.error("Error submitting business application:", error);
       setShowMessage({

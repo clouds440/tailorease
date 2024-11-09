@@ -38,6 +38,7 @@ const Navbar = () => {
       sessionStorage.removeItem("userData");
       setUserLoggedIn(false);
       setDropdownOpen(false);
+      navigate("/");
     } catch (error) {
       setShowmessage({
         type: "danger",
