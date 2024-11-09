@@ -20,7 +20,9 @@ import {
   EmailAuthProvider,
   updatePassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
+import { getStorage, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDlgnmzqwtxUjeirfRA20IcYMi7-KThPfk",
@@ -36,6 +38,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+const storage = getStorage(app);
 
 export {
   db,
@@ -50,10 +53,13 @@ export {
   onAuthStateChanged,
   signOut,
   updateDoc,
+  storage,
+  uploadBytes,
   reauthenticateWithCredential,
   EmailAuthProvider,
   updatePassword,
   setDoc,
   getDoc,
   sendPasswordResetEmail,
+  sendEmailVerification,
 };

@@ -30,7 +30,7 @@ function App() {
         </div>
 
         {/* Main content with scrollable overflow */}
-        <div className={`overflow-y-auto flex-1 mt-20 md:mt-0 px-2`}>
+        <div className={`overflow-y-auto flex-1 mt-20 md:mt-0 px-[3px]`}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUpForm />} />

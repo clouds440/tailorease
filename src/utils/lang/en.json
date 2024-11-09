@@ -96,6 +96,9 @@
     "next": "Next",
     "enterFullBusinessName": "Please enter the full business name.",
     "businessPhoneRequired": "Business phone is required.",
-    "businessAddressRequired": "Business address is required."
+    "businessAddressRequired": "Business address is required.",
+
+    "verifyEmail": "A verification email has been sent. Please verify to activate your business account.",
+    "errorSubmittingApplication": "There was an error submitting your application. Please try again."
   }
   

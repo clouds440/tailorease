@@ -70,14 +70,6 @@ const Navbar = () => {
   }, [userData]);
 
   const dropdownOptions = [
-    // {
-    //   text: "Option 3",
-    //   icon: <SendIcon size={"5"} color={`${theme.iconColor}`} />,
-    //   onClick: () => {
-    //     navigate("/settings");
-    //     setDropdownOpen(false);
-    //   },
-    // },
     {
       text: t("settings"),
       icon: <SettingsIcon size={"5"} color={`${theme.iconColor}`} />,
@@ -98,7 +90,7 @@ const Navbar = () => {
   const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
-    <div class="flex">
+    <div className="flex">
       <nav
         className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
       >
