@@ -87,23 +87,37 @@ const Navbar = () => {
     // Add more options here as needed
   ];
 
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [windowWidth, setWindowWidth] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const animate = window.innerWidth >= 768 ? 10 : -10;
   const linkStyles = `flex items-center justify-center md:justify-start cursor-pointer px-4 py-2 rounded-xl w-auto md:w-full duration-500 ${theme.hoverBg}`;
 
   return (
     <div className="flex">
       <nav
-        className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-auto md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
+        className={`flex-shrink-0 fixed top-0 md:ltr:left-0 md:rtl:right-0 h-24 md:h-screen w-screen md:w-36 rounded-md ${theme.mainTheme}`}
       >
         <div className="justify-between h-full">
           <div>
-            <div className={`flex md:block justify-between mt-1`}>
+            <div
+              className={`flex md:block h-12 md:h-auto justify-between mt-1`}
+            >
               <Logo
                 fontSize={"text-2xl"}
-                classes={`md:my-5 md:pb-5 mx-5 pr-4 md:mx-0 md:pr-0 md:border-b ${theme.colorBorder}`}
+                classes={`md:my-5 md:pb-5 mx-5 pr-4 md:mx-0 md:pr-0 ${theme.colorBorder}`}
               />
               {userLoggedIn ? (
-                <div className="md:mb-4 py-1 text-center mx-5 md:mx-0 select-none">
+                <div className="py-1 mt-3 text-center mx-5 md:mx-0 select-none">
                   <span>{userFullName}</span>
                 </div>
               ) : (
@@ -119,7 +133,7 @@ const Navbar = () => {
               )}
             </div>
             <div className="flex items-center justify-between md:mt-10">
-              <ul className="md:space-y-4 justify-evenly select-none w-full md:inline grid grid-flow-col">
+              <ul className="md:space-y-2 justify-evenly select-none w-full md:inline grid grid-flow-col">
                 <li className={linkStyles}>
                   <HomeIcon size={"5"} color={`${theme.iconColor}`} />
                   <span
@@ -136,7 +150,11 @@ const Navbar = () => {
                     {t("market")}
                   </span>
                 </li>
-                <li className={linkStyles}>
+                <li
+                  className={`${
+                    windowHeight >= 450 ? "" : "md:hidden"
+                  } ${linkStyles}`}
+                >
                   <ServicesIcon size={"5"} color={`${theme.iconColor}`} />
                   <span
                     className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
@@ -144,7 +162,11 @@ const Navbar = () => {
                     {t("services")}
                   </span>
                 </li>
-                <li className={linkStyles}>
+                <li
+                  className={`${
+                    windowHeight >= 500 ? "" : "md:hidden"
+                  } ${linkStyles}`}
+                >
                   <ContactIcon size={"5"} color={`${theme.iconColor}`} />
                   <span
                     className={"hidden md:inline-block md:ltr:ml-2 md:rtl:mr-2"}
@@ -152,9 +174,9 @@ const Navbar = () => {
                     {t("contactUs")}
                   </span>
                 </li>
-                <div>
-                  <div className="relative md:absolute md:bottom-1 w-full">
-                    {userLoggedIn && (
+                {userLoggedIn && (
+                  <div>
+                    <div className="relative md:absolute md:bottom-1 w-full">
                       <div
                         className={linkStyles}
                         ref={dropdownRef}
@@ -173,9 +195,9 @@ const Navbar = () => {
                           </span>
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
-                </div>
+                )}
               </ul>
             </div>
           </div>
@@ -185,9 +207,9 @@ const Navbar = () => {
         {dropdownOpen && (
           <motion.div
             className={`absolute w-auto md:w-36 z-50 ${
-              window.innerWidth >= 768
+              windowWidth >= 768
                 ? "md:pt-4 md:bottom-14"
-                : "rtl:left-1 ltr:right-1 top-20 px-2 py-2 rounded-md " +
+                : "rtl:left-2 ltr:right-2 top-[100px] px-2 py-2 rounded-md " +
                   theme.mainTheme
             }`}
             initial={{ opacity: 0, y: animate }}
@@ -196,7 +218,7 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
           >
             <motion.ul
-              className={`md:space-y-4 justify-center select-none w-full`}
+              className={`md:space-y-2 justify-center select-none w-full`}
               initial={{ opacity: 0, y: animate }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: animate }}
