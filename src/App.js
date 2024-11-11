@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
-import backgroundImage from "./graphics/images/backgroundDefaultBlue.jpg";
+import backgroundImage from "./images/backgroundDefaultBlue.jpg";
 import AccountSettings from "./components/AccountSettings";
 import Home from "./components/Home";
 import NotFoundPage from "./components/NotFoundPage";

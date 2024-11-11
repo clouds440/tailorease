@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../utils/UserContext";
-import { Link } from "react-router-dom";
 import { t } from "i18next";
 import SimpleButton from "./SimpleButton";
+import { LinkIcon } from "../graphics/icons/svgIcons";
 
 const TailorApplicationForm = ({ onNext }) => {
   const [formData, setFormData] = useState({
@@ -132,7 +132,7 @@ const TailorApplicationForm = ({ onNext }) => {
               placeholder=" "
             />
             <label className={`${placeHolderStyles}`} htmlFor="description">
-              {t("description")}{" "}
+              {t("description")}
               <span className="text-xs">{t("optional")}</span>
             </label>
           </div>
@@ -142,11 +142,13 @@ const TailorApplicationForm = ({ onNext }) => {
             extraclasses={"w-full"}
           />
           <div className="items-center justify-center flex flex-row mt-4">
-            <Link to={"/terms/tailors"}>
-              <span className={`${theme.iconColor} ${theme.hoverText}`}>
-                {t("termsTailors")}
-              </span>
-            </Link>
+            <span
+              className={`${theme.iconColor} ${theme.hoverText} flex cursor-pointer`}
+              onClick={() => window.open("/terms/tailors", "_blank")}
+            >
+              {t("termsTailors")} &nbsp;
+              <LinkIcon color={theme.iconColor} size={"5"} />
+            </span>
           </div>
         </form>
       </div>

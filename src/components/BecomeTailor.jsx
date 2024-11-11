@@ -9,8 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   db,
   auth,
-  storage,
-  uploadBytes,
   collection,
   query,
   getDoc,
@@ -61,7 +59,7 @@ const BecomeTailor = () => {
     };
 
     checkBusinessAccount();
-  }, [userData]);
+  }, [userData, userLoggedIn, navigate]);
 
   const stepNames = ["Business Info", "Additional Info", "Submitting"];
 
@@ -88,16 +86,13 @@ const BecomeTailor = () => {
 
     setIsLoading(true);
     try {
-      // 1. Upload the image to Firebase Storage
-      // const storageRef = storage.ref(`businessPictures/${userData.uid}`);
-      // await uploadBytes(storageRef, businessPicture);
-      // const imageUrl = await storageRef.getDownloadURL();
+      // 1. Upload the image to a local directory in the project at "./images/profile"
 
       // 2. Add business details to the "tailors" collection in Firestore
       const tailorsRef = collection(db, "tailors");
       const tailorDocRef = await addDoc(tailorsRef, {
         ...dataWithoutPicture,
-        businessPictureUrl: "imageUrl",
+        businessPictureUrl: "imageUrl", // change this to the local image url and unique name
         approved: false,
         ownerId: userData.uid,
       });
