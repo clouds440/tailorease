@@ -13,7 +13,7 @@ const Chatbot = () => {
       {/* Chatbot iframe */}
       <iframe
         id="chatbotIframe"
-        src="https://chatbot.botanion.cc/chatbot/6GhSM0hIEsRLzwVdCXEJ?uid=8usNUScQ71fYadqnneQ3iITxKmM2&apiToken=YOUR_API_TOKEN&chatbotId=6GhSM0hIEsRLzwVdCXEJ"
+        src="https://chatbot.botanion.cc/chatbot/6GhSM0hIEsRLzwVdCXEJ?uid=8usNUScQ71fYadqnneQ3iITxKmM2&apiToken=bc53bbdeb61e8d4b25ade4ec224a8d8a697e5da222388b8d2f45ffde4e3a2075&chatbotId=6GhSM0hIEsRLzwVdCXEJ"
         sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
         style={{
           display: isVisible ? "block" : "none",
